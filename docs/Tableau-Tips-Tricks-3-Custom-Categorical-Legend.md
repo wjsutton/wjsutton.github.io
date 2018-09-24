@@ -10,7 +10,7 @@ Add a custom categorical legend to a dashboard
 - Merging different legends together as one
 
 ## Example of Problem
-![Example of Problem](/gifs/t&t_03_categorical_legend/custom_cat_legend_1.gif "Example of Problem")
+![Example of Problem](gifs/t&t_03_categorical_legend/custom_cat_legend_1.gif "Example of Problem")
 
 I have a standard Tableau legend for three charts in my dashboard, if I apply filters they will be applied to the legend, in some cases the legend will not represent all the colours in the dashboard which may be confusing. 
 
@@ -19,7 +19,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Copy this data in Excel
 - In Tableau, under the heading "Data" click "Paste" 
 
-![Step 1](/gifs/t&t_03_categorical_legend/custom_cat_legend_2_excel_transfer.gif "Step 1")
+![Step 1](gifs/t&t_03_categorical_legend/custom_cat_legend_2_excel_transfer.gif "Step 1")
 
 
 ## Step 2 - Create dummy field and build legend
@@ -33,7 +33,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Change chart type to Shape: Filled Square
 - Add "Legend" to Label 
 
-![Step 2](/gifs/t&t_03_categorical_legend/custom_cat_legend_3_build_dummy_field.gif "Step 2")
+![Step 2](gifs/t&t_03_categorical_legend/custom_cat_legend_3_build_dummy_field.gif "Step 2")
 
 
 ## Step 3 - Clean up legend
@@ -42,7 +42,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Format the lines on the chart, set all to "None" until no lines appear on the legend 
 - Edit the title to Legend and format
 
-![Step 3](/gifs/t&t_03_categorical_legend/custom_cat_legend_4_clean_up.gif "Step 3")
+![Step 3](gifs/t&t_03_categorical_legend/custom_cat_legend_4_clean_up.gif "Step 3")
 
 
 ## Step 4 - Add legend to dashboard
@@ -51,7 +51,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Set view to "Entire View"
 - If you have dashboard actions make sure they don't apply to your legend sheet
 
-![Step 4](/gifs/t&t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif "Step 4")
+![Step 4](gifs/t&t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif "Step 4")
 
 
 ## FAQs
