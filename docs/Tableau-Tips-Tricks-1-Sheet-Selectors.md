@@ -1,6 +1,6 @@
 # Tableau Tips & Tricks: #1 Sheet Selectors
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_EC3519563C535F326F6673B9169CFDCFE168BC620C2B00FDB01B5A2FA3B39C2F_1534693652269_sheet_selector_final.gif)
+![Sheet Selector](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_final.gif "Sheet Selector")
 
 ## Outline
 
@@ -20,7 +20,8 @@ You have two or more charts in individual sheets you wish to alternate between i
 ## Step 1 - Create a Parameter
 - Data type: String
 - In list of values enter suitable names for you parameter options, in this case I’ll be switching between State and Sub-Category so these will be my options
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_EC3519563C535F326F6673B9169CFDCFE168BC620C2B00FDB01B5A2FA3B39C2F_1534693726349_sheet_selector_1_create_parameter.gif)
+
+![Step 1](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_1_create_parameter.gif "Step 1")
 
 ## Step 2 - Create Calculated Field
 
@@ -34,7 +35,8 @@ Where:
 -  [SALES] is the Parameter you created in Step 1,
 - ‘By State’ and ‘By Sub-Category’ are the values your entered for Step 1’s Parameter,
 - ‘A’ and ‘B’ generic terms to exclude one chart from the other, e.g. either show A or B
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_EC3519563C535F326F6673B9169CFDCFE168BC620C2B00FDB01B5A2FA3B39C2F_1534693847610_sheet_selector_2_create_calc_field.gif)
+
+![Step 2](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_2_create_calc_field.gif "Step 2")
 
 ## Step 3 - Apply Calculated Field 
 
@@ -44,7 +46,8 @@ For all chart you wish to alternate by in the Dashboard add the Calculated Field
 - Click “Custom Value List”
 - Enter the corresponding value from Step 2’s Calculated Field, e.g. A or B
 - Click “OK”
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_EC3519563C535F326F6673B9169CFDCFE168BC620C2B00FDB01B5A2FA3B39C2F_1534693877610_sheet_selector_3_apply_calc_field.gif)
+
+![Step 3](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_3_apply_calc_field.gif "Step 3")
 
 ## Step 4 - Build the Dashboard
 - Prepare sheets for the Dashboard e.g. remove unnecessary filters or legends.
@@ -52,7 +55,8 @@ For all chart you wish to alternate by in the Dashboard add the Calculated Field
 - In a Dashboard add a vertical layout container and add all sheets to that container
 - Hide sheet titles, as these will always appear for the sheet
 - Test the parameter to make sure it works as expected
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_EC3519563C535F326F6673B9169CFDCFE168BC620C2B00FDB01B5A2FA3B39C2F_1534693935678_sheet_selector_4_build_dashboard.gif)
+
+![Step 4](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_4_build_dashboard.gif "Step 4")
 
 ## FAQs
 
