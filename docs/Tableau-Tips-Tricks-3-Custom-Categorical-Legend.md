@@ -10,14 +10,14 @@ Add a custom categorical legend to a dashboard
 - Merging different legends together as one
 
 ## Example of Problem
-![](gifs\t&t - 3 categorical legend\custom_cat_legend_1.gif)
+![](gifs/t&t - 3 categorical legend/custom_cat_legend_1.gif)
 I have a standard Tableau legend for three charts in my dashboard, if I apply filters they will be applied to the legend, in some cases the legend will not represent all the colours in the dashboard which may be confusing. 
 
 ## Step 1 - Build the data in Excel and import to Tableau
 - In Excel in a column enter a heading (in this case "Legend") followed by your legend options
 - Copy this data in Excel
 - In Tableau, under the heading "Data" click "Paste" 
-![](gifs\t&t - 3 categorical legend\custom_cat_legend_2_excel_transfer.gif)
+![](gifs/t&t - 3 categorical legend/custom_cat_legend_2_excel_transfer.gif)
 
 
 ## Step 2 - Create dummy field and build legend
@@ -30,7 +30,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Add "dummy field" to Columns
 - Change chart type to Shape: Filled Square
 - Add "Legend" to Label 
-![](gifs\t&t - 3 categorical legend\custom_cat_legend_3_build_dummy_field.gif)
+![](gifs/t&t - 3 categorical legend/custom_cat_legend_3_build_dummy_field.gif)
 
 
 ## Step 3 - Clean up legend
@@ -38,7 +38,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Right click on the axis, untick "Show Header"
 - Format the lines on the chart, set all to "None" until no lines appear on the legend 
 - Edit the title to Legend and format
-![](gifs\t&t - 3 categorical legend\custom_cat_legend_4_clean_up.gif)
+![](gifs/t&t - 3 categorical legend/custom_cat_legend_4_clean_up.gif)
 
 
 ## Step 4 - Add legend to dashboard
@@ -46,7 +46,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Delete the default legend which is inserted
 - Set view to "Entire View"
 - If you have dashboard actions make sure they don't apply to your legend sheet
-![](gifs\t&t - 3 categorical legend\custom_cat_legend_5_add_to_dash.gif)
+![](gifs/t&t - 3 categorical legend/custom_cat_legend_5_add_to_dash.gif)
 
 
 ## FAQs
