@@ -1,6 +1,6 @@
 # Tableau Tips & Tricks: #1 Sheet Selectors
 
-![Sheet Selector](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_final.gif "Sheet Selector")
+![Sheet Selector](/gifs/t&t_01_sheet_selector/sheet_selector_final.gif "Sheet Selector")
 
 ## Outline
 
@@ -21,7 +21,7 @@ You have two or more charts in individual sheets you wish to alternate between i
 - Data type: String
 - In list of values enter suitable names for you parameter options, in this case I’ll be switching between State and Sub-Category so these will be my options
 
-![Step 1](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_1_create_parameter.gif "Step 1")
+![Step 1](/gifs/t&t_01_sheet_selector/sheet_selector_1_create_parameter.gif "Step 1")
 
 ## Step 2 - Create Calculated Field
 
@@ -36,7 +36,7 @@ Where:
 - ‘By State’ and ‘By Sub-Category’ are the values your entered for Step 1’s Parameter,
 - ‘A’ and ‘B’ generic terms to exclude one chart from the other, e.g. either show A or B
 
-![Step 2](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_2_create_calc_field.gif "Step 2")
+![Step 2](/gifs/t&t_01_sheet_selector/sheet_selector_2_create_calc_field.gif "Step 2")
 
 ## Step 3 - Apply Calculated Field 
 
@@ -47,7 +47,7 @@ For all chart you wish to alternate by in the Dashboard add the Calculated Field
 - Enter the corresponding value from Step 2’s Calculated Field, e.g. A or B
 - Click “OK”
 
-![Step 3](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_3_apply_calc_field.gif "Step 3")
+![Step 3](/gifs/t&t_01_sheet_selector/sheet_selector_3_apply_calc_field.gif "Step 3")
 
 ## Step 4 - Build the Dashboard
 - Prepare sheets for the Dashboard e.g. remove unnecessary filters or legends.
@@ -56,7 +56,7 @@ For all chart you wish to alternate by in the Dashboard add the Calculated Field
 - Hide sheet titles, as these will always appear for the sheet
 - Test the parameter to make sure it works as expected
 
-![Step 4](wjsutton.github.io/gifs/t&t_01_sheet_selector/sheet_selector_4_build_dashboard.gif "Step 4")
+![Step 4](/gifs/t&t_01_sheet_selector/sheet_selector_4_build_dashboard.gif "Step 4")
 
 ## FAQs
 

@@ -14,7 +14,7 @@ Add a custom sequential legend to a dashboard
 - Click "Color", Edit Colours..
 - Click "Advanced" then set you start and end ranges
 
-![Step 1](wjsutton.github.io/gifs/t&t_04_sequential_legend/custom_seq_legend_1_set_seq_for_all.gif "Step 1")
+![Step 1](/gifs/t&t_04_sequential_legend/custom_seq_legend_1_set_seq_for_all.gif "Step 1")
 
 
 ## Step 2 - Build Legend Range in Excel and Insert to Tableau
@@ -28,7 +28,7 @@ Add a custom sequential legend to a dashboard
 - Add "dummy field" to Columns
 - Add the Measure version of "Legend" to Color
 
-![Step 2](wjsutton.github.io/gifs/t&t_04_sequential_legend/custom_seq_legend_2_excel_transfer.gif "Step 2")
+![Step 2](/gifs/t&t_04_sequential_legend/custom_seq_legend_2_excel_transfer.gif "Step 2")
 
 
 ## To be Continued...
@@ -36,16 +36,16 @@ Add a custom sequential legend to a dashboard
 
 ## Step 3 - Build Sequential Legend
 
-![Step 3](wjsutton.github.io/gifs/t&t_04_sequential_legend/custom_seq_legend_3_build_seq.gif "Step 3")
+![Step 3](/gifs/t&t_04_sequential_legend/custom_seq_legend_3_build_seq.gif "Step 3")
 
 
 ## Step 4 - Tidy up Sequential Legend
 
-![Step 4](wjsutton.github.io/gifs/t&t_04_sequential_legend/custom_seq_legend_4_tidy_up_seq.gif "Step 4")
+![Step 4](/gifs/t&t_04_sequential_legend/custom_seq_legend_4_tidy_up_seq.gif "Step 4")
 
 
 ## Step 5 - Add legend to dashboard
 
-![Step 5](wjsutton.github.io/gifs/t&t_04_sequential_legend/custom_seq_legend_5_add_to_dash.gif "Step 5")
+![Step 5](/gifs/t&t_04_sequential_legend/custom_seq_legend_5_add_to_dash.gif "Step 5")
 
 ## FAQs

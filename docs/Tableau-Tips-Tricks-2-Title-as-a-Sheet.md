@@ -1,6 +1,6 @@
 # Tableau Tips & Tricks: #2 Title as a Sheet
 
-![Title as a Sheet](wjsutton.github.io/gifs/t&t_02_titles_as_sheet/title_as_sheet_final.gif "Title as a Sheet")
+![Title as a Sheet](/gifs/t&t_02_titles_as_sheet/title_as_sheet_final.gif "Title as a Sheet")
 
 ## Outline
 
@@ -29,19 +29,19 @@ Where:
 - ‘By State’ and ‘By Sub-Category’ are the values for the Parameter [SALES],
 - ‘US Superstore Sales by State, 2014’ and 'US Superstore Sales by Sub-Category, 2014’ are example titles
 
-![Step 1](wjsutton.github.io/gifs/t&t_02_titles_as_sheet/title_as_sheet_1_create_sheet_and_calc_field.gif "Step 1")
+![Step 1](/gifs/t&t_02_titles_as_sheet/title_as_sheet_1_create_sheet_and_calc_field.gif "Step 1")
 ## Step 2 - Format Title
 - Format the title using the text box to your preference or style guide
 - Turn off tooltips if you don’t need them
 
-![Step 2](wjsutton.github.io/gifs/t&t_02_titles_as_sheet/title_as_sheet_2_create_chart_title.gif "Step 2")
+![Step 2](/gifs/t&t_02_titles_as_sheet/title_as_sheet_2_create_chart_title.gif "Step 2")
 
 ## Step 3 - Add Sheet to Dashboard
 - Drag the sheet to top of the layout container
 - Set Fit to ‘Fit Width’
 - Check the Parameter works as expected
 
-![Step 3](wjsutton.github.io/gifs/t&t_02_titles_as_sheet/title_as_sheet_3_add_title_to_dashboard.gif "Step 3")
+![Step 3](/gifs/t&t_02_titles_as_sheet/title_as_sheet_3_add_title_to_dashboard.gif "Step 3")
 
 ## FAQs
 
