@@ -32,7 +32,7 @@ END
 Where:
 
 -  [SALES] is the Parameter you created in Step 1,
-- ‘By State’ and ‘By Sub-Category’ are the values you entered for Step 1’s Parameter,
+- ‘By State’ and ‘By Sub-Category’ are the values your entered for Step 1’s Parameter,
 - ‘A’ and ‘B’ generic terms to exclude one chart from the other, e.g. either show A or B
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_EC3519563C535F326F6673B9169CFDCFE168BC620C2B00FDB01B5A2FA3B39C2F_1534693847610_sheet_selector_2_create_calc_field.gif)
 
