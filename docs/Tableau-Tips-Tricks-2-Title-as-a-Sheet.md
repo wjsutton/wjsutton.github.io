@@ -55,3 +55,5 @@ As this is a calculated field can I add dimensions and measures to it, e.g. year
         US Superstore Sales by State, 2014
         US Superstore Sales by State, 2013
 
+## Try for yourself!
+Dashboard Link: https://public.tableau.com/views/TipsTricks2-TitleasaSheet/TitleasaSheet?:embed=y&:display_count=yes

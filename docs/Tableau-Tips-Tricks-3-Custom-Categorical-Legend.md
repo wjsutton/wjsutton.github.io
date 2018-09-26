@@ -59,3 +59,6 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 Do I have to insert data from Excel?
 
 - No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion. 
+
+## Try for yourself!
+Dashboard Link: https://public.tableau.com/views/TipsTricks3-CustomCategoricalLegend/GlobalSuperstoreSales?:embed=y&:display_count=yes
