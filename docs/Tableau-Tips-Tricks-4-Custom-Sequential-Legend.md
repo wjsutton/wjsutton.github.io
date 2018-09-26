@@ -58,4 +58,4 @@ Do I have to insert data from Excel?
 - No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion. 
 
 ## Try for yourself!
-Dashboard Link: https://public.tableau.com/views/TipsTricks4-CustomSequentialLegend/GlobalSuperstoreSales?:embed=y&:display_count=yes
+Dashboard Link: <https://public.tableau.com/views/TipsTricks4-CustomSequentialLegend/GlobalSuperstoreSales?:embed=y&:display_count=yes>

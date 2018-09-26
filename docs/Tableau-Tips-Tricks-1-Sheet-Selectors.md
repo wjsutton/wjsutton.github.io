@@ -81,4 +81,4 @@ Can I do this without a parameter?
 - Yes, but you will need something to act as a filter, be this a quick filter or a dashboard action, you would then build the calculated field replacing the parameter with the quick filter or dashboard action
 
 ## Try for yourself!
-Dashboard Link: https://public.tableau.com/views/TipsTricks1-SheetSelector/SheetSelector?:embed=y&:display_count=yes
+Dashboard Link: <https://public.tableau.com/views/TipsTricks1-SheetSelector/SheetSelector?:embed=y&:display_count=yes>
