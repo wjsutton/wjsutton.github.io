@@ -19,7 +19,7 @@ You have two or more charts in individual sheets you wish to alternate between i
 
 ## Step 1 - Create a Parameter
 - Data type: String
-- In list of values enter suitable names for you parameter options, in this case I’ll be switching between State and Sub-Category so these will be my options
+- In list of values enter suitable names for your parameter options, in this case I’ll be switching between State and Sub-Category so these will be my options
 
 ![Step 1](gifs/t&t_01_sheet_selector/sheet_selector_1_create_parameter.gif "Step 1")
 
@@ -67,13 +67,16 @@ Can I show multiple charts at once?
 What do I do about titles?
 
 - Simple option add a text box for title to the top of the vertical layout container
-- If you need custom titles per chart, you can make a title as a sheet and give it a calculated field based on the option selected in Step 1’s parameter - I will cover this in a later tutorial
+- If you need custom titles per chart, you can make a title as a sheet and give it a calculated field based on the option selected in Step 1’s parameter - I have this here:
+[Title as a Sheet](docs/Tableau-Tips-Tricks-2-Title-as-a-Sheet.md)
 
 What about a legend?
 
-- Similarly to titles you can create a custom legend as a separate sheet and add it to the Dashboard - again I will cover this is in a later tutorial
+- Similarly, titles you can create a custom legend as a separate sheet and add it to the Dashboard - I have covered two cases here:
+- [Custom Categorical Legend](docs/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.md)
+- [Custom Sequential Legend](docs/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.md)
 
 Can I do this without a parameter?
 
-- Yes, but you will need some kind of filter be this a quick filter or a dashboard action, you would then build the calculated field replacing the parameter with the quick filter or dashboard action
+- Yes, but you will need something to act as a filter, be this a quick filter or a dashboard action, you would then build the calculated field replacing the parameter with the quick filter or dashboard action
 

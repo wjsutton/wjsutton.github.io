@@ -11,7 +11,7 @@ Add a custom sequential legend to a dashboard
 ## Step 1 - Set all Sequential Charts to the same range
 - In your Tableau dashboard for each chart using a sequential range set them all to a standard range by:
 - Go to sheet
-- Click "Color", Edit Colours..
+- Click "Color", Edit Colours
 - Click "Advanced" then set you start and end ranges
 
 ![Step 1](gifs/t&t_04_sequential_legend/custom_seq_legend_1_set_seq_for_all.gif "Step 1")
@@ -31,21 +31,28 @@ Add a custom sequential legend to a dashboard
 ![Step 2](gifs/t&t_04_sequential_legend/custom_seq_legend_2_excel_transfer.gif "Step 2")
 
 
-## To be Continued...
-
-
-## Step 3 - Build Sequential Legend
+## Step 3 - Continue Building Sequential Legend
+- Rotate axis so the coloured bars are horizontal and maximise their size
+- Create data labels by adding your measure to Label and set "Marks to Label" to "Max/Min", format the measure if necessary
+- Hide the axis header by right-clicking and unticking "Show Header", remove default legend
 
 ![Step 3](gifs/t&t_04_sequential_legend/custom_seq_legend_3_build_seq.gif "Step 3")
 
 
 ## Step 4 - Tidy up Sequential Legend
-
+- Alter the dummy field axis to move the sequential legend up by altering the axis range, in the example I pick -0.2 to 1, however you may need to convert the dummy field to a numeric/decimal type - this can be done by edit the calculated field to MIN(1.0)
+- Rename the Sheet Title to Legend and format
 ![Step 4](gifs/t&t_04_sequential_legend/custom_seq_legend_4_tidy_up_seq.gif "Step 4")
 
 
 ## Step 5 - Add legend to dashboard
+- Drag the newly sheet into your dashboard, adjust as necessary
+- Make sure you disable any filter or actions from affecting this sheet
 
 ![Step 5](gifs/t&t_04_sequential_legend/custom_seq_legend_5_add_to_dash.gif "Step 5")
 
 ## FAQs
+
+Do I have to insert data from Excel?
+
+- No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion. 
