@@ -1,1 +1,16 @@
 theme: jekyll-theme-slate
+
+title: 
+url: "https://wjsutton.github.io"
+baseurl: ""
+
+# List of links in the navigation bar
+navbar-links:
+  Home: "_home/homepage.md"
+  Tableau Tips & Tricks: "_tableau_tips_and_tricks/Tableau-Tips-Tricks-0-Home.md"
+  Project Walkthroughs: "_project_walkthroughs/walkthroughs.md"
+  About Me: "_about_me/about.md"
+
+
+author:
+  name: Will Sutton
