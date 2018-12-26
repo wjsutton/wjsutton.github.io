@@ -7,3 +7,6 @@ github: [metadata]
   
 author:
   name: Will Sutton
+  
+kramdown:  
+  parse_block_html: true
