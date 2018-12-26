@@ -1,3 +1,6 @@
+---
+layout: default
+---
 # Tableau Tips & Tricks: #2 Title as a Sheet
 
 ![Title as a Sheet](gifs/t&t_02_titles_as_sheet/title_as_sheet_final.gif "Title as a Sheet")
@@ -55,5 +58,5 @@ As this is a calculated field can I add dimensions and measures to it, e.g. year
         US Superstore Sales by State, 2014
         US Superstore Sales by State, 2013
 
-## Try for yourself!
+## Try it yourself!
 Dashboard Link: <https://public.tableau.com/views/TipsTricks2-TitleasaSheet/TitleasaSheet?:embed=y&:display_count=yes>

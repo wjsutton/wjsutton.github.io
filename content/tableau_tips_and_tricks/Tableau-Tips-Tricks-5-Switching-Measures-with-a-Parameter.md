@@ -1,3 +1,6 @@
+---
+layout: default
+---
 # Tableau Tips & Tricks: #5 Switching Measures with a Parameter
 
 ![](gifs/t&t_05_switching_measures_with_a_parameter/switching_measures_with_a_parameter_final.gif "Switching Measures with a Parameter")
@@ -40,5 +43,5 @@ Can I use the same method for dimensions?
 
 Yes! :D
 
-## Try for yourself!
+## Try it yourself!
 Dashboard Link: 

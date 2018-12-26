@@ -1,3 +1,6 @@
+---
+layout: default
+---
 # Tableau Tips & Tricks: #1 Sheet Selectors
 
 ![Sheet Selector](gifs/t&t_01_sheet_selector/sheet_selector_final.gif "Sheet Selector")
@@ -73,12 +76,12 @@ What do I do about titles?
 What about a legend?
 
 - Similarly, titles you can create a custom legend as a separate sheet and add it to the Dashboard - I have covered two cases here:
-- [Custom Categorical Legend](docs/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.md)
-- [Custom Sequential Legend](docs/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.md)
+- [Custom Categorical Legend](Tableau-Tips-Tricks-3-Custom-Categorical-Legend.md)
+- [Custom Sequential Legend](Tableau-Tips-Tricks-4-Custom-Sequential-Legend.md)
 
 Can I do this without a parameter?
 
 - Yes, but you will need something to act as a filter, be this a quick filter or a dashboard action, you would then build the calculated field replacing the parameter with the quick filter or dashboard action
 
-## Try for yourself!
+## Try it yourself!
 Dashboard Link: <https://public.tableau.com/views/TipsTricks1-SheetSelector/SheetSelector?:embed=y&:display_count=yes>
