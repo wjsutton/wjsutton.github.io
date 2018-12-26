@@ -1,0 +1,8 @@
+- name: Home
+  link: /
+- name: Tableau Tips & Tricks
+  link: /tableau-tips-and-tricks.html
+- name: Project Walkthroughs
+  link: /walkthroughs.html
+#- name: About
+#  link: /about.html

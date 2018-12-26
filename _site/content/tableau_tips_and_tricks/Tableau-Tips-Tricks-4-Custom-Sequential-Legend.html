@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Tableau Tips &amp; Tricks: #4 Custom Sequential Legends | Will Sutton</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Tableau Tips &amp; Tricks: #4 Custom Sequential Legends" />
+<meta name="author" content="Will Sutton" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html" />
+<meta property="og:url" content="http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html" />
+<meta property="og:site_name" content="Will Sutton" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html","author":{"@type":"Person","name":"Will Sutton"},"@type":"WebPage","headline":"Tableau Tips &amp; Tricks: #4 Custom Sequential Legends","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <h2 id="project_title">Will Sutton | Data Blog</h2>
+          <!-- <h2 id="project_tagline"></h2>-->
+		  <nav>
+  
+    <a href="/" >
+      HOME
+    </a>
+  
+    <a href="/tableau-tips-and-tricks.html" >
+      TABLEAU TIPS & TRICKS
+    </a>
+  
+    <a href="/walkthroughs.html" >
+      PROJECT WALKTHROUGHS
+    </a>
+  
+</nav>
+
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="tableau-tips--tricks-4-custom-sequential-legends">Tableau Tips &amp; Tricks: #4 Custom Sequential Legends</h1>
+<p>AKA: Legend as a Sheet</p>
+
+<h2 id="outline">Outline</h2>
+
+<p>Add a custom sequential legend to a dashboard</p>
+
+<h2 id="use-cases">Use Cases</h2>
+<ul>
+  <li>Making a consistent legend not dependent on a chart</li>
+</ul>
+
+<h2 id="step-1---set-all-sequential-charts-to-the-same-range">Step 1 - Set all Sequential Charts to the same range</h2>
+<ul>
+  <li>In your Tableau dashboard for each chart using a sequential range set them all to a standard range by:</li>
+  <li>Go to sheet</li>
+  <li>Click “Color”, Edit Colours</li>
+  <li>Click “Advanced” then set you start and end ranges</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_04_sequential_legend/custom_seq_legend_1_set_seq_for_all.gif" alt="Step 1" title="Step 1" /></p>
+
+<h2 id="step-2---build-legend-range-in-excel-and-insert-to-tableau">Step 2 - Build Legend Range in Excel and Insert to Tableau</h2>
+<ul>
+  <li>Create a numerical list based on the colour range you entered in Step 1, I use 10 points (this only affects the numbers of colours displayed in the legend - you can increase or decrease this depending on your case)</li>
+  <li>Copy the Excel data, in Tableau right click on “Data” and then “Paste” to enter the data as a data source</li>
+  <li>Begin building the sequential legend:</li>
+  <li>Duplicate “Legend”, convert it to a Dimension and add it to Rows</li>
+  <li>Create a calculated field
+   name: dummy field
+   calculation: MIN(1)</li>
+  <li>Add “dummy field” to Columns</li>
+  <li>Add the Measure version of “Legend” to Color</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_04_sequential_legend/custom_seq_legend_2_excel_transfer.gif" alt="Step 2" title="Step 2" /></p>
+
+<h2 id="step-3---continue-building-sequential-legend">Step 3 - Continue Building Sequential Legend</h2>
+<ul>
+  <li>Rotate axis so the coloured bars are horizontal and maximise their size</li>
+  <li>Create data labels by adding your measure to Label and set “Marks to Label” to “Max/Min”, format the measure if necessary</li>
+  <li>Hide the axis header by right-clicking and unticking “Show Header”, remove default legend</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_04_sequential_legend/custom_seq_legend_3_build_seq.gif" alt="Step 3" title="Step 3" /></p>
+
+<h2 id="step-4---tidy-up-sequential-legend">Step 4 - Tidy up Sequential Legend</h2>
+<ul>
+  <li>Alter the dummy field axis to move the sequential legend up by altering the axis range, in the example I pick -0.2 to 1, however you may need to convert the dummy field to a numeric/decimal type - this can be done by edit the calculated field to MIN(1.0)</li>
+  <li>Rename the Sheet Title to Legend and format
+<img src="gifs/t&amp;t_04_sequential_legend/custom_seq_legend_4_tidy_up_seq.gif" alt="Step 4" title="Step 4" /></li>
+</ul>
+
+<h2 id="step-5---add-legend-to-dashboard">Step 5 - Add legend to dashboard</h2>
+<ul>
+  <li>Drag the newly sheet into your dashboard, adjust as necessary</li>
+  <li>Make sure you disable any filter or actions from affecting this sheet</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_04_sequential_legend/custom_seq_legend_5_add_to_dash.gif" alt="Step 5" title="Step 5" /></p>
+
+<h2 id="faqs">FAQs</h2>
+
+<p>Do I have to insert data from Excel?</p>
+
+<ul>
+  <li>No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion.</li>
+</ul>
+
+<h2 id="try-for-yourself">Try for yourself!</h2>
+<p>Dashboard Link: <a href="https://public.tableau.com/views/TipsTricks4-CustomSequentialLegend/GlobalSuperstoreSales?:embed=y&amp;:display_count=yes">https://public.tableau.com/views/TipsTricks4-CustomSequentialLegend/GlobalSuperstoreSales?:embed=y&amp;:display_count=yes</a></p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>

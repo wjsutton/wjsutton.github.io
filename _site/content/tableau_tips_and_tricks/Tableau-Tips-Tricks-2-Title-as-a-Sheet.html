@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Tableau Tips &amp; Tricks: #2 Title as a Sheet | Will Sutton</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Tableau Tips &amp; Tricks: #2 Title as a Sheet" />
+<meta name="author" content="Will Sutton" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html" />
+<meta property="og:url" content="http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html" />
+<meta property="og:site_name" content="Will Sutton" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html","author":{"@type":"Person","name":"Will Sutton"},"@type":"WebPage","headline":"Tableau Tips &amp; Tricks: #2 Title as a Sheet","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <h2 id="project_title">Will Sutton | Data Blog</h2>
+          <!-- <h2 id="project_tagline"></h2>-->
+		  <nav>
+  
+    <a href="/" >
+      HOME
+    </a>
+  
+    <a href="/tableau-tips-and-tricks.html" >
+      TABLEAU TIPS & TRICKS
+    </a>
+  
+    <a href="/walkthroughs.html" >
+      PROJECT WALKTHROUGHS
+    </a>
+  
+</nav>
+
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="tableau-tips--tricks-2-title-as-a-sheet">Tableau Tips &amp; Tricks: #2 Title as a Sheet</h1>
+
+<p><img src="gifs/t&amp;t_02_titles_as_sheet/title_as_sheet_final.gif" alt="Title as a Sheet" title="Title as a Sheet" /></p>
+
+<h2 id="outline">Outline</h2>
+
+<p>Adding a title as a separate sheet rather than using the standard chart titles.</p>
+
+<h2 id="use-cases">Use Cases</h2>
+<ul>
+  <li>When using a sheet selector the standard chart titles will appear as ‘NULL’ or ‘None’</li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>You have charts that need different titles where the standard chart title doesn’t do what you want.</p>
+
+<h2 id="step-1---create-a-sheet-and-a-calculated-field">Step 1 - Create a Sheet and a Calculated Field</h2>
+<ul>
+  <li>Create a new sheet that will be your title</li>
+  <li>Create a calculated field using a CASE expression mapping your parameter inputs to specific title, for example:</li>
+</ul>
+
+<p>CASE [SALES]
+WHEN ‘By State’ THEN ‘US Superstore Sales by State, 2014’
+WHEN ‘By Sub-Category’ THEN ‘US Superstore Sales by Sub-Category, 2014’
+END
+Where:</p>
+
+<ul>
+  <li>[SALES] is the input Parameter</li>
+  <li>‘By State’ and ‘By Sub-Category’ are the values for the Parameter [SALES],</li>
+  <li>‘US Superstore Sales by State, 2014’ and ‘US Superstore Sales by Sub-Category, 2014’ are example titles</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_02_titles_as_sheet/title_as_sheet_1_create_sheet_and_calc_field.gif" alt="Step 1" title="Step 1" /></p>
+<h2 id="step-2---format-title">Step 2 - Format Title</h2>
+<ul>
+  <li>Format the title using the text box to your preference or style guide</li>
+  <li>Turn off tooltips if you don’t need them</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_02_titles_as_sheet/title_as_sheet_2_create_chart_title.gif" alt="Step 2" title="Step 2" /></p>
+
+<h2 id="step-3---add-sheet-to-dashboard">Step 3 - Add Sheet to Dashboard</h2>
+<ul>
+  <li>Drag the sheet to top of the layout container</li>
+  <li>Set Fit to ‘Fit Width’</li>
+  <li>Check the Parameter works as expected</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_02_titles_as_sheet/title_as_sheet_3_add_title_to_dashboard.gif" alt="Step 3" title="Step 3" /></p>
+
+<h2 id="faqs">FAQs</h2>
+
+<p>Can I use this without a parameter input?</p>
+
+<ul>
+  <li>Essentially yes, all we are doing here is defining a title as a calculated field and saying “If Option A happens show Title A” as such the CASE expression in Step 1 can be reworked to use a quick filter or dashboard action.</li>
+</ul>
+
+<p>As this is a calculated field can I add dimensions and measures to it, e.g. year?</p>
+
+<ul>
+  <li>Yes, although you will need to pass on any filters to the Chart Title sheet, and ensure the all the dimensions and measures are aggregated to one value, otherwise you’ll end up with multiple titles in the sheet, e.g. 
+      US Superstore Sales by State, 2014
+      US Superstore Sales by State, 2013</li>
+</ul>
+
+<h2 id="try-for-yourself">Try for yourself!</h2>
+<p>Dashboard Link: <a href="https://public.tableau.com/views/TipsTricks2-TitleasaSheet/TitleasaSheet?:embed=y&amp;:display_count=yes">https://public.tableau.com/views/TipsTricks2-TitleasaSheet/TitleasaSheet?:embed=y&amp;:display_count=yes</a></p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>

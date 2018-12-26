@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Tableau Tips &amp; Tricks: #1 Sheet Selectors | Will Sutton</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Tableau Tips &amp; Tricks: #1 Sheet Selectors" />
+<meta name="author" content="Will Sutton" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-1-Sheet-Selectors.html" />
+<meta property="og:url" content="http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-1-Sheet-Selectors.html" />
+<meta property="og:site_name" content="Will Sutton" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-1-Sheet-Selectors.html","author":{"@type":"Person","name":"Will Sutton"},"@type":"WebPage","headline":"Tableau Tips &amp; Tricks: #1 Sheet Selectors","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <h2 id="project_title">Will Sutton | Data Blog</h2>
+          <!-- <h2 id="project_tagline"></h2>-->
+		  <nav>
+  
+    <a href="/" >
+      HOME
+    </a>
+  
+    <a href="/tableau-tips-and-tricks.html" >
+      TABLEAU TIPS & TRICKS
+    </a>
+  
+    <a href="/walkthroughs.html" >
+      PROJECT WALKTHROUGHS
+    </a>
+  
+</nav>
+
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="tableau-tips--tricks-1-sheet-selectors">Tableau Tips &amp; Tricks: #1 Sheet Selectors</h1>
+
+<p><img src="gifs/t&amp;t_01_sheet_selector/sheet_selector_final.gif" alt="Sheet Selector" title="Sheet Selector" /></p>
+
+<h2 id="outline">Outline</h2>
+
+<p>A sheet selector is a technique in Tableau that allows you to change the type of charts shown on a dashboard.</p>
+
+<h2 id="use-cases">Use Cases</h2>
+<ul>
+  <li>Adding more data within the dashboard without overwhelming a user</li>
+  <li>Showing a better suited chart depending on user input</li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>You have two or more charts in individual sheets you wish to alternate between in a dashboard.</p>
+
+<h2 id="step-1---create-a-parameter">Step 1 - Create a Parameter</h2>
+<ul>
+  <li>Data type: String</li>
+  <li>In list of values enter suitable names for your parameter options, in this case I’ll be switching between State and Sub-Category so these will be my options</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_01_sheet_selector/sheet_selector_1_create_parameter.gif" alt="Step 1" title="Step 1" /></p>
+
+<h2 id="step-2---create-calculated-field">Step 2 - Create Calculated Field</h2>
+
+<p>Name: Sheet Selector
+CASE [SALES]
+WHEN ‘By State’ THEN ‘A’
+WHEN ‘By Sub-Category’ THEN ‘B’
+END
+Where:</p>
+
+<ul>
+  <li>[SALES] is the Parameter you created in Step 1,</li>
+  <li>‘By State’ and ‘By Sub-Category’ are the values your entered for Step 1’s Parameter,</li>
+  <li>‘A’ and ‘B’ generic terms to exclude one chart from the other, e.g. either show A or B</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_01_sheet_selector/sheet_selector_2_create_calc_field.gif" alt="Step 2" title="Step 2" /></p>
+
+<h2 id="step-3---apply-calculated-field">Step 3 - Apply Calculated Field</h2>
+
+<p>For all chart you wish to alternate by in the Dashboard add the Calculated Field from Step 2 “Sheet Selector” into the filters.</p>
+
+<ul>
+  <li>Edit the filter</li>
+  <li>Click “Custom Value List”</li>
+  <li>Enter the corresponding value from Step 2’s Calculated Field, e.g. A or B</li>
+  <li>Click “OK”</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_01_sheet_selector/sheet_selector_3_apply_calc_field.gif" alt="Step 3" title="Step 3" /></p>
+
+<h2 id="step-4---build-the-dashboard">Step 4 - Build the Dashboard</h2>
+<ul>
+  <li>Prepare sheets for the Dashboard e.g. remove unnecessary filters or legends.</li>
+  <li>For Step 1’s Parameter right click an select “Show Parameter Control” so it appears in at least one of the sheets</li>
+  <li>In a Dashboard add a vertical layout container and add all sheets to that container</li>
+  <li>Hide sheet titles, as these will always appear for the sheet</li>
+  <li>Test the parameter to make sure it works as expected</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_01_sheet_selector/sheet_selector_4_build_dashboard.gif" alt="Step 4" title="Step 4" /></p>
+
+<h2 id="faqs">FAQs</h2>
+
+<p>Can I show multiple charts at once?</p>
+
+<ul>
+  <li>Yes, just make sure in the all the charts you want to show have the same value in the filter’s “Custom Value List” - as described in Step 2.</li>
+</ul>
+
+<p>What do I do about titles?</p>
+
+<ul>
+  <li>Simple option add a text box for title to the top of the vertical layout container</li>
+  <li>If you need custom titles per chart, you can make a title as a sheet and give it a calculated field based on the option selected in Step 1’s parameter - I have this here:
+<a href="docs/Tableau-Tips-Tricks-2-Title-as-a-Sheet.md">Title as a Sheet</a></li>
+</ul>
+
+<p>What about a legend?</p>
+
+<ul>
+  <li>Similarly, titles you can create a custom legend as a separate sheet and add it to the Dashboard - I have covered two cases here:</li>
+  <li><a href="docs/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.md">Custom Categorical Legend</a></li>
+  <li><a href="docs/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.md">Custom Sequential Legend</a></li>
+</ul>
+
+<p>Can I do this without a parameter?</p>
+
+<ul>
+  <li>Yes, but you will need something to act as a filter, be this a quick filter or a dashboard action, you would then build the calculated field replacing the parameter with the quick filter or dashboard action</li>
+</ul>
+
+<h2 id="try-for-yourself">Try for yourself!</h2>
+<p>Dashboard Link: <a href="https://public.tableau.com/views/TipsTricks1-SheetSelector/SheetSelector?:embed=y&amp;:display_count=yes">https://public.tableau.com/views/TipsTricks1-SheetSelector/SheetSelector?:embed=y&amp;:display_count=yes</a></p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>

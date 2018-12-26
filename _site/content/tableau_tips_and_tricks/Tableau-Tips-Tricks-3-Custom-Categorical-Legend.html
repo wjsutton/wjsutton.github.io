@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Tableau Tips &amp; Tricks: #3 Custom Categorical Legends | Will Sutton</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Tableau Tips &amp; Tricks: #3 Custom Categorical Legends" />
+<meta name="author" content="Will Sutton" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html" />
+<meta property="og:url" content="http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html" />
+<meta property="og:site_name" content="Will Sutton" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html","author":{"@type":"Person","name":"Will Sutton"},"@type":"WebPage","headline":"Tableau Tips &amp; Tricks: #3 Custom Categorical Legends","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <h2 id="project_title">Will Sutton | Data Blog</h2>
+          <!-- <h2 id="project_tagline"></h2>-->
+		  <nav>
+  
+    <a href="/" >
+      HOME
+    </a>
+  
+    <a href="/tableau-tips-and-tricks.html" >
+      TABLEAU TIPS & TRICKS
+    </a>
+  
+    <a href="/walkthroughs.html" >
+      PROJECT WALKTHROUGHS
+    </a>
+  
+</nav>
+
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="tableau-tips--tricks-3-custom-categorical-legends">Tableau Tips &amp; Tricks: #3 Custom Categorical Legends</h1>
+<p>AKA: Legend as a Sheet</p>
+
+<h2 id="outline">Outline</h2>
+
+<p>Add a custom categorical legend to a dashboard</p>
+
+<h2 id="use-cases">Use Cases</h2>
+<ul>
+  <li>Making a consistent legend not dependent on a chart</li>
+  <li>Merging different legends together as one</li>
+</ul>
+
+<h2 id="example-of-problem">Example of Problem</h2>
+<p><img src="gifs/t&amp;t_03_categorical_legend/custom_cat_legend_1.gif" alt="Example of Problem" title="Example of Problem" /></p>
+
+<p>I have a standard Tableau legend for three charts in my dashboard, if I apply filters they will be applied to the legend, in some cases the legend will not represent all the colours in the dashboard which may be confusing.</p>
+
+<h2 id="step-1---build-the-data-in-excel-and-import-to-tableau">Step 1 - Build the data in Excel and import to Tableau</h2>
+<ul>
+  <li>In Excel in a column enter a heading (in this case “Legend”) followed by your legend options</li>
+  <li>Copy this data in Excel</li>
+  <li>In Tableau, under the heading “Data” click “Paste”</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_03_categorical_legend/custom_cat_legend_2_excel_transfer.gif" alt="Step 1" title="Step 1" /></p>
+
+<h2 id="step-2---create-dummy-field-and-build-legend">Step 2 - Create dummy field and build legend</h2>
+<ul>
+  <li>Using the imported data start building the legend by:</li>
+  <li>Add “Legend” to Rows</li>
+  <li>Add “Legend” to Color</li>
+  <li>Create a calculated field
+   name: dummy field
+   calculation: MIN(1)</li>
+  <li>Add “dummy field” to Columns</li>
+  <li>Change chart type to Shape: Filled Square</li>
+  <li>Add “Legend” to Label</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_03_categorical_legend/custom_cat_legend_3_build_dummy_field.gif" alt="Step 2" title="Step 2" /></p>
+
+<h2 id="step-3---clean-up-legend">Step 3 - Clean up legend</h2>
+<ul>
+  <li>Edit the axis of “dummy field” to a range of 0 to 8 (this will shift the marks to the left, you can adjust this range to your preference)</li>
+  <li>Right click on the axis, untick “Show Header”</li>
+  <li>Format the lines on the chart, set all to “None” until no lines appear on the legend</li>
+  <li>Edit the title to Legend and format</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_03_categorical_legend/custom_cat_legend_4_clean_up.gif" alt="Step 3" title="Step 3" /></p>
+
+<h2 id="step-4---add-legend-to-dashboard">Step 4 - Add legend to dashboard</h2>
+<ul>
+  <li>Drag the newly created sheet to your dashboard</li>
+  <li>Delete the default legend which is inserted</li>
+  <li>Set view to “Entire View”</li>
+  <li>If you have dashboard actions make sure they don’t apply to your legend sheet</li>
+</ul>
+
+<p><img src="gifs/t&amp;t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif" alt="Step 4" title="Step 4" /></p>
+
+<h2 id="faqs">FAQs</h2>
+
+<p>Do I have to insert data from Excel?</p>
+
+<ul>
+  <li>No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion.</li>
+</ul>
+
+<h2 id="try-for-yourself">Try for yourself!</h2>
+<p>Dashboard Link: <a href="https://public.tableau.com/views/TipsTricks3-CustomCategoricalLegend/GlobalSuperstoreSales?:embed=y&amp;:display_count=yes">https://public.tableau.com/views/TipsTricks3-CustomCategoricalLegend/GlobalSuperstoreSales?:embed=y&amp;:display_count=yes</a></p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>
