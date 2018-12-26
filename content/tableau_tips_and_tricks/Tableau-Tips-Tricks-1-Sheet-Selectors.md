@@ -71,13 +71,13 @@ What do I do about titles?
 
 - Simple option add a text box for title to the top of the vertical layout container
 - If you need custom titles per chart, you can make a title as a sheet and give it a calculated field based on the option selected in Step 1’s parameter - I have this here:
-[Title as a Sheet](docs/Tableau-Tips-Tricks-2-Title-as-a-Sheet.md)
+[Title as a Sheet](Tableau-Tips-Tricks-2-Title-as-a-Sheet.html)
 
 What about a legend?
 
 - Similarly, titles you can create a custom legend as a separate sheet and add it to the Dashboard - I have covered two cases here:
-- [Custom Categorical Legend](Tableau-Tips-Tricks-3-Custom-Categorical-Legend.md)
-- [Custom Sequential Legend](Tableau-Tips-Tricks-4-Custom-Sequential-Legend.md)
+- [Custom Categorical Legend](Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html)
+- [Custom Sequential Legend](Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html)
 
 Can I do this without a parameter?
 
