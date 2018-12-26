@@ -1,3 +1,6 @@
+---
+layout: default
+---
 ## Tableau Tips & Tricks
 
 Here are a few step by step tutorials I've put together for workarounds in Tableau. 
