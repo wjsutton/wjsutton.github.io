@@ -80,7 +80,7 @@ gd_token()
 saveRDS(token, file = "googlesheets_token.rds")
 ```
 
-More on Google Sheets OAuth tokens here: [https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html](https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html)
+More on Google Sheets OAuth tokens [here](https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html).
 
 After generating this token, we can use this to upload our data file to Google Sheets:
 ```r
