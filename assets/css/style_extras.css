@@ -1,0 +1,34 @@
+/* Share buttons */
+.sharebuttons {
+  margin: 0 auto 0 auto;
+}
+
+.sharebuttons ul {
+  margin: 20px 0 0 0;
+  text-align: right;
+}
+
+.sharebuttons ul li {
+  display: inline;
+}
+
+.sharebuttons ul li a {
+  text-decoration: none;
+}
+
+.sharebuttons ul li svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sharebuttons .reddit svg {
+  fill: #f2f2f2;
+}
+
+.sharebuttons .twitter svg {
+  fill: #f2f2f2;
+}
+
+.sharebuttons .linkedin svg {
+  fill: #f2f2f2;
+}

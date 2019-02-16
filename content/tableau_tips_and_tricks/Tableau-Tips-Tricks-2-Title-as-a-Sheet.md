@@ -1,24 +1,24 @@
 ---
 layout: default
 ---
-# Tableau Tips & Tricks: #2 Title as a Sheet
+## Tableau Tips & Tricks: #2 Title as a Sheet
 
 ![Title as a Sheet](gifs/t&t_02_titles_as_sheet/title_as_sheet_final.gif "Title as a Sheet")
 
-## Outline
+### Outline
 
 Adding a title as a separate sheet rather than using the standard chart titles. 
 
-## Use Cases
+### Use Cases
 - When using a sheet selector the standard chart titles will appear as ‘NULL’ or ‘None’
 
 
-## Prerequisites 
+### Prerequisites 
 
 You have charts that need different titles where the standard chart title doesn’t do what you want.
 
 
-## Step 1 - Create a Sheet and a Calculated Field
+### Step 1 - Create a Sheet and a Calculated Field
 - Create a new sheet that will be your title
 - Create a calculated field using a CASE expression mapping your parameter inputs to specific title, for example:
 
@@ -33,20 +33,20 @@ Where:
 - ‘US Superstore Sales by State, 2014’ and 'US Superstore Sales by Sub-Category, 2014’ are example titles
 
 ![Step 1](gifs/t&t_02_titles_as_sheet/title_as_sheet_1_create_sheet_and_calc_field.gif "Step 1")
-## Step 2 - Format Title
+### Step 2 - Format Title
 - Format the title using the text box to your preference or style guide
 - Turn off tooltips if you don’t need them
 
 ![Step 2](gifs/t&t_02_titles_as_sheet/title_as_sheet_2_create_chart_title.gif "Step 2")
 
-## Step 3 - Add Sheet to Dashboard
+### Step 3 - Add Sheet to Dashboard
 - Drag the sheet to top of the layout container
 - Set Fit to ‘Fit Width’
 - Check the Parameter works as expected
 
 ![Step 3](gifs/t&t_02_titles_as_sheet/title_as_sheet_3_add_title_to_dashboard.gif "Step 3")
 
-## FAQs
+### FAQs
 
 Can I use this without a parameter input?
 
@@ -58,5 +58,5 @@ As this is a calculated field can I add dimensions and measures to it, e.g. year
         US Superstore Sales by State, 2014
         US Superstore Sales by State, 2013
 
-## Try it yourself!
+### Try it yourself!
 Dashboard Link: <https://public.tableau.com/views/TipsTricks2-TitleasaSheet/TitleasaSheet?:embed=y&:display_count=yes>

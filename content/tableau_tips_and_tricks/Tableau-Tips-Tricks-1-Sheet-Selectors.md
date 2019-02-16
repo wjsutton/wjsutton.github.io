@@ -1,32 +1,32 @@
 ---
 layout: default
 ---
-# Tableau Tips & Tricks: #1 Sheet Selectors
+## Tableau Tips & Tricks: #1 Sheet Selectors
 
 ![Sheet Selector](gifs/t&t_01_sheet_selector/sheet_selector_final.gif "Sheet Selector")
 
-## Outline
+### Outline
 
 A sheet selector is a technique in Tableau that allows you to change the type of charts shown on a dashboard.
 
 
-## Use Cases
+### Use Cases
 - Adding more data within the dashboard without overwhelming a user
 - Showing a better suited chart depending on user input
 
 
-## Prerequisites 
+### Prerequisites 
 
 You have two or more charts in individual sheets you wish to alternate between in a dashboard.
 
 
-## Step 1 - Create a Parameter
+### Step 1 - Create a Parameter
 - Data type: String
 - In list of values enter suitable names for your parameter options, in this case I’ll be switching between State and Sub-Category so these will be my options
 
 ![Step 1](gifs/t&t_01_sheet_selector/sheet_selector_1_create_parameter.gif "Step 1")
 
-## Step 2 - Create Calculated Field
+### Step 2 - Create Calculated Field
 
 Name: Sheet Selector
 CASE [SALES]
@@ -41,7 +41,7 @@ Where:
 
 ![Step 2](gifs/t&t_01_sheet_selector/sheet_selector_2_create_calc_field.gif "Step 2")
 
-## Step 3 - Apply Calculated Field 
+### Step 3 - Apply Calculated Field 
 
 For all chart you wish to alternate by in the Dashboard add the Calculated Field from Step 2 “Sheet Selector” into the filters. 
 
@@ -52,7 +52,7 @@ For all chart you wish to alternate by in the Dashboard add the Calculated Field
 
 ![Step 3](gifs/t&t_01_sheet_selector/sheet_selector_3_apply_calc_field.gif "Step 3")
 
-## Step 4 - Build the Dashboard
+### Step 4 - Build the Dashboard
 - Prepare sheets for the Dashboard e.g. remove unnecessary filters or legends.
 - For Step 1’s Parameter right click an select “Show Parameter Control” so it appears in at least one of the sheets 
 - In a Dashboard add a vertical layout container and add all sheets to that container
@@ -61,7 +61,7 @@ For all chart you wish to alternate by in the Dashboard add the Calculated Field
 
 ![Step 4](gifs/t&t_01_sheet_selector/sheet_selector_4_build_dashboard.gif "Step 4")
 
-## FAQs
+### FAQs
 
 Can I show multiple charts at once?
 
@@ -83,5 +83,5 @@ Can I do this without a parameter?
 
 - Yes, but you will need something to act as a filter, be this a quick filter or a dashboard action, you would then build the calculated field replacing the parameter with the quick filter or dashboard action
 
-## Try it yourself!
+### Try it yourself!
 Dashboard Link: <https://public.tableau.com/views/TipsTricks1-SheetSelector/SheetSelector?:embed=y&:display_count=yes>
