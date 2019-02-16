@@ -4,12 +4,12 @@ layout: default
 ## Project Walkthroughs: Parkrun Report
 Find this project on Github: <a href ="https://github.com/wjsutton/parkrun_parser">Parkrun Parser</a>
 
-**Introduction and Motivation**
+#### **Introduction and Motivation**
 
 Parkrun ([https://www.parkrun.org.uk/](https://www.parkrun.org.uk/)) is a weekly 5km run that occurs around 9am on a Saturday morning, all around the world but mostly in the UK. It attracts a wide range of runner from those beginners to seasoned club runners. For my running club parkrun is a great opportunity to meet with other local runners.
 My club liked to manually email members the list of parkrun results on a weekly basis, I believed could be automated.
 
-**Stage 1 Build**
+#### **Stage 1 Build**
 * Scrape the parkrun data
 * Create local data source (csv file)
 * Send csv to googlesheets
@@ -17,7 +17,7 @@ My club liked to manually email members the list of parkrun results on a weekly 
 
 ![Stage 1](assets\parkrun_stage_1_workflow.png)
 
-###### Scraping the Data
+##### Scraping the Data
 
 The function to scrape the club data is available on Github here: <a href ="https://github.com/wjsutton/parkrun_parser">Parkrun Parser</a> "extract_parkrun_cc_report_urls" in [parkrun_functions.R](https://github.com/wjsutton/parkrun_parser/blob/master/parkrun_functions.R)
 
@@ -49,7 +49,7 @@ new_data will be one week's worth of club parkrun results including the followin
 * total_runs
 * badges (currently doesn't return anything but "NA")
 
-###### Generate .csv File
+##### Generate .csv File
 
 At this point generating the csv is as simple as:
 ```r
@@ -66,7 +66,7 @@ write.csv(w4h_new_data,'parkrun_data.csv',row.names = FALSE)
 ```
 Reducing the data to what is needed helps save space on Google Sheets and makes Tableau Public not have to work so hard processing our data.
 
-###### Upload to Google Sheets
+##### Upload to Google Sheets
 
 Why Google Sheets? It's currently the only automatically updating data source that connects to Tableau Public.
 
@@ -89,7 +89,7 @@ gs_auth(token = "googlesheets_token.rds")
 gs_upload("parkrun_data.csv", sheet_title = "results",overwrite = TRUE)
 ```
 
-###### Visualising the Data
+##### Visualising the Data
 
 Having worked with Tableau in past Tableau Public feasible solution where users could see a weekly table of results below or on Tableau Public: [Here](https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&:display_count=yes)
 
@@ -100,23 +100,68 @@ A few notes on the design:
 * Added "About Us" tab for any newcomers to the dashboard for a bit of club marketing
 <iframe align = "center" width = "100%" height = "350" src="https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&:display_count=yes"/>
 
-**Stage 2 Build**
+Lastly to fully automate this the R code used can be scheduled to run on Windows Task Manager, a crontab, etc. 
 
-From running the stage 1 process a number of upgrades were planned for the second phase such as:
+#### **Stage 2 Build**
+
+From running the stage 1 process a few upgrades were identified and planned for the second phase such as:
 * Did the data fail to run? I don’t know unless I manually check the data source or the Tableau workbook
 * The original manual job of emailing weekly results hasn’t been automated, an weekly emailable report should be produced
 
 ![Stage 2](assets\parkrun_stage_2_workflow.png)
 
-Did the data run?
-R script to check max week of local data source, if date is > 7 days old, send email.
-Email
-Rmarkdown file to generate html document
-Email html document to club
+##### Send email if data scrape failed
 
-Example html email report: [Report](assets\parkrun_report.html) 
+As mentioned earlier the function "extract_parkrun_cc_report_urls" in [parkrun_functions.R](https://github.com/wjsutton/parkrun_parser/blob/master/parkrun_functions.R) has a few workarounds do to some inconsistent parkruns, this out of my control but to assist the debugging of problems it's helpful to receive a nudge via an email when the data hasn't been received rather than manually checking. 
+```r
+# check max week of parkrun_data, if date is > 7 days old, send email
+report <- read.csv(file = "parkrun_data.csv",stringsAsFactors = F)
+report_date <- max(report$date)
+last_week <- as.character(Sys.Date()-7)
 
-**Stage 3 (prospective build)**
+if(report_date > last_week){
+  # send email
+}
+```
+For sending emails I used the `gmailr` library, you could alternatively use `mailr`. For `gmailr` I set up a new gmail email address and setup the Gmail API using the following walkthrough [https://github.com/jimhester/gmailr](https://github.com/jimhester/gmailr) 
+
+The credentials of the gmail email address are saved to a text or csv file, this is just good practice to remove passwords and identifiers from your code. Credentials can then be read using:
+```r
+# Get Gmail credentials
+details <- read.csv(file = "gmail_details.csv")
+sender <- details$email
+recipients <- details$admin
+client_id <- details$client_id
+client_secret <- details$client_secret
+
+# Authenticate gmail, create draft and send email
+library(gmailr)
+gmail_auth(scope = "full",
+           id = client_id,
+           secret = client_secret, 
+           secret_file = NULL)
+  
+draft <- (mime(From=sender,
+               To=recipients,
+               Subject="Parkrun update failed",
+               body = "The update for parkrun report has failed."
+			   
+send_message(draft)
+```
+
+More about sending emails via `gmailr` here: [https://github.com/jennybc/send-email-with-r](https://github.com/jennybc/send-email-with-r)
+
+
+##### Generate Rmarkdown HTML report
+
+Example html email report: [Report](assets\parkrun_report.html)
+
+
+##### Email report to running club
+
+ 
+
+#### **Stage 3 (prospective build)**
 
 Upgrades:
 * Update Tableau report, as the Tableau report does the same job as the email, but the Tableau report could visualise all the data collected, providing an All Time and YTD stats view

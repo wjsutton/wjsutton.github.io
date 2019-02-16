@@ -58,12 +58,12 @@
         <h2 id="project-walkthroughs-parkrun-report">Project Walkthroughs: Parkrun Report</h2>
 <p>Find this project on Github: <a href="https://github.com/wjsutton/parkrun_parser">Parkrun Parser</a></p>
 
-<p><strong>Introduction and Motivation</strong></p>
+<h4 id="introduction-and-motivation"><strong>Introduction and Motivation</strong></h4>
 
 <p>Parkrun (<a href="https://www.parkrun.org.uk/">https://www.parkrun.org.uk/</a>) is a weekly 5km run that occurs around 9am on a Saturday morning, all around the world but mostly in the UK. It attracts a wide range of runner from those beginners to seasoned club runners. For my running club parkrun is a great opportunity to meet with other local runners.
 My club liked to manually email members the list of parkrun results on a weekly basis, I believed could be automated.</p>
 
-<p><strong>Stage 1 Build</strong></p>
+<h4 id="stage-1-build"><strong>Stage 1 Build</strong></h4>
 <ul>
   <li>Scrape the parkrun data</li>
   <li>Create local data source (csv file)</li>
@@ -73,7 +73,7 @@ My club liked to manually email members the list of parkrun results on a weekly 
 
 <p><img src="assets\parkrun_stage_1_workflow.png" alt="Stage 1" /></p>
 
-<h6 id="scraping-the-data">Scraping the Data</h6>
+<h5 id="scraping-the-data">Scraping the Data</h5>
 
 <p>The function to scrape the club data is available on Github here: <a href="https://github.com/wjsutton/parkrun_parser">Parkrun Parser</a> “extract_parkrun_cc_report_urls” in <a href="https://github.com/wjsutton/parkrun_parser/blob/master/parkrun_functions.R">parkrun_functions.R</a></p>
 
@@ -108,7 +108,7 @@ My club liked to manually email members the list of parkrun results on a weekly 
   <li>badges (currently doesn’t return anything but “NA”)</li>
 </ul>
 
-<h6 id="generate-csv-file">Generate .csv File</h6>
+<h5 id="generate-csv-file">Generate .csv File</h5>
 
 <p>At this point generating the csv is as simple as:</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># write csv file</span><span class="w">
@@ -123,7 +123,7 @@ My club liked to manually email members the list of parkrun results on a weekly 
 </span></code></pre></div></div>
 <p>Reducing the data to what is needed helps save space on Google Sheets and makes Tableau Public not have to work so hard processing our data.</p>
 
-<h6 id="upload-to-google-sheets">Upload to Google Sheets</h6>
+<h5 id="upload-to-google-sheets">Upload to Google Sheets</h5>
 
 <p>Why Google Sheets? It’s currently the only automatically updating data source that connects to Tableau Public.</p>
 
@@ -144,7 +144,7 @@ My club liked to manually email members the list of parkrun results on a weekly 
 </span><span class="n">gs_upload</span><span class="p">(</span><span class="s2">"parkrun_data.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">sheet_title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"results"</span><span class="p">,</span><span class="n">overwrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<h6 id="visualising-the-data">Visualising the Data</h6>
+<h5 id="visualising-the-data">Visualising the Data</h5>
 
 <p>Having worked with Tableau in past Tableau Public feasible solution where users could see a weekly table of results below or on Tableau Public: <a href="https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&amp;:display_count=yes">Here</a></p>
 
@@ -157,9 +157,11 @@ My club liked to manually email members the list of parkrun results on a weekly 
 </ul>
 <iframe align="center" width="100%" height="350" src="https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&amp;:display_count=yes"></iframe>
 
-<p><strong>Stage 2 Build</strong></p>
+<p>Lastly to fully automate this the R code used can be scheduled to run on Windows Task Manager, a crontab, etc.</p>
 
-<p>From running the stage 1 process a number of upgrades were planned for the second phase such as:</p>
+<h4 id="stage-2-build"><strong>Stage 2 Build</strong></h4>
+
+<p>From running the stage 1 process a few upgrades were identified and planned for the second phase such as:</p>
 <ul>
   <li>Did the data fail to run? I don’t know unless I manually check the data source or the Tableau workbook</li>
   <li>The original manual job of emailing weekly results hasn’t been automated, an weekly emailable report should be produced</li>
@@ -167,15 +169,52 @@ My club liked to manually email members the list of parkrun results on a weekly 
 
 <p><img src="assets\parkrun_stage_2_workflow.png" alt="Stage 2" /></p>
 
-<p>Did the data run?
-R script to check max week of local data source, if date is &gt; 7 days old, send email.
-Email
-Rmarkdown file to generate html document
-Email html document to club</p>
+<h5 id="send-email-if-data-scrape-failed">Send email if data scrape failed</h5>
+
+<p>As mentioned earlier the function “extract_parkrun_cc_report_urls” in <a href="https://github.com/wjsutton/parkrun_parser/blob/master/parkrun_functions.R">parkrun_functions.R</a> has a few workarounds do to some inconsistent parkruns, this out of my control but to assist the debugging of problems it’s helpful to receive a nudge via an email when the data hasn’t been received rather than manually checking.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># check max week of parkrun_data, if date is &gt; 7 days old, send email</span><span class="w">
+</span><span class="n">report</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"parkrun_data.csv"</span><span class="p">,</span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span><span class="w">
+</span><span class="n">report_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">report</span><span class="o">$</span><span class="n">date</span><span class="p">)</span><span class="w">
+</span><span class="n">last_week</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">Sys.Date</span><span class="p">()</span><span class="m">-7</span><span class="p">)</span><span class="w">
+
+</span><span class="k">if</span><span class="p">(</span><span class="n">report_date</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">last_week</span><span class="p">){</span><span class="w">
+  </span><span class="c1"># send email</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>For sending emails I used the <code class="highlighter-rouge">gmailr</code> library, you could alternatively use <code class="highlighter-rouge">mailr</code>. For <code class="highlighter-rouge">gmailr</code> I set up a new gmail email address and setup the Gmail API using the following walkthrough <a href="https://github.com/jimhester/gmailr">https://github.com/jimhester/gmailr</a></p>
+
+<p>The credentials of the gmail email address are saved to a text or csv file, this is just good practice to remove passwords and identifiers from your code. Credentials can then be read using:</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get Gmail credentials</span><span class="w">
+</span><span class="n">details</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gmail_details.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">sender</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">details</span><span class="o">$</span><span class="n">email</span><span class="w">
+</span><span class="n">recipients</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">details</span><span class="o">$</span><span class="n">admin</span><span class="w">
+</span><span class="n">client_id</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">details</span><span class="o">$</span><span class="n">client_id</span><span class="w">
+</span><span class="n">client_secret</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">details</span><span class="o">$</span><span class="n">client_secret</span><span class="w">
+
+</span><span class="c1"># Authenticate gmail, create draft and send email</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">gmailr</span><span class="p">)</span><span class="w">
+</span><span class="n">gmail_auth</span><span class="p">(</span><span class="n">scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"full"</span><span class="p">,</span><span class="w">
+           </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client_id</span><span class="p">,</span><span class="w">
+           </span><span class="n">secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client_secret</span><span class="p">,</span><span class="w"> 
+           </span><span class="n">secret_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">)</span><span class="w">
+  
+</span><span class="n">draft</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="n">mime</span><span class="p">(</span><span class="n">From</span><span class="o">=</span><span class="n">sender</span><span class="p">,</span><span class="w">
+               </span><span class="n">To</span><span class="o">=</span><span class="n">recipients</span><span class="p">,</span><span class="w">
+               </span><span class="n">Subject</span><span class="o">=</span><span class="s2">"Parkrun update failed"</span><span class="p">,</span><span class="w">
+               </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"The update for parkrun report has failed."</span><span class="w">
+			   
+</span><span class="n">send_message</span><span class="p">(</span><span class="n">draft</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>More about sending emails via <code class="highlighter-rouge">gmailr</code> here: <a href="https://github.com/jennybc/send-email-with-r">https://github.com/jennybc/send-email-with-r</a></p>
+
+<h5 id="generate-rmarkdown-html-report">Generate Rmarkdown HTML report</h5>
 
 <p>Example html email report: <a href="/content/project_walkthroughs/assets/parkrun_report.html">Report</a></p>
 
-<p><strong>Stage 3 (prospective build)</strong></p>
+<h5 id="email-report-to-running-club">Email report to running club</h5>
+
+<h4 id="stage-3-prospective-build"><strong>Stage 3 (prospective build)</strong></h4>
 
 <p>Upgrades:</p>
 <ul>
