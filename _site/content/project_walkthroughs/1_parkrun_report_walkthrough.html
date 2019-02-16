@@ -129,7 +129,7 @@ My club liked to manually email members the list of parkrun results on a weekly 
 
 <p>The upload process is relatively painless thanks to the “googlesheets” package in R. A walkthrough is available on Github here: <a href="https://github.com/jennybc/googlesheets">https://github.com/jennybc/googlesheets</a></p>
 
-<p>In brief for this project we’ll need to create and save a token that will allow us to send files to Google Sheets without the need to manually log in or autheniticate:</p>
+<p>In brief for this project we’ll need to create and save a token that will allow us to send files to Google Sheets without the need to manually log in or authenticate:</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">googlesheets</span><span class="p">)</span><span class="w">
 </span><span class="n">token</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gs_auth</span><span class="p">(</span><span class="n">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span><span class="n">gd_token</span><span class="p">()</span><span class="w">
@@ -138,7 +138,7 @@ My club liked to manually email members the list of parkrun results on a weekly 
 
 <p>More on Google Sheets OAuth tokens here: <a href="https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html">https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html</a></p>
 
-<p>After generating this token we can use this to upload our data file to Google Sheets:</p>
+<p>After generating this token, we can use this to upload our data file to Google Sheets:</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">googlesheets</span><span class="p">)</span><span class="w">
 </span><span class="n">gs_auth</span><span class="p">(</span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"googlesheets_token.rds"</span><span class="p">)</span><span class="w">
 </span><span class="n">gs_upload</span><span class="p">(</span><span class="s2">"parkrun_data.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">sheet_title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"results"</span><span class="p">,</span><span class="n">overwrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">

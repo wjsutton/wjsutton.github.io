@@ -72,7 +72,7 @@ Why Google Sheets? It's currently the only automatically updating data source th
 
 The upload process is relatively painless thanks to the "googlesheets" package in R. A walkthrough is available on Github here: [https://github.com/jennybc/googlesheets](https://github.com/jennybc/googlesheets)
 
-In brief for this project we'll need to create and save a token that will allow us to send files to Google Sheets without the need to manually log in or autheniticate:
+In brief for this project we'll need to create and save a token that will allow us to send files to Google Sheets without the need to manually log in or authenticate:
 ```r
 library(googlesheets)
 token <- gs_auth(cache = FALSE)
@@ -82,7 +82,7 @@ saveRDS(token, file = "googlesheets_token.rds")
 
 More on Google Sheets OAuth tokens here: [https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html](https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html)
 
-After generating this token we can use this to upload our data file to Google Sheets:
+After generating this token, we can use this to upload our data file to Google Sheets:
 ```r
 library(googlesheets)
 gs_auth(token = "googlesheets_token.rds")
