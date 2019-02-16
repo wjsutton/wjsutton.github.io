@@ -98,6 +98,8 @@ A few notes on the design:
 * Add club logo with a KPI banner for some quick stats for this week
 * Add the functionality to page back through previous weeks results
 * Added "About Us" tab for any newcomers to the dashboard for a bit of club marketing
+
+_Mobile users please rotate your phone horizontally._
 <iframe align = "center" width = "100%" height = "350" src="https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&:display_count=yes"/>
 
 Lastly to fully automate this the R code used can be scheduled to run on Windows Task Manager, a crontab, etc. 
