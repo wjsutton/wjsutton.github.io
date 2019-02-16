@@ -91,8 +91,14 @@ gs_upload("parkrun_data.csv", sheet_title = "results",overwrite = TRUE)
 
 ###### Visualising the Data
 
-Having worked with Tableau in past Tableau Public feasible solution where users could see a weekly table of results: [Here](https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&:display_count=yes)
-<iframe align = "center" width = "100" height = "100" src="https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&:display_count=yes"/>
+Having worked with Tableau in past Tableau Public feasible solution where users could see a weekly table of results below or on Tableau Public: [Here](https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&:display_count=yes)
+
+A few notes on the design:
+* Its intended to be pretty basic, not a distinct change from copy 'n' paste email they currently receive
+* Add club logo with a KPI banner for some quick stats for this week
+* Add the functionality to page back through previous weeks results
+* Added "About Us" tab for any newcomers to the dashboard for a bit of club marketing
+<iframe align = "center" width = "100%" height = "350" src="https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&:display_count=yes"/>
 
 **Stage 2 Build**
 
