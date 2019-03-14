@@ -40,11 +40,11 @@
     </a>
   
     <a href="/tableau-tips-and-tricks.html"  style="padding-right: 10px;">
-      TABLEAU TIPS & TRICKS
+      DATA-VIZ
     </a>
   
     <a href="/walkthroughs.html"  style="padding-right: 10px;">
-      PROJECT WALKTHROUGHS
+      PROJECTS
     </a>
   
 </nav>
@@ -60,8 +60,8 @@
 
 <h4 id="introduction-and-motivation"><strong>Introduction and Motivation</strong></h4>
 
-<p>Parkrun (<a href="https://www.parkrun.org.uk/">https://www.parkrun.org.uk/</a>) is a weekly 5km run that occurs around 9am on a Saturday morning, all around the world but mostly in the UK. It attracts a wide range of runner from those beginners to seasoned club runners. For my running club parkrun is a great opportunity to meet with other local runners.
-My club liked to manually email members the list of parkrun results on a weekly basis, I believed could be automated.</p>
+<p>Parkrun (<a href="https://www.parkrun.org.uk/">https://www.parkrun.org.uk/</a>) is a weekly 5km run that occurs around 9am on a Saturday, all around the world but mostly in the UK. It attracts a wide range of runners from the beginners to seasoned club runners. For my running club, parkrun is a great opportunity to meet with other local runners.
+My club liked to manually email members the list of parkrun results on a weekly basis, I believe this could be automated.</p>
 
 <h4 id="stage-1-build"><strong>Stage 1 Build</strong></h4>
 <ul>
@@ -82,7 +82,7 @@ My club liked to manually email members the list of parkrun results on a weekly 
   <li>Received a parkrun consolidated club page url or list of urls, e.g. <a href="http://www.parkrun.com/results/consolidatedclub/?clubNum=1242">http://www.parkrun.com/results/consolidatedclub/?clubNum=1242</a></li>
   <li>Read each url and find the links to each visited parkrun</li>
   <li>Loop through visited parkruns and extract the results</li>
-  <li>Throughout resolve issues, e.g. time delays to prevent having ip address blocked, handling differences for French and Polish parkruns</li>
+  <li>Resolve issues throughout, e.g. time delays to prevent having ip address blocked, handling differences for French and Polish parkruns</li>
 </ul>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get latest consolidated club report results</span><span class="w">
@@ -115,13 +115,13 @@ My club liked to manually email members the list of parkrun results on a weekly 
 </span><span class="n">write.csv</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span><span class="s1">'parkrun_data.csv'</span><span class="p">,</span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p>However this is all results for all runners for the parkruns our club visited. Keeping the in mind the Tableau Public output is just our club results we can go ahead and filter by running club with:</p>
+<p>However this is all results for all runners for the parkruns our club visited. Keeping in mind the Tableau Public output is just our club results we can go ahead and filter by running club with:</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># filter for West 4 Harriers running club then write csv</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
 </span><span class="n">w</span><span class="m">4</span><span class="n">h_new_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">new_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">new_data</span><span class="o">$</span><span class="n">club</span><span class="o">==</span><span class="s1">'West 4 Harriers'</span><span class="p">)</span><span class="w">
 </span><span class="n">write.csv</span><span class="p">(</span><span class="n">w</span><span class="m">4</span><span class="n">h_new_data</span><span class="p">,</span><span class="s1">'parkrun_data.csv'</span><span class="p">,</span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
-<p>Reducing the data to what is needed helps save space on Google Sheets and makes Tableau Public not have to work so hard processing our data.</p>
+<p>Reducing the data to what is needed helps save space on Google Sheets and makes Tableau Public not have to work so hard to process our data.</p>
 
 <h5 id="upload-to-google-sheets">Upload to Google Sheets</h5>
 
@@ -150,9 +150,9 @@ My club liked to manually email members the list of parkrun results on a weekly 
 
 <p>A few notes on the design:</p>
 <ul>
-  <li>Its intended to be pretty basic, not a distinct change from copy ‘n’ paste email they currently receive</li>
+  <li>It is intended to be pretty basic, not a distinct change from the copy ‘n’ paste email they currently receive</li>
   <li>Add club logo with a KPI banner for some quick stats for this week</li>
-  <li>Add the functionality to page back through previous weeks results</li>
+  <li>Add the functionality to cycle through previous weeks results</li>
   <li>Added “About Us” tab for any newcomers to the dashboard for a bit of club marketing</li>
 </ul>
 
@@ -165,15 +165,15 @@ My club liked to manually email members the list of parkrun results on a weekly 
 
 <p>From running the stage 1 process a few upgrades were identified and planned for the second phase such as:</p>
 <ul>
-  <li>Did the data fail to run? I don’t know unless I manually check the data source or the Tableau workbook</li>
-  <li>The original manual job of emailing weekly results hasn’t been automated, an weekly emailable report should be produced</li>
+  <li>Did the data fail to run? I do not know unless I manually check the data source or the Tableau workbook</li>
+  <li>The original manual job of emailing weekly results has not been automated, an weekly emailable report should be produced</li>
 </ul>
 
 <p><img src="/content/project_walkthroughs/assets/parkrun_stage_2_workflow.png" alt="Stage 2" /></p>
 
 <h5 id="send-email-if-data-scrape-failed">Send email if data scrape failed</h5>
 
-<p>As mentioned earlier the function “extract_parkrun_cc_report_urls” in <a href="https://github.com/wjsutton/parkrun_parser/blob/master/parkrun_functions.R">parkrun_functions.R</a> has a few workarounds do to some inconsistent parkruns, this out of my control but to assist the debugging of problems it’s helpful to receive a nudge via an email when the data hasn’t been received rather than manually checking.</p>
+<p>As mentioned earlier the function “extract_parkrun_cc_report_urls” in <a href="https://github.com/wjsutton/parkrun_parser/blob/master/parkrun_functions.R">parkrun_functions.R</a> has a few workarounds due to some inconsistent parkruns, this is out of my control but to assist the debugging of problems, it is helpful to receive a nudge via email when the data has not been received rather than manually checking.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># check max week of parkrun_data, if date is &gt; 7 days old, send email</span><span class="w">
 </span><span class="n">report</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"parkrun_data.csv"</span><span class="p">,</span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span><span class="w">
 </span><span class="n">report_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">report</span><span class="o">$</span><span class="n">date</span><span class="p">)</span><span class="w">
@@ -211,10 +211,23 @@ My club liked to manually email members the list of parkrun results on a weekly 
 <p>More about sending emails via <code class="highlighter-rouge">gmailr</code> here: <a href="https://github.com/jennybc/send-email-with-r">https://github.com/jennybc/send-email-with-r</a></p>
 
 <h5 id="generate-rmarkdown-html-report">Generate Rmarkdown HTML report</h5>
-
 <p>Example html email report: <a href="/content/project_walkthroughs/assets/parkrun_report.html">Report</a></p>
 
+<p>header
+Link to markdown
+Calculations - milestones and KPIs
+Showing milestones when there’s one and upcoming when they are 3 away
+Insert club logo &amp; icons
+Format tables
+Example HTML email report: Report</p>
+
 <h5 id="email-report-to-running-club">Email report to running club</h5>
+<p>pandoc
+Render report
+Attached HTML file
+Add title plus date
+Sender
+Schedule</p>
 
 <h4 id="stage-3-prospective-build"><strong>Stage 3 (prospective build)</strong></h4>
 
@@ -237,10 +250,20 @@ My club liked to manually email members the list of parkrun results on a weekly 
 <div class="sharebuttons">
 	<ul> 
     <li class="twitter">
-      <a href="https://twitter.com/intent/tweet?via=WJSutton12&url=http://localhost:4000/content/project_walkthroughs/1_parkrun_report_walkthrough.html&text=Project%20Walkthroughs:%20Parkrun%20Report" target="_blank">
+      <a href="https://twitter.com/WJSutton12" target="_blank">
         <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter icon</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
       </a>
     </li>
+	<!--li class="twitter">
+      <a href="https://github.com/wjsutton" target="_blank">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter icon</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+    </li-->
+	<!--li class="twitter">
+      <a href="https://public.tableau.com/profile/will7508#!/" target="_blank">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter icon</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+    </li-->
     <!--li class="linkedin">
       <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/content/project_walkthroughs/1_parkrun_report_walkthrough.html&title=Project%20Walkthroughs:%20Parkrun%20Report" target="_blank">
         <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LinkedIn icon</title><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>

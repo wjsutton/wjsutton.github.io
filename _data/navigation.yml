@@ -1,8 +1,10 @@
 - name: Home
   link: /
-- name: Tableau Tips & Tricks
+#- name: Blog
+#  link: /posts.html
+- name: Data-Viz
   link: /tableau-tips-and-tricks.html
-- name: Project Walkthroughs
+- name: Projects
   link: /walkthroughs.html
-#- name: About
+#- name: Me
 #  link: /about.html

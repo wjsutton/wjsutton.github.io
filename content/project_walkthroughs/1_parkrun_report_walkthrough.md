@@ -6,8 +6,8 @@ Find this project on Github: <a href ="https://github.com/wjsutton/parkrun_parse
 
 #### **Introduction and Motivation**
 
-Parkrun ([https://www.parkrun.org.uk/](https://www.parkrun.org.uk/)) is a weekly 5km run that occurs around 9am on a Saturday morning, all around the world but mostly in the UK. It attracts a wide range of runner from those beginners to seasoned club runners. For my running club parkrun is a great opportunity to meet with other local runners.
-My club liked to manually email members the list of parkrun results on a weekly basis, I believed could be automated.
+Parkrun ([https://www.parkrun.org.uk/](https://www.parkrun.org.uk/)) is a weekly 5km run that occurs around 9am on a Saturday, all around the world but mostly in the UK. It attracts a wide range of runners from the beginners to seasoned club runners. For my running club, parkrun is a great opportunity to meet with other local runners.
+My club liked to manually email members the list of parkrun results on a weekly basis, I believe this could be automated.
 
 #### **Stage 1 Build**
 * Scrape the parkrun data
@@ -25,7 +25,7 @@ The process is as follows:
 * Received a parkrun consolidated club page url or list of urls, e.g. [http://www.parkrun.com/results/consolidatedclub/?clubNum=1242](http://www.parkrun.com/results/consolidatedclub/?clubNum=1242) 
 * Read each url and find the links to each visited parkrun
 * Loop through visited parkruns and extract the results 
-* Throughout resolve issues, e.g. time delays to prevent having ip address blocked, handling differences for French and Polish parkruns
+* Resolve issues throughout, e.g. time delays to prevent having ip address blocked, handling differences for French and Polish parkruns
 
 ```r
 # get latest consolidated club report results
@@ -57,14 +57,14 @@ At this point generating the csv is as simple as:
 write.csv(new_data,'parkrun_data.csv',row.names = FALSE)
 ```
 
-However this is all results for all runners for the parkruns our club visited. Keeping the in mind the Tableau Public output is just our club results we can go ahead and filter by running club with:
+However this is all results for all runners for the parkruns our club visited. Keeping in mind the Tableau Public output is just our club results we can go ahead and filter by running club with:
 ```r
 # filter for West 4 Harriers running club then write csv
 library(dplyr)
 w4h_new_data <- new_data %>% filter(new_data$club=='West 4 Harriers')
 write.csv(w4h_new_data,'parkrun_data.csv',row.names = FALSE)
 ```
-Reducing the data to what is needed helps save space on Google Sheets and makes Tableau Public not have to work so hard processing our data.
+Reducing the data to what is needed helps save space on Google Sheets and makes Tableau Public not have to work so hard to process our data.
 
 ##### Upload to Google Sheets
 
@@ -94,9 +94,9 @@ gs_upload("parkrun_data.csv", sheet_title = "results",overwrite = TRUE)
 Having worked with Tableau in past Tableau Public feasible solution where users could see a weekly table of results below or on Tableau Public: [Here](https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:embed=y&:display_count=yes)
 
 A few notes on the design:
-* Its intended to be pretty basic, not a distinct change from copy 'n' paste email they currently receive
+* It is intended to be pretty basic, not a distinct change from the copy 'n' paste email they currently receive
 * Add club logo with a KPI banner for some quick stats for this week
-* Add the functionality to page back through previous weeks results
+* Add the functionality to cycle through previous weeks results
 * Added "About Us" tab for any newcomers to the dashboard for a bit of club marketing
 
 _Mobile users please rotate your phone horizontally._
@@ -107,14 +107,14 @@ Lastly to fully automate this the R code used can be scheduled to run on Windows
 #### **Stage 2 Build**
 
 From running the stage 1 process a few upgrades were identified and planned for the second phase such as:
-* Did the data fail to run? I don’t know unless I manually check the data source or the Tableau workbook
-* The original manual job of emailing weekly results hasn’t been automated, an weekly emailable report should be produced
+* Did the data fail to run? I do not know unless I manually check the data source or the Tableau workbook
+* The original manual job of emailing weekly results has not been automated, an weekly emailable report should be produced
 
 ![Stage 2](assets\parkrun_stage_2_workflow.png)
 
 ##### Send email if data scrape failed
 
-As mentioned earlier the function "extract_parkrun_cc_report_urls" in [parkrun_functions.R](https://github.com/wjsutton/parkrun_parser/blob/master/parkrun_functions.R) has a few workarounds do to some inconsistent parkruns, this out of my control but to assist the debugging of problems it's helpful to receive a nudge via an email when the data hasn't been received rather than manually checking. 
+As mentioned earlier the function "extract_parkrun_cc_report_urls" in [parkrun_functions.R](https://github.com/wjsutton/parkrun_parser/blob/master/parkrun_functions.R) has a few workarounds due to some inconsistent parkruns, this is out of my control but to assist the debugging of problems, it is helpful to receive a nudge via email when the data has not been received rather than manually checking. 
 ```r
 # check max week of parkrun_data, if date is > 7 days old, send email
 report <- read.csv(file = "parkrun_data.csv",stringsAsFactors = F)
@@ -155,12 +155,24 @@ More about sending emails via `gmailr` here: [https://github.com/jennybc/send-em
 
 
 ##### Generate Rmarkdown HTML report
-
 Example html email report: [Report](assets\parkrun_report.html)
+
+header
+Link to markdown
+Calculations - milestones and KPIs
+Showing milestones when there’s one and upcoming when they are 3 away
+Insert club logo & icons
+Format tables
+Example HTML email report: Report
 
 
 ##### Email report to running club
-
+pandoc
+Render report
+Attached HTML file
+Add title plus date
+Sender
+Schedule
  
 
 #### **Stage 3 (prospective build)**
