@@ -14,5 +14,3 @@ kramdown:
 theme:  jekyll-theme-slate
 
 google_analytics: UA-134645025-1
-
-paginate: 5

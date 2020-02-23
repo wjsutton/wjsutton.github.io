@@ -3,7 +3,7 @@ layout: default
 title: Tableau Tips & Tricks - 3 Custom Categorical Legends
 categories: [data-viz]
 blurb: Customised categorical legends in Tableau.
-img: assets/tableau_tips_and_tricks_gifs//t&t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif
+img: assets/tableau_tips_and_tricks_gifs/t&t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif
 published: true
 ---
 ## Tableau Tips & Tricks: #3 Custom Categorical Legends
@@ -27,7 +27,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Copy this data in Excel
 - In Tableau, under the heading "Data" click "Paste" 
 
-![Step 1](/assets/tableau_tips_and_tricks_gifs//t&t_03_categorical_legend/custom_cat_legend_2_excel_transfer.gif "Step 1")
+![Step 1](/assets/tableau_tips_and_tricks_gifs/t&t_03_categorical_legend/custom_cat_legend_2_excel_transfer.gif "Step 1")
 
 
 ### Step 2 - Create a dummy field and build a legend
@@ -41,7 +41,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Change chart type to Shape: Filled Square
 - Add "Legend" to Label 
 
-![Step 2](/assets/tableau_tips_and_tricks_gifs//t&t_03_categorical_legend/custom_cat_legend_3_build_dummy_field.gif "Step 2")
+![Step 2](/assets/tableau_tips_and_tricks_gifs/t&t_03_categorical_legend/custom_cat_legend_3_build_dummy_field.gif "Step 2")
 
 
 ### Step 3 - Clean up the legend
@@ -50,7 +50,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Format the lines on the chart, set all to "None" until no lines appear on the legend 
 - Edit the title to Legend and format
 
-![Step 3](/assets/tableau_tips_and_tricks_gifs//t&t_03_categorical_legend/custom_cat_legend_4_clean_up.gif "Step 3")
+![Step 3](/assets/tableau_tips_and_tricks_gifs/t&t_03_categorical_legend/custom_cat_legend_4_clean_up.gif "Step 3")
 
 
 ### Step 4 - Add the legend to the dashboard
@@ -59,7 +59,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 - Set view to "Entire View"
 - If you have dashboard actions make sure they don't apply to your legend sheet
 
-![Step 4](/assets/tableau_tips_and_tricks_gifs//t&t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif "Step 4")
+![Step 4](/assets/tableau_tips_and_tricks_gifs/t&t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif "Step 4")
 
 
 ### FAQs
@@ -69,4 +69,4 @@ Do I have to insert data from Excel?
 - No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion. 
 
 ### Try it yourself!
-Dashboard Link: <https://public.tableau.com/views/TipsTricks3-CustomCategoricalLegend/GlobalSuperstoreSales?:embed=y&:display_count=yes>
+[Dashboard Link](https://public.tableau.com/views/TipsTricks3-CustomCategoricalLegend/GlobalSuperstoreSales?:embed=y&:display_count=yes)
