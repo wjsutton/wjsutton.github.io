@@ -3,8 +3,24 @@ layout: default
 title: Home
 ---
 <div>
-<img src="https://pbs.twimg.com/profile_images/1095036521651097600/WUHSsub8_400x400.jpg" align="left" style="width:20%;height:20%;padding-right:10px;"/> Hey I'm Will, I work as a data analyst. 
-<p>This blog this is where I keep a record of various [Tableau Tips & Tricks](\tableau-tips-and-tricks.html) I've learnt and write up a few [Projects](\walkthroughs.html) I've been working on. </p>
-<p>If you like what you see or want to know a bit more shoot me a tweet at [@WJSutton12](https://twitter.com/WJSutton12)</p>
-<p>Currently working towards: Tableau Certified Professional Qualification by completing dashboard revamps, e.g. Makeover Monday [http://www.makeovermonday.co.uk/](http://www.makeovermonday.co.uk/)</p>
+<img src="https://pbs.twimg.com/profile_images/1228767622432464896/wi01-oYY_400x400.jpg" align="left" style="width:20%;height:20%;padding-right:10px;"> Hey, I'm Will, I work as a data analyst at the BBC specialising in data visualisation and automated processes. 
+<p>This blog is where I test out new projects and document the things I've learnt along the way. If you like what you see or want to know a bit more shoot me a tweet at [@WJSutton12](https://twitter.com/WJSutton12)</p>
 </div>
+---
+
+
+<h4>LATEST POSTS</h4>
+
+<ul>
+	{% for post in site.posts %}
+	<div>
+		<a href="{{ post.url | prepend: site.baseurl }}" style="color: inherit;text-decoration: inherit"><img src="{{ site.baseurl }}/{{ post.img }}" align="left" style="width:100px;height:100px;padding-right:10px;"><h5>{{ post.title }}</h5>
+		<span>{{ post.date | date: "%B %-d, %Y" }} | {{ post.categories }} | {{ post.content | number_of_words | divided_by:180 }} mins </span>
+		<p>{{ post.blurb }}</p></a>
+		<br>
+	</div>
+	{% endfor %}
+</ul>
+
+
+

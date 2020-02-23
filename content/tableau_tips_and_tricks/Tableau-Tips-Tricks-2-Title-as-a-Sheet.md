@@ -20,7 +20,7 @@ You have charts that need different titles where the standard chart title doesn�
 
 ### Step 1 - Create a Sheet and a Calculated Field
 - Create a new sheet that will be your title
-- Create a calculated field using a CASE expression mapping your parameter inputs to specific title, for example:
+- Create a calculated field using a CASE expression mapping your parameter inputs to a specific title, for example:
 
 CASE [SALES]
 WHEN 'By State' THEN 'US Superstore Sales by State, 2014'
@@ -40,7 +40,7 @@ Where:
 ![Step 2](gifs/t&t_02_titles_as_sheet/title_as_sheet_2_create_chart_title.gif "Step 2")
 
 ### Step 3 - Add Sheet to Dashboard
-- Drag the sheet to top of the layout container
+- Drag the sheet to the top of the layout container
 - Set Fit to ‘Fit Width’
 - Check the Parameter works as expected
 
@@ -54,7 +54,7 @@ Can I use this without a parameter input?
 
 As this is a calculated field can I add dimensions and measures to it, e.g. year?
 
-- Yes, although you will need to pass on any filters to the Chart Title sheet, and ensure the all the dimensions and measures are aggregated to one value, otherwise you’ll end up with multiple titles in the sheet, e.g. 
+- Yes, although you will need to pass on any filters to the Chart Title sheet, and ensure the all the dimensions and measures are aggregated to one value, otherwise, you’ll end up with multiple titles in the sheet, e.g. 
         US Superstore Sales by State, 2014
         US Superstore Sales by State, 2013
 

@@ -11,7 +11,7 @@
 
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>Tableau Tips &amp; Tricks: #2 Title as a Sheet | Will Sutton</title>
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.7.4" />
 <meta property="og:title" content="Tableau Tips &amp; Tricks: #2 Title as a Sheet" />
 <meta name="author" content="Will Sutton" />
 <meta property="og:locale" content="en_US" />
@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html" />
 <meta property="og:site_name" content="Will Sutton" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html","author":{"@type":"Person","name":"Will Sutton"},"description":"Data blog","headline":"Tableau Tips &amp; Tricks: #2 Title as a Sheet","@type":"WebPage","@context":"http://schema.org"}</script>
+{"url":"http://localhost:4000/content/tableau_tips_and_tricks/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html","author":{"@type":"Person","name":"Will Sutton"},"description":"Data blog","@type":"WebPage","headline":"Tableau Tips &amp; Tricks: #2 Title as a Sheet","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   </head>
@@ -34,18 +34,6 @@
           <h2 id="project_title">Will Sutton | Data Blog</h2>
           <!-- <h2 id="project_tagline">Data blog</h2>-->
 		  <nav>
-  
-    <a href="/"  style="padding-right: 10px;">
-      HOME
-    </a>
-  
-    <a href="/tableau-tips-and-tricks.html"  style="padding-right: 10px;">
-      DATA-VIZ
-    </a>
-  
-    <a href="/walkthroughs.html"  style="padding-right: 10px;">
-      PROJECTS
-    </a>
   
 </nav>
 
@@ -75,7 +63,7 @@
 <h3 id="step-1---create-a-sheet-and-a-calculated-field">Step 1 - Create a Sheet and a Calculated Field</h3>
 <ul>
   <li>Create a new sheet that will be your title</li>
-  <li>Create a calculated field using a CASE expression mapping your parameter inputs to specific title, for example:</li>
+  <li>Create a calculated field using a CASE expression mapping your parameter inputs to a specific title, for example:</li>
 </ul>
 
 <p>CASE [SALES]
@@ -101,7 +89,7 @@ Where:</p>
 
 <h3 id="step-3---add-sheet-to-dashboard">Step 3 - Add Sheet to Dashboard</h3>
 <ul>
-  <li>Drag the sheet to top of the layout container</li>
+  <li>Drag the sheet to the top of the layout container</li>
   <li>Set Fit to ‘Fit Width’</li>
   <li>Check the Parameter works as expected</li>
 </ul>
@@ -119,7 +107,7 @@ Where:</p>
 <p>As this is a calculated field can I add dimensions and measures to it, e.g. year?</p>
 
 <ul>
-  <li>Yes, although you will need to pass on any filters to the Chart Title sheet, and ensure the all the dimensions and measures are aggregated to one value, otherwise you’ll end up with multiple titles in the sheet, e.g. 
+  <li>Yes, although you will need to pass on any filters to the Chart Title sheet, and ensure the all the dimensions and measures are aggregated to one value, otherwise, you’ll end up with multiple titles in the sheet, e.g. 
       US Superstore Sales by State, 2014
       US Superstore Sales by State, 2013</li>
 </ul>

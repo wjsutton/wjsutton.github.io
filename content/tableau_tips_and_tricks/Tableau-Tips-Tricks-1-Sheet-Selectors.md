@@ -12,7 +12,7 @@ A sheet selector is a technique in Tableau that allows you to change the type of
 
 ### Use Cases
 - Adding more data within the dashboard without overwhelming a user
-- Showing a better suited chart depending on user input
+- Showing a better-suited chart depending on user input
 
 
 ### Prerequisites 
@@ -22,7 +22,7 @@ You have two or more charts in individual sheets you wish to alternate between i
 
 ### Step 1 - Create a Parameter
 - Data type: String
-- In list of values enter suitable names for your parameter options, in this case I’ll be switching between State and Sub-Category so these will be my options
+- In a list of values enter suitable names for your parameter options, in this case, I’ll be switching between State and Sub-Category so these will be my options
 
 ![Step 1](gifs/t&t_01_sheet_selector/sheet_selector_1_create_parameter.gif "Step 1")
 
@@ -36,14 +36,14 @@ END
 Where:
 
 -  [SALES] is the Parameter you created in Step 1,
-- ‘By State’ and ‘By Sub-Category’ are the values your entered for Step 1’s Parameter,
+- ‘By State’ and ‘By Sub-Category’ are the values you entered for Step 1’s Parameter,
 - ‘A’ and ‘B’ generic terms to exclude one chart from the other, e.g. either show A or B
 
 ![Step 2](gifs/t&t_01_sheet_selector/sheet_selector_2_create_calc_field.gif "Step 2")
 
 ### Step 3 - Apply Calculated Field 
 
-For all chart you wish to alternate by in the Dashboard add the Calculated Field from Step 2 “Sheet Selector” into the filters. 
+For the charts you wish to alternate by in the Dashboard add the Calculated Field from Step 2 “Sheet Selector” into the filters. 
 
 - Edit the filter
 - Click “Custom Value List”
@@ -54,7 +54,7 @@ For all chart you wish to alternate by in the Dashboard add the Calculated Field
 
 ### Step 4 - Build the Dashboard
 - Prepare sheets for the Dashboard e.g. remove unnecessary filters or legends.
-- For Step 1’s Parameter right click an select “Show Parameter Control” so it appears in at least one of the sheets 
+- For Step 1’s Parameter right-click an select “Show Parameter Control” so it appears in at least one of the sheets 
 - In a Dashboard add a vertical layout container and add all sheets to that container
 - Hide sheet titles, as these will always appear for the sheet
 - Test the parameter to make sure it works as expected
@@ -65,11 +65,11 @@ For all chart you wish to alternate by in the Dashboard add the Calculated Field
 
 Can I show multiple charts at once?
 
-- Yes, just make sure in the all the charts you want to show have the same value in the filter’s “Custom Value List” - as described in Step 2.
+- Yes, just make sure in all the charts you want to show have the same value in the filter’s “Custom Value List” - as described in Step 2.
 
 What do I do about titles?
 
-- Simple option add a text box for title to the top of the vertical layout container
+- Simple option add a text box for a title to the top of the vertical layout container
 - If you need custom titles per chart, you can make a title as a sheet and give it a calculated field based on the option selected in Step 1’s parameter - I have this here:
 [Title as a Sheet](Tableau-Tips-Tricks-2-Title-as-a-Sheet.html)
 

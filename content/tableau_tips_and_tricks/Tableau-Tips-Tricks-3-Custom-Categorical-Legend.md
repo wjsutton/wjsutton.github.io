@@ -15,7 +15,7 @@ Add a custom categorical legend to a dashboard
 ### Example of Problem
 ![Example of Problem](gifs/t&t_03_categorical_legend/custom_cat_legend_1.gif "Example of Problem")
 
-I have a standard Tableau legend for three charts in my dashboard, if I apply filters they will be applied to the legend, in some cases the legend will not represent all the colours in the dashboard which may be confusing. 
+I have a standard Tableau legend for three charts in my dashboard, if I apply filters they will be applied to the legend, in some cases, the legend will not represent all the colours in the dashboard which may be confusing. 
 
 ### Step 1 - Build the data in Excel and import to Tableau
 - In Excel in a column enter a heading (in this case "Legend") followed by your legend options
@@ -25,7 +25,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 ![Step 1](gifs/t&t_03_categorical_legend/custom_cat_legend_2_excel_transfer.gif "Step 1")
 
 
-### Step 2 - Create dummy field and build legend
+### Step 2 - Create a dummy field and build a legend
 - Using the imported data start building the legend by:
 - Add "Legend" to Rows
 - Add "Legend" to Color
@@ -39,7 +39,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 ![Step 2](gifs/t&t_03_categorical_legend/custom_cat_legend_3_build_dummy_field.gif "Step 2")
 
 
-### Step 3 - Clean up legend
+### Step 3 - Clean up the legend
 - Edit the axis of "dummy field" to a range of 0 to 8 (this will shift the marks to the left, you can adjust this range to your preference)
 - Right click on the axis, untick "Show Header"
 - Format the lines on the chart, set all to "None" until no lines appear on the legend 
@@ -48,7 +48,7 @@ I have a standard Tableau legend for three charts in my dashboard, if I apply fi
 ![Step 3](gifs/t&t_03_categorical_legend/custom_cat_legend_4_clean_up.gif "Step 3")
 
 
-### Step 4 - Add legend to dashboard
+### Step 4 - Add the legend to the dashboard
 - Drag the newly created sheet to your dashboard
 - Delete the default legend which is inserted
 - Set view to "Entire View"
