@@ -11,7 +11,7 @@ title: Home
 
 <h4>LATEST POSTS</h4>
 
-<ul>
+<ul style="list-style-position: inside;padding-left: 0;">
 	{% for post in site.posts %}
 	<div>
 		<a href="{{ post.url | prepend: site.baseurl }}" style="color: inherit;text-decoration: inherit"><img src="{{ site.baseurl }}/{{ post.img }}" align="left" style="width:100px;height:100px;padding-right:10px;"><h5>{{ post.title }}</h5>
