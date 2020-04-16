@@ -1,12 +1,13 @@
 - name: Home
   link: /
+#- name: My Work
+#  link: /portfolio.html
+#- name: About Me
+#  link: /about.html
 #- name: Blog
 #  link: /posts.html
-#- name: Data-Viz
-#  link: /data-viz.html
+
 #- name: Automation
 #  link: /automation.html
 #- name: Projects
 #  link: /projects.html
-#- name: Me
-#  link: /about.html
