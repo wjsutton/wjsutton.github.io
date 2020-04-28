@@ -1,7 +1,7 @@
 - name: Home
   link: /
-#- name: My Work
-#  link: /portfolio.html
+- name: My Work
+  link: /portfolio.html
 #- name: About Me
 #  link: /about.html
 #- name: Blog
