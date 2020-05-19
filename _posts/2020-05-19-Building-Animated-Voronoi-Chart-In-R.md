@@ -28,7 +28,7 @@ A Voronoi chart (or diagram) overlays a regular scatter chart and divides the ch
 **1. Set up an individual frame**
 
 In R:
-
+[Github Link](https://github.com/wjsutton/ggplot2_snippets/tree/master/voronoi_charts)
 ```r
 # Load libraries
 library(ggvoronoi)
@@ -92,7 +92,7 @@ This will generate an image "test.png" which you can check whether this is the o
 If you are happy with the image generated in step 1 now you just have to write a loop to generate all the frames. It is advisable to write these images to a separate folder, as it will make the import to ScreenToGif less taxing.
 
 In R:
-
+[Github Link](https://github.com/wjsutton/ggplot2_snippets/tree/master/voronoi_charts)
 ```r
 # Loop through all frames
 for(i in (min(total$Frame):max(total$Frame))){
