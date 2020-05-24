@@ -1,8 +1,12 @@
-<!DOCTYPE html>
+---
+layout: default
+title: Home
+---
+
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="./Makeover-Monday-2020-w-14/styles.css"></link>
-        <title>Women working unpaid hours</title>
+        <!--link rel="stylesheet" href="./styles.css"></link>
+        <title>Women working unpaid hours</title-->
     </head>
     <body>
         <div id="introduction" style="max-width:800px;">
@@ -11,10 +15,11 @@
             <p>The trend from 2003 - 2015 remains consistent each year that for 7 hours of work a women will only be paid for 3 of them.</p>
         </div>
         <div id="wrapper"></div>
-        <div id ="legend"></div>
-        <script src="./Makeover-Monday-2020-w-14/d3.v5.js"></script>
-        <script src="./Makeover-Monday-2020-w-14/mom_2020w14_men.js"></script>
-        <script src="./Makeover-Monday-2020-w-14/mom_2020w14_women.js"></script>
-        <script src="./Makeover-Monday-2020-w-14/mom_2020w14_legend.js"></script>
+        <div id ="legend" style="text-align: center"></div>
+		<div id ="source" style ="font-size:14px;">Author: Will Sutton | Source: UN Stats</div>
+        <script src="./d3.v5.js"></script>
+        <script src="./mom_2020w14_men.js"></script>
+        <script src="./mom_2020w14_women.js"></script>
+        <script src="./mom_2020w14_legend.js"></script>
     </body>
 </html>

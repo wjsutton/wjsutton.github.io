@@ -1,16 +1,18 @@
 async function drawBars() {
 
     // 1. Access data
-    var dataset = await d3.csv("Makeover-Monday-2020-w-14/mom_2020w14_us_results_pivot_men.csv")
+    var dataset = await d3.csv("/assets/d3/makeover_monday_2020w14/mom_2020w14_us_results_pivot_women.csv")
     
     const xAccessor = d => d.year
 
     const stackGenerator = d3.stack().keys(dataset.columns.slice(1))
     const layers = stackGenerator(dataset)
-    const extent = [0, d3.max(layers, layer => d3.max(layer, sequence => sequence[1]))]
-    
+    //const extent = [0, d3.max(layers, layer => d3.max(layer, sequence => sequence[1]))]
+    // match men's axis
+    const extent = [0, 8]
+
     // 2. Create chart dimensions
-    const width = 400
+    const width = 320
     let dimensions = {
         width: width,
         height: width * 1,
@@ -18,7 +20,7 @@ async function drawBars() {
         top: 10,
         right: 10,
         bottom: 50,
-        left: 50,
+        left: 35,
         },
     }
     dimensions.boundedWidth = dimensions.width - dimensions.margin.left - dimensions.margin.right
@@ -37,6 +39,7 @@ async function drawBars() {
             dimensions.margin.top
         }px)`)
     
+    
     // 4. Create scales
     const xScale = d3.scaleBand()
         .domain(dataset.map(xAccessor))
@@ -50,7 +53,7 @@ async function drawBars() {
 
     const colors = {
         "paid_work_avg_time_hours":"#445E93", 
-        "unpaid_work_avg_time_hours":"#7EB2DD"
+        "unpaid_work_avg_time_hours":  "#7EB2DD"
     }
     const text_colors = {
         "paid_work_avg_time_hours": "white", 
@@ -81,7 +84,7 @@ async function drawBars() {
         .data(layer => layer)
         .join("text")
         .attr("class","label")
-        .attr("x", (sequence => {return xScale(sequence.data.year) + 4}  ))
+        .attr("x", (sequence => {return xScale(sequence.data.year) + 1}  ))
         .attr("y", sequence => yScale(sequence[1]) + 15)
         .text(sequence => formatDataLabels(sequence[1] - sequence[0]))
         .style("font-size", "0.8em")   
@@ -89,6 +92,7 @@ async function drawBars() {
     // 6. Draw periphals
     const xAxisGenerator = d3.axisBottom()
         .scale(xScale)
+		.tickValues(xScale.domain().filter((d, i) => d % 2 === 1));
     
     const xAxis = bounds.append("g")
         .call(xAxisGenerator)
@@ -107,7 +111,7 @@ async function drawBars() {
         .attr("y", dimensions.margin.top-dimensions.boundedHeight)
         .attr("fill", "black")
         .style("font-size", "1.5em")
-        .text("Men")
+        .text("Women")
         .style("text-transform", "capitalize")
     
     const yAxisGenerator = d3.axisLeft()
@@ -115,7 +119,6 @@ async function drawBars() {
     
     const yAxis = bounds.append("g")
         .call(yAxisGenerator)
-        
 
     const yAxisLabel = yAxis.append("text")
         .attr("x", -(dimensions.boundedHeight / 2)+30)
@@ -138,6 +141,5 @@ async function drawBars() {
     function onMouseLeave(datum) {
         d3.select(this).style("fill", layer => {return colors[layer.key]});
     }
-
 }
 drawBars()

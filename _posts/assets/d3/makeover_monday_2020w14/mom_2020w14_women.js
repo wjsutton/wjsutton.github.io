@@ -1,7 +1,7 @@
 async function drawBars() {
 
     // 1. Access data
-    var dataset = await d3.csv("Makeover-Monday-2020-w-14/mom_2020w14_us_results_pivot_women.csv")
+    var dataset = await d3.csv("/assets/d3/makeover_monday_2020w14/mom_2020w14_us_results_pivot_women.csv")
     
     const xAccessor = d => d.year
 
@@ -12,7 +12,7 @@ async function drawBars() {
     const extent = [0, 8]
 
     // 2. Create chart dimensions
-    const width = 400
+    const width = 320
     let dimensions = {
         width: width,
         height: width * 1,
@@ -20,7 +20,7 @@ async function drawBars() {
         top: 10,
         right: 10,
         bottom: 50,
-        left: 50,
+        left: 35,
         },
     }
     dimensions.boundedWidth = dimensions.width - dimensions.margin.left - dimensions.margin.right
@@ -84,7 +84,7 @@ async function drawBars() {
         .data(layer => layer)
         .join("text")
         .attr("class","label")
-        .attr("x", (sequence => {return xScale(sequence.data.year) + 4}  ))
+        .attr("x", (sequence => {return xScale(sequence.data.year) + 1}  ))
         .attr("y", sequence => yScale(sequence[1]) + 15)
         .text(sequence => formatDataLabels(sequence[1] - sequence[0]))
         .style("font-size", "0.8em")   
@@ -92,6 +92,7 @@ async function drawBars() {
     // 6. Draw periphals
     const xAxisGenerator = d3.axisBottom()
         .scale(xScale)
+		.tickValues(xScale.domain().filter((d, i) => d % 2 === 1));
     
     const xAxis = bounds.append("g")
         .call(xAxisGenerator)
