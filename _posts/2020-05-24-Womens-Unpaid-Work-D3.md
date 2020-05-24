@@ -3,7 +3,7 @@ layout: default
 title: Women's Unpaid Working Hours
 categories: [data-viz]
 blurb: Women in the United States on average spend more time carrying out work that results in no pay.
-img: assets/images/women_unpaid_hours.png
+img: assets/images/women_unpaid_hours.PNG
 published: true
 ---
 ### Women remain unpaid for the actual hours they work in the United States
@@ -28,4 +28,4 @@ The trend from 2003 - 2015 remains consistent each year that for 7 hours of work
 <br>
 Inspiration for this post comes from the [Makeover Monday](https://www.makeovermonday.co.uk/) project, a weekly data visualisation exercise.
 
-<img src="/assets/images/women_unpaid_hours.png" width="0px">
+<img src="/assets/images/women_unpaid_hours.PNG" width="0px">
