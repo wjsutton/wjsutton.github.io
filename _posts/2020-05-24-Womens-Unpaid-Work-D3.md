@@ -28,3 +28,4 @@ The trend from 2003 - 2015 remains consistent each year that for 7 hours of work
 <br>
 Inspiration for this post comes from the [Makeover Monday](https://www.makeovermonday.co.uk/) project, a weekly data visualisation exercise.
 
+<img src="/assets/images/women_unpaid_hours.png" width="0px">
