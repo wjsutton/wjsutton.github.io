@@ -2,7 +2,7 @@
 layout: default
 title: Animated Voronoi Charts in R
 categories: [data-viz]
-blurb: Building an animated voronoi chart to show contolled space in a football match, using R, ggplot2, ggvoronoi, ScreenToGif and ezgif.com.
+blurb: Building an animated Voronoi chart to show controlled space in a football match, using R, ggplot2, ggvoronoi, ScreenToGif and ezgif.com.
 img: assets/beyond_the_defaults/gifs/football_voronoi_20_speed_compressed.gif
 published: true
 ---
