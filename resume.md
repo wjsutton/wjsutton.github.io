@@ -30,14 +30,14 @@ I develop end-to-end solutions to problems with data. From the extraction of raw
 -   Project managed the setup of a Twitter monitor working with a third-party vendor and internal resources, securing funding from CEO and mainboard, communicated project to the entire business at conference calls @ Cerulli Associates
 
 #### Timeline of Education & Work Experience
-<img src="assets/images/work_timeline.png" width="100%">
+<img src="resume/assets/work_timeline.png" width="100%">
 
 Full details of work experience available at [https://www.linkedin.com/in/will-sutton-14711627](https://www.linkedin.com/in/will-sutton-14711627)
 
 ### SKILLS & COMPETENCES
 ---
 
-<img src="assets/images/skills_barplot.png" width="300px" align="right">
+<img src="resume/assets/skills_barplot.png" width="300px" align="right">
 Educational Qualifications
 
 -	Tableau Desktop Certified Professional (Jan 2020)
