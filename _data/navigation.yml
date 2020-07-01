@@ -4,8 +4,8 @@
   link: /portfolio.html
 - name: Resume
   link: /resume.html
-#- name: Blog
-#  link: /posts.html
+- name: Contact Me
+  link: /contact.html
 
 #- name: Automation
 #  link: /automation.html
