@@ -30,11 +30,10 @@ box-sizing:border-box;
 background:#ffffff;
 outline:none;
 resize:none;
-border:0;
-border-radius:1px;"></textarea>
+border:0;"></textarea>
   </label>
 
   <!-- your other form fields go here -->
-  <button type="submit" style="float:right;border:2px solid #212121;background:0;color:#212121;cursor:pointer;border-radius:1px;">Send Message</button>
+  <button type="submit" style="float:right;border:2px solid #212121;background:0;color:#212121;cursor:pointer;">Send Message</button>
   <div style="width:100%;height:10px;"></div>
 </form>
