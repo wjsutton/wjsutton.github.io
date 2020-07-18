@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Exploring Football Player Position Data with Animated Voronoi Charts in R
+title: Exploring Football Player Positions with Animated Voronoi Charts in R
 categories: [data-viz]
 blurb: Building an animated Voronoi chart to show controlled space in a football match, using R, ggplot2, ggvoronoi, ScreenToGif and ezgif.com.
 img: assets/beyond_the_defaults/gifs/football_voronoi_20_speed_compressed.gif
