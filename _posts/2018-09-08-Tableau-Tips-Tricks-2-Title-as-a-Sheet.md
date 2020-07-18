@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tableau Tips & Tricks - 2 Title as a Sheet
-categories: [data-viz]
+categories: [tableau tips & tricks]
 blurb: Have charts in Tableau that need different titles and a standard chart title doesn’t do what you want? Here's a fix for that.
 img: assets/tableau_tips_and_tricks_gifs/t&t_02_titles_as_sheet/title_as_sheet_final.gif
 published: true

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tableau Tips & Tricks - 3 Custom Categorical Legends
-categories: [data-viz]
+categories: [tableau tips & tricks]
 blurb: Customised categorical legends in Tableau.
 img: assets/tableau_tips_and_tricks_gifs/t&t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif
 published: true

@@ -1,6 +1,10 @@
 ---
 layout: default
-title: Home
+title: Upskill your Tableau Game with these Tips & Tricks
+categories: [data-viz]
+blurb: A collection of Tableau tips & tricks I've learnt over the years.
+img: assets/tableau_tips_and_tricks_gifs/t&t_01_sheet_selector/sheet_selector_final.gif
+published: true
 ---
 <div>
 <img src="https://pbs.twimg.com/profile_images/1228767622432464896/wi01-oYY_400x400.jpg" align="left" style="width:20%;height:20%;padding-right:10px;"> Hey, I'm Will, I work as a data analyst at the BBC specialising in data visualisation and automated processes. 
@@ -8,10 +12,11 @@ title: Home
 </div>
 ---
 
-<h4>LATEST POSTS</h4>
 
-<ul style="list-style-position: inside;padding-left: 0;">
-	{% for post in site.posts %}{% if post.categories contains "data-viz" or post.categories contains "data-automation" %}
+<h4>TABLEAU TIPS & TRICKS</h4>
+
+<ul>
+	{% for post in site.posts %}{% if post.categories contains "tableau tips & tricks" %}
 	<div>
 		<a href="{{ post.url | prepend: site.baseurl }}" style="color: inherit;text-decoration: inherit"><img src="{{ site.baseurl }}/{{ post.img }}" align="left" style="width:100px;height:100px;padding-right:10px;"><h5>{{ post.title }}</h5>
 		<span>{{ post.date | date: "%B %-d, %Y" }} | {{ post.categories }} | {{ post.content | number_of_words | divided_by:180 }} mins </span>
@@ -20,6 +25,7 @@ title: Home
 	</div>
 	{% endif %}{% endfor %}
 </ul>
+
 
 
 

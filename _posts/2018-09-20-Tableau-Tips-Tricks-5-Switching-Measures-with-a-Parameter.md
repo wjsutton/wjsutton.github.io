@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tableau Tips & Tricks - 5 Switching Measures with a Parameter
-categories: [data-viz]
+categories: [tableau tips & tricks]
 blurb: Customised sequential legends in Tableau.
 img: assets/tableau_tips_and_tricks_gifs/t&t_05_switching_measures_with_a_parameter/switching_measures_with_a_parameter_6.gif
 published: false

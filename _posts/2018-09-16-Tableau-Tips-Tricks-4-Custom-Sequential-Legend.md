@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tableau Tips & Tricks - 4 Custom Sequential Legends
-categories: [data-viz]
+categories: [tableau tips & tricks]
 blurb: Customised sequential legends in Tableau.
 img: assets/tableau_tips_and_tricks_gifs/t&t_04_sequential_legend/custom_seq_legend_4_tidy_up_seq.gif 
 published: true
