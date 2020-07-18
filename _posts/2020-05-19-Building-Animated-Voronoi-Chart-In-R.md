@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Animated Voronoi Charts in R
+title: Exploring Football Player Position Data with Animated Voronoi Charts in R
 categories: [data-viz]
 blurb: Building an animated Voronoi chart to show controlled space in a football match, using R, ggplot2, ggvoronoi, ScreenToGif and ezgif.com.
 img: assets/beyond_the_defaults/gifs/football_voronoi_20_speed_compressed.gif
 published: true
 ---
-## Animated Voronoi Charts in R
+## Exploring Football Player Position Data with Animated Voronoi Charts in R
 
 This workflow builds from Eva Murray's tutorial on building a Voronoi chart in Tableau here: [Controlling space in football - Exasol](https://www.exasol.com/en/blog/controlling-space-in-football/). Eva demoed the process at a Tableau London User Group, which led me to think whether it could be achieved using R as well.
 

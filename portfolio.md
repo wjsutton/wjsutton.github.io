@@ -7,6 +7,21 @@ layout: default
 
 <div style="display: flex; flex-wrap: wrap;">
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
+<a href="https://wjsutton.shinyapps.io/house_of_games/">
+<img src='assets/images/house_of_games.png' style="width: 300px;"> 
+</a>
+</div>
+<div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
+<a href="https://github.com/wjsutton/ggplot2_snippets">
+<img src='assets/images/ggsnippets_repo.png' style="width: 300px;">
+</a>
+</div>
+<div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
+<a href="https://github.com/wjsutton/ggplot2_snippets">
+<img src='assets/beyond_the_defaults/gifs/football_voronoi_20_speed_compressed.gif' style="width: 300px;">
+</a>
+</div>
+<div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
 <a href="https://public.tableau.com/views/West4HarriersParkrunReport/WeeklyParkrunReport?:display_count=y&:origin=viz_share_link">
 <img src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;We&#47;West4HarriersParkrunReport&#47;WeeklyParkrunReport&#47;1.png' style="width: 300px; height: 630px">
 </a>

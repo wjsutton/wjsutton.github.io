@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Tableau Desktop Certified Professional Qualification
+title: Passing the Tableau Desktop Certified Professional Qualification
 categories: [data-viz]
 blurb: Tips and techniques I used to prepare for the Tableau Desktop Certified Professional Qualification
 img: assets/images/desktop-certified-professional-300x300.png
 published: true
 ---
-## Tableau Desktop Certified Professional Qualification
+## Passing the Tableau Desktop Certified Professional Qualification
 
 <img src="/assets/images/desktop-certified-professional-300x300.png" align="left" style="width:30%;height:30%;padding-right:10px;">
 

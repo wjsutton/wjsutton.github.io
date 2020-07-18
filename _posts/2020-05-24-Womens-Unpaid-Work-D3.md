@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Women's Unpaid Working Hours
+title: Understanding Trends for Unpaid Work in America with D3
 categories: [data-viz]
 blurb: Women in the United States on average spend more time carrying out work that results in no pay.
 img: assets/images/women_unpaid_hours.PNG

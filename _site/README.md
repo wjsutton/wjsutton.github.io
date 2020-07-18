@@ -1,14 +1,14 @@
-<h1 style="font-weight:normal" align="center">
+<h1 style="font-weight:normal">
   wjsutton.github.io - Data Blog
 </h1>
 
-<div align="center">
+[![Status](https://img.shields.io/badge/status-active-success.svg)]() [![GitHub Issues](https://img.shields.io/github/issues/wjsutton/wjsutton.github.io.svg)](https://github.com/wjsutton/wjsutton.github.io/issues) [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/wjsutton/wjsutton.github.io.svg)](https://github.com/wjsutton/wjsutton.github.io/pulls) [![License](https://img.shields.io/badge/license-GNU-blue.svg)](/LICENSE)
 
 My own list of how-tos for running my github pages site.
 
 [Twitter][Twitter] :speech_balloon:&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[LinkedIn][LinkedIn] :necktie:&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[GitHub :octocat:][GitHub]&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[Website][Website] :link:
 
-</div>
+
 
 <!--
 Quick Link 
