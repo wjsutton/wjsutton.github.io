@@ -39,3 +39,9 @@ The repository [github.com/wjsutton/ggplot2_snippets](https://github.com/wjsutto
 </p>
 Inspiration for project comes from the [r-graph-gallery.com](https://www.r-graph-gallery.com/).
 
+If you have any feedback for this project please feel free to:
+
+- [Contact me](/contact.html)📫
+- Raise a pull request on [wjsutton/ggplot2_snippets](https://github.com/wjsutton/ggplot2_snippets)🐙 
+- Or send a tweet to [@WJSutton12](https://twitter.com/WJSutton12)💬
+
