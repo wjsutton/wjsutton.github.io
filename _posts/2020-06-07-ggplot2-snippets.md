@@ -34,7 +34,7 @@ The repository [github.com/wjsutton/ggplot2_snippets](https://github.com/wjsutto
 - Code for saving of the charts locally as png/gif 
 <p align="center">
 <a href="https://github.com/wjsutton/ggplot2_snippets">
-<img src="/assets/images/ggsnippets_repo.png"> 
+<img src="/assets/images/ggsnippets_repo.PNG" style="width:90%;height:90%;"> 
 </a>
 </p>
 Inspiration for project comes from the [r-graph-gallery.com](https://www.r-graph-gallery.com/).
