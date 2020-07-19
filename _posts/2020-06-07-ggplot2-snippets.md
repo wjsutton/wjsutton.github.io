@@ -11,7 +11,9 @@ published: true
 <img src="/assets/beyond_the_defaults_gifs/barplot_loop.gif" align="right" style="width:35%;height:35%;padding-left:10px;">
 ggplot2 is the go-to package for creating data visualisations with R, with the vast majority of chart types supported or possible with additional packages. 
 
-There are many websites and tutorials to get started. From experience, they provide good, approachable examples but lack options on how to alter the aesthetics of the charts. The aesthetics (referring to ggplot2’s theme and labelling) are crucially important for the ease and interpretability of the visuals you produce.   
+There are many websites and tutorials to get started. From experience, they provide good, approachable examples but lack options on how to alter the aesthetics of the charts. 
+
+The aesthetics (referring to ggplot2’s theme and labelling) are crucially important for the ease and interpretability of the visuals you produce.   
 
 #### The Problem ⚠️ 
 
@@ -32,7 +34,7 @@ The repository [github.com/wjsutton/ggplot2_snippets](https://github.com/wjsutto
 - Code for saving of the charts locally as png/gif 
 <p align="center">
 <a href="https://github.com/wjsutton/ggplot2_snippets">
-<img src="/assets/images/ggsnippets_repo.png" style="width:90%;height:90%;">
+<img src="/assets/images/ggsnippets_repo.png"> 
 </a>
 </p>
 Inspiration for project comes from the [r-graph-gallery.com](https://www.r-graph-gallery.com/).
