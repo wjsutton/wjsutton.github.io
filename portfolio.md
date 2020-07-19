@@ -8,12 +8,12 @@ layout: default
 <div style="display: flex; flex-wrap: wrap;">
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
 <a href="https://wjsutton.shinyapps.io/house_of_games/">
-<img src='assets/images/house_of_games.png' style="width: 300px;"> 
+<img src='assets/images/house_of_games.PNG' style="width: 300px;"> 
 </a>
 </div>
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
 <a href="https://github.com/wjsutton/ggplot2_snippets">
-<img src='assets/images/ggsnippets_repo.png' style="width: 300px;">
+<img src='assets/images/ggsnippets_repo.PNG' style="width: 300px;">
 </a>
 </div>
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
