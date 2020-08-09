@@ -9,9 +9,9 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style_extras.css?v=">
 
 
-<!-- Begin Jekyll SEO tag v2.5.0 -->
+<!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Project Walkthroughs: Parkrun Report | Will Sutton</title>
-<meta name="generator" content="Jekyll v3.7.4" />
+<meta name="generator" content="Jekyll v3.9.0" />
 <meta property="og:title" content="Project Walkthroughs: Parkrun Report" />
 <meta name="author" content="Will Sutton" />
 <meta property="og:locale" content="en_US" />
@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://localhost:4000/content/project_walkthroughs/1_parkrun_report_walkthrough.html" />
 <meta property="og:site_name" content="Will Sutton" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/content/project_walkthroughs/1_parkrun_report_walkthrough.html","author":{"@type":"Person","name":"Will Sutton"},"description":"Data blog","headline":"Project Walkthroughs: Parkrun Report","@type":"WebPage","@context":"http://schema.org"}</script>
+{"url":"http://localhost:4000/content/project_walkthroughs/1_parkrun_report_walkthrough.html","headline":"Project Walkthroughs: Parkrun Report","description":"Data blog","author":{"@type":"Person","name":"Will Sutton"},"@type":"WebPage","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   </head>
@@ -122,8 +122,8 @@ My club liked to manually email members the list of parkrun results on a weekly 
 <p>However, this is all results for all runners for the parkruns our club visited. Keeping in mind the Tableau Public output is just our club results we can go ahead and filter by running club with:</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># filter for West 4 Harriers running club then write csv</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-</span><span class="n">w</span><span class="m">4</span><span class="n">h_new_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">new_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">new_data</span><span class="o">$</span><span class="n">club</span><span class="o">==</span><span class="s1">'West 4 Harriers'</span><span class="p">)</span><span class="w">
-</span><span class="n">write.csv</span><span class="p">(</span><span class="n">w</span><span class="m">4</span><span class="n">h_new_data</span><span class="p">,</span><span class="s1">'parkrun_data.csv'</span><span class="p">,</span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span><span class="n">w4h_new_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">new_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">new_data</span><span class="o">$</span><span class="n">club</span><span class="o">==</span><span class="s1">'West 4 Harriers'</span><span class="p">)</span><span class="w">
+</span><span class="n">write.csv</span><span class="p">(</span><span class="n">w4h_new_data</span><span class="p">,</span><span class="s1">'parkrun_data.csv'</span><span class="p">,</span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 <p>Reducing the data to what is needed helps save space on Googlesheets and makes Tableau Public not have to work so hard to process our data.</p>
 
@@ -187,7 +187,7 @@ My club liked to manually email members the list of parkrun results on a weekly 
   </span><span class="c1"># send email</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
-<p>For sending emails I used the <code class="highlighter-rouge">gmailr</code> library, you could alternatively use <code class="highlighter-rouge">mailr</code>. For <code class="highlighter-rouge">gmailr</code> I set up a new Gmail email address and set up the Gmail API using the following walkthrough <a href="https://github.com/jimhester/gmailr">https://github.com/jimhester/gmailr</a></p>
+<p>For sending emails I used the <code class="language-plaintext highlighter-rouge">gmailr</code> library, you could alternatively use <code class="language-plaintext highlighter-rouge">mailr</code>. For <code class="language-plaintext highlighter-rouge">gmailr</code> I set up a new Gmail email address and set up the Gmail API using the following walkthrough <a href="https://github.com/jimhester/gmailr">https://github.com/jimhester/gmailr</a></p>
 
 <p>The credentials of the Gmail email address are saved to a text or csv file, this is just good practice to remove passwords and identifiers from your code. Credentials can then be read using:</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get Gmail credentials</span><span class="w">
@@ -212,14 +212,14 @@ My club liked to manually email members the list of parkrun results on a weekly 
 </span><span class="n">send_message</span><span class="p">(</span><span class="n">draft</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p>More about sending emails via <code class="highlighter-rouge">gmailr</code> here: <a href="https://github.com/jennybc/send-email-with-r">https://github.com/jennybc/send-email-with-r</a></p>
+<p>More about sending emails via <code class="language-plaintext highlighter-rouge">gmailr</code> here: <a href="https://github.com/jennybc/send-email-with-r">https://github.com/jennybc/send-email-with-r</a></p>
 
 <h5 id="generate-rmarkdown-html-report">Generate Rmarkdown HTML report</h5>
 <p>The report is generated by building an R Markdown file, a full introduction is available here: <a href="https://rmarkdown.rstudio.com/articles_intro.html">https://rmarkdown.rstudio.com/articles_intro.html</a> essentially for this project creating a standard report that can be updated weekly and rendered as a HTML file to be emailed.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r, echo=FALSE}```
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r, echo=FALSE}```
 </code></pre></div></div>
 <p>The triple quote allows R code to be run without any outputs from the code being returned in the final document. I use these blocks to load libraries and do the majority of the required calculations.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>`r print('Hello World')`
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>`r print('Hello World')`
 </code></pre></div></div>
 <p>The single quote allows for R code snippets to be run inline, I use these for printing the final results to the document.</p>
 
@@ -233,35 +233,35 @@ The header and KPIs are built in similar fashion:</p>
   <li>Image + Inline R code &amp; Text</li>
 </ul>
 
-<p>Images can inserted with with the markdown format <code class="highlighter-rouge">![](image.png)</code> or using the HTML <code class="highlighter-rouge">&lt;img src="image.png"&gt;</code> tag. The <code class="highlighter-rouge">&lt;img&gt;</code> tag I find a bit easier if you wish to resize and position the image using the style attribute e.g. <code class="highlighter-rouge">style=float: left;width: 150px;</code><br /><br />
+<p>Images can inserted with with the markdown format <code class="language-plaintext highlighter-rouge">![](image.png)</code> or using the HTML <code class="language-plaintext highlighter-rouge">&lt;img src="image.png"&gt;</code> tag. The <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> tag I find a bit easier if you wish to resize and position the image using the style attribute e.g. <code class="language-plaintext highlighter-rouge">style=float: left;width: 150px;</code><br /><br />
 Inline R code is used to generate the weekly updated elements, for example, the report date
-<code class="highlighter-rouge">r format(as.Date(max(report$date)),format="%d %b %Y")</code>
-or referencing variables for KPIs <code class="highlighter-rouge">r parkrunners</code> to show the number of parkrunners. Note the data frame <code class="highlighter-rouge">report</code> and variable <code class="highlighter-rouge">parkrunners</code> are predefined in <code class="highlighter-rouge">{r, echo=FALSE}</code> blocks.</p>
+<code class="language-plaintext highlighter-rouge">r format(as.Date(max(report$date)),format="%d %b %Y")</code>
+or referencing variables for KPIs <code class="language-plaintext highlighter-rouge">r parkrunners</code> to show the number of parkrunners. Note the data frame <code class="language-plaintext highlighter-rouge">report</code> and variable <code class="language-plaintext highlighter-rouge">parkrunners</code> are predefined in <code class="language-plaintext highlighter-rouge">{r, echo=FALSE}</code> blocks.</p>
 
 <p>Showing milestones when there’s one and upcoming when they are 3 away</p>
 
 <p><strong>Milestones, Upcoming Milestones and Weekly Results</strong>
 <img style="width: 100%;" src="assets\parkrun_html_milestones.png" />
-Reaching 100 or 200 Parkruns is a serious achievement and should be recognised in the weekly report. Similar if someone is 1 or 2 runs away from a milestone that should be mentioned to spur them on. A data frame of milestones is defined in a <code class="highlighter-rouge">{r, echo=FALSE}</code> block as where the total runs is a multiple of 25.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>milestones &lt;- output %&gt;% filter(output$total_runs %% 25 == 0)
+Reaching 100 or 200 Parkruns is a serious achievement and should be recognised in the weekly report. Similar if someone is 1 or 2 runs away from a milestone that should be mentioned to spur them on. A data frame of milestones is defined in a <code class="language-plaintext highlighter-rouge">{r, echo=FALSE}</code> block as where the total runs is a multiple of 25.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>milestones &lt;- output %&gt;% filter(output$total_runs %% 25 == 0)
 </code></pre></div></div>
 <p>Similarly upcoming milestones are 1-3 runs off a milestone</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>milestones_upcoming &lt;- output %&gt;% filter(output$total_runs %% 25 %in% c(22,23,24))
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>milestones_upcoming &lt;- output %&gt;% filter(output$total_runs %% 25 %in% c(22,23,24))
 </code></pre></div></div>
-<p>Note the <code class="highlighter-rouge">%%</code> does the modulus operation, essentially it’s like division but only returns the remainder, e.g. <code class="highlighter-rouge">10 %% 3</code> equals 1.
-<br />Next, we check whether there is any data in the table to avoid printing an empty table, which is done using an <code class="highlighter-rouge">ifelse</code> function in R, very similar to IF statement in Excel, if the statement is true then do this, otherwise do that.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifelse(nrow(milestones)&gt;0,'Milestones','')
+<p>Note the <code class="language-plaintext highlighter-rouge">%%</code> does the modulus operation, essentially it’s like division but only returns the remainder, e.g. <code class="language-plaintext highlighter-rouge">10 %% 3</code> equals 1.
+<br />Next, we check whether there is any data in the table to avoid printing an empty table, which is done using an <code class="language-plaintext highlighter-rouge">ifelse</code> function in R, very similar to IF statement in Excel, if the statement is true then do this, otherwise do that.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifelse(nrow(milestones)&gt;0,'Milestones','')
 </code></pre></div></div>
 <p>In this example, if the milestones table has 1 or more rows then print the header ‘Milestones’ otherwise print nothing.
 <br />The tables are formatted using the kable function</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>milestones %&gt;% 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>milestones %&gt;% 
 	kable() %&gt;% 
 		kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 </code></pre></div></div>
-<p><br />Headers are given an extra bit of distinction with coloured background by surrounding them with a <code class="highlighter-rouge">&lt;h4&gt;</code> tag and using the style attribute</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>paste0('&lt;h4 style="background-color:#bedff6; padding: 7px;"&gt;',mile_header,'&lt;/h4&gt;')
+<p><br />Headers are given an extra bit of distinction with coloured background by surrounding them with a <code class="language-plaintext highlighter-rouge">&lt;h4&gt;</code> tag and using the style attribute</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>paste0('&lt;h4 style="background-color:#bedff6; padding: 7px;"&gt;',mile_header,'&lt;/h4&gt;')
 </code></pre></div></div>
-<p>After the tables and headers are made they are pasted together then callable as a variable, so are then referenced using  <code class="highlighter-rouge">r mile</code> and <code class="highlighter-rouge">r mile_up</code>. <br />
+<p>After the tables and headers are made they are pasted together then callable as a variable, so are then referenced using  <code class="language-plaintext highlighter-rouge">r mile</code> and <code class="language-plaintext highlighter-rouge">r mile_up</code>. <br />
 The full list of results is produced in a similar approach but looping through the different Parkrun locations and pasting together a combined list of all headers and tables which is then called.
 <img style="width: 100%;" src="assets\parkrun_html_results.png" /></p>
 
