@@ -119,6 +119,7 @@ Personal Github account for personal projects and testing.
 
 #### Awards & Achievements
 
+- Tableau Viz of the Day [2020-08-05](https://public.tableau.com/en-us/gallery/2020-ironviz-tweets?tab=featured&type=featured)
 - Committee Member: West 4 Harriers Running Club
 - Finished Comrades Marathon 2017 (54 miles), UK Ironman 2015, 12 Marathons
 - 50+ SQL questions answered on [Stack Overflow][Stack Overflow]
