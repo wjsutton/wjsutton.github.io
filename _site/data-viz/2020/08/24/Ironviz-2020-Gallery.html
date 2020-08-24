@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=">
+	<link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style_extras.css?v=">
+
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Assembling a Gallery of Iron Viz 2020 Submissions from Twitter | Will Sutton</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Assembling a Gallery of Iron Viz 2020 Submissions from Twitter" />
+<meta name="author" content="Will Sutton" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Assembling a Gallery of Iron Viz Submissions" />
+<meta property="og:description" content="Assembling a Gallery of Iron Viz Submissions" />
+<link rel="canonical" href="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html" />
+<meta property="og:url" content="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html" />
+<meta property="og:site_name" content="Will Sutton" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-24T00:00:00+01:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html","headline":"Assembling a Gallery of Iron Viz 2020 Submissions from Twitter","dateModified":"2020-08-24T00:00:00+01:00","datePublished":"2020-08-24T00:00:00+01:00","description":"Assembling a Gallery of Iron Viz Submissions","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html"},"author":{"@type":"Person","name":"Will Sutton"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <h2 id="project_title">Will Sutton | Data Blog</h2>
+          <!-- <h2 id="project_tagline">Data blog</h2>-->
+		  <nav>
+  
+    <a href="/"  style="padding-right: 10px;">
+      HOME
+    </a>
+  
+    <a href="/portfolio.html"  style="padding-right: 10px;">
+      MY WORK
+    </a>
+  
+    <a href="/resume.html"  style="padding-right: 10px;">
+      RESUME
+    </a>
+  
+    <a href="/contact.html"  style="padding-right: 10px;">
+      CONTACT ME
+    </a>
+  
+</nav>
+
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2 id="assembling-a-gallery-of-iron-viz-submissions">Assembling a Gallery of Iron Viz Submissions</h2>
+
+<p><a href="https://wjsutton.github.io/ironviz2020.html">
+<img src="/assets/images/ironviz_gallery_image.PNG" align="right" style="width:35%;height:35%;padding-left:10px;" /></a></p>
+
+<p>This is the Iron Viz Gallery Page built from this project: <a href="https://wjsutton.github.io/ironviz2020.html">wjsutton.github.io/ironviz2020</a></p>
+
+<p>This project involves building a HTML gallery webpage of Tableau Public ironviz 2020 submissions on Twitter. Identified by the hashtag “#ironviz” or “#ironviz2020” and a Tableau Public URL.
+Please note this is a cut-down, conceptual walkthrough. The full documentation is available at <a href="https://github.com/wjsutton/ironviz_2020_gallery">github.com/wjsutton/ironviz_2020_gallery</a></p>
+
+<p>This project can be divided up into 3 main phases of work</p>
+
+<ol>
+  <li>Pulling #ironviz and #ironviz2020 tweets from Twitter</li>
+  <li>Identifying Tableau Public URLs and obtaining dashboard images</li>
+  <li>Building HTML code to displaying images in a grid</li>
+</ol>
+
+<p><img src="/assets/images/ironviz_gallery_flow_diagram.PNG" style="width:100%;padding:10px;" /></p>
+
+<h3 id="phase-1---pulling-tweets-from-twitter">Phase 1 - Pulling Tweets from Twitter</h3>
+
+<p>This section involves interfacing with the Twitter API to pull tweets containing the hashtags ‘ironviz’ and/or ‘ironviz2020’. The original code was written in R utilising the <code class="language-plaintext highlighter-rouge">Rtweet</code> package but many coding languages can be used to pull this data, e.g. Python with the Tweepy library, Javascript, etc.</p>
+
+<p>With R and rtweet the process change be as straightforward as:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>library(rtweet)
+data &lt;- rtweet::search_tweets('#ironviz', n = 10000)
+View(data)
+</code></pre></div></div>
+
+<p>Notes on the <code class="language-plaintext highlighter-rouge">rtweet::search_tweets()</code> function:</p>
+<ul>
+  <li>Only returns data from the past 6-9 days</li>
+  <li>This extract will include retweets, to exclude them add the clause <code class="language-plaintext highlighter-rouge">include_rts = FALSE</code></li>
+  <li>To return more than 18,000 statuses you will need to include the clause <code class="language-plaintext highlighter-rouge">retryonratelimit = TRUE</code></li>
+</ul>
+
+<p>Also, please note this may require you to have a Twitter App setup, instructions on how to do this can be found here: <a href="https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html">https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html</a></p>
+
+<p>After pulling the tweets we will save them locally to be used later.</p>
+
+<h3 id="phase-2---identifying-tableau-public-urls">Phase 2 - Identifying Tableau Public URLs</h3>
+
+<p>Using the data collected in Phase 1, we are looking for URLs under the column urls_expanded_url that look like either of these:</p>
+
+<p>Case 1. <a href="ttps://public.tableau.com/views/dashboard_name/tab_name?.......">https://public.tableau.com/views/dashboard_name/tab_name?…….</a></p>
+
+<p>Case 2. <a href="https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name">https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name</a></p>
+
+<p>There are a few issues we’ll run into:</p>
+
+<ol>
+  <li>Tweets that aren’t ironviz submissions but ‘inspired by’ posts</li>
+  <li>Submission URLs that link to a profile rather than a viz</li>
+  <li>Short/compressed URLs</li>
+</ol>
+
+<p>For issues 1 &amp; 2, under time constraints these were manual workarounds, in which we edit the data as part of the script. Regarding 3, we used the package <code class="language-plaintext highlighter-rouge">longurl</code> to expand short URLs. More on these tackling these issues in the docs <a href="https://github.com/wjsutton/ironviz_2020_gallery">github.com/wjsutton/ironviz_2020_gallery</a></p>
+
+<h4 id="converting-tableau-public-urls-into-screenshots">Converting Tableau Public URLs into Screenshots</h4>
+
+<p>Tableau Public auto-generates a screenshot of the dashboard, and the link to the image is based on the name of the dashboard uploaded, an example below:</p>
+
+<p><strong>This is a Tableau Public URL</strong><br />
+<a href="https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus">https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus</a></p>
+
+<p><strong>This is a screenshot of the URL</strong><br />
+<a href="https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png">https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png</a>
+)</p>
+
+<p><strong>So the form is like this</strong><br />
+<a href="https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png">https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png</a>
+<br /><em>where da is the first two letters of the dashboard name.</em></p>
+
+<p>Knowing this we can rework all of our Tableau Public URLs to be screenshots of the dashboards to make our gallery page.</p>
+
+<p>These can be then inserted into the HTML as a long list of images using the <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> tag</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;img src='https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png'&gt;
+</code></pre></div></div>
+
+<p>A link can be then applied to wrap the <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> tag with <code class="language-plaintext highlighter-rouge">&lt;a href='link'&gt;&lt;/a&gt;</code>, for this project I decided to link back to the submitter’s original tweet, so they can get an introduction from the author and promotes the opportunity to give a like or post a comment to the author.</p>
+
+<p>Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a href='https://twitter.com/pradeep_zen/status/1287756788792729600'&gt;&lt;img src='https://public.tableau.com/static/images/Wh/WhatisReallyinYourCosmetics/IronViz/1.png'&gt;&lt;/a&gt;
+</code></pre></div></div>
+
+<p>Lastly, the order of the images in the dashboard was determined at random, and the order was re-randomised with each update (every few hours) so it gave everyone a fair shot of being top of the page and helped the discovery of submissions that the user may not have been seen before.</p>
+
+<h3 id="phase-3---building-a-html-gallery-page">Phase 3 - Building a HTML Gallery Page</h3>
+
+<p>This section involves building the HTML gallery page using R (other scripting languages are available) and the CSS file which lays out the images into a grid and works for mobile and desktop views.</p>
+
+<p>The HTML was divided into 4 parts:</p>
+<ul>
+  <li>header</li>
+  <li>blurb</li>
+  <li>images</li>
+  <li>footer</li>
+</ul>
+
+<p>and pasted together to form one document.</p>
+
+<p>Templates of the files can be found here <a href="https://github.com/wjsutton/ironviz_2020_gallery/tree/master/html">github.com/wjsutton/ironviz_2020_gallery/html</a></p>
+
+<p>These are read in R, the blurb KPI ‘NUM_OF_VIZZES’ from <code class="language-plaintext highlighter-rouge">blurb_template.txt</code> is updated with the number of iron viz submissions, merged as one variable and written as the HTML file using the <code class="language-plaintext highlighter-rouge">readLines()</code> and <code class="language-plaintext highlighter-rouge">writeLines()</code> functions.</p>
+
+<p>Lastly, to view the gallery page locally you can use a regular Chrome browser and navigate to a file <code class="language-plaintext highlighter-rouge">ironviz.html</code> however the folder must also contain the CSS file for the image grid to work <a href="https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery">https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery</a></p>
+
+<h3 id="appreciations">Appreciations</h3>
+
+<p>The response from the Tableau community has been immense for what started as a weekend project. I’ve really appreciated hearing all your support and feedback it’s really made all my efforts worthwhile and inspires me to do more - so watch this space!</p>
+
+<p>The project was even recognised by Francois Ajenstat, Tableau’s Chief Product Officer</p>
+
+<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6695742671723606016" height="438" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+
+<p>and made an appearance on <a href="https://www.tableau.com/about/blog/2020/8/best-tableau-web-its-iron-viz-season">Tableau’s Best of the Web</a>.</p>
+
+<p>If you have any feedback for this project please feel free to:</p>
+
+<ul>
+  <li><a href="/contact.html">Contact me</a>📫</li>
+  <li>Raise a pull request on <a href="https://github.com/wjsutton/ironviz_2020_gallery">wjsutton/ironviz_2020_gallery</a>🐙</li>
+  <li>Or send a tweet to <a href="https://twitter.com/WJSutton12">@WJSutton12</a>💬</li>
+</ul>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <!--p>Published with <a href="https://pages.github.com">GitHub Pages</a></p-->
+        
+<div class="sharebuttons">
+	<ul> 
+    <li class="twitter">
+      <a href="https://twitter.com/WJSutton12" target="_blank">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter icon</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+    </li>
+	<!--li class="twitter">
+      <a href="https://github.com/wjsutton" target="_blank">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter icon</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+    </li-->
+	<!--li class="twitter">
+      <a href="https://public.tableau.com/profile/will7508#!/" target="_blank">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter icon</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+    </li-->
+    <!--li class="linkedin">
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html&title=Assembling%20a%20Gallery%20of%20Iron%20Viz%202020%20Submissions%20from%20Twitter" target="_blank">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LinkedIn icon</title><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </li>
+	<li class="reddit">
+      <a href="http://www.reddit.com/submit?url=http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html&title=Assembling%20a%20Gallery%20of%20Iron%20Viz%202020%20Submissions%20from%20Twitter" target="_blank">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Reddit icon</title><path d="M2.204 14.049c-.06.276-.091.56-.091.847 0 3.443 4.402 6.249 9.814 6.249 5.41 0 9.812-2.804 9.812-6.249 0-.274-.029-.546-.082-.809l-.015-.032c-.021-.055-.029-.11-.029-.165-.302-1.175-1.117-2.241-2.296-3.103-.045-.016-.088-.039-.126-.07-.026-.02-.045-.042-.067-.064-1.792-1.234-4.356-2.008-7.196-2.008-2.815 0-5.354.759-7.146 1.971-.014.018-.029.033-.049.049-.039.033-.084.06-.13.075-1.206.862-2.042 1.937-2.354 3.123 0 .058-.014.114-.037.171l-.008.015zm9.773 5.441c-1.794 0-3.057-.389-3.863-1.197-.173-.174-.173-.457 0-.632.176-.165.46-.165.635 0 .63.629 1.685.943 3.228.943 1.542 0 2.591-.3 3.219-.929.165-.164.45-.164.629 0 .165.18.165.465 0 .645-.809.808-2.065 1.198-3.862 1.198l.014-.028zm-3.606-7.573c-.914 0-1.677.765-1.677 1.677 0 .91.763 1.65 1.677 1.65s1.651-.74 1.651-1.65c0-.912-.739-1.677-1.651-1.677zm7.233 0c-.914 0-1.678.765-1.678 1.677 0 .91.764 1.65 1.678 1.65s1.651-.74 1.651-1.65c0-.912-.739-1.677-1.651-1.677zm4.548-1.595c1.037.833 1.8 1.821 2.189 2.904.45-.336.719-.864.719-1.449 0-1.002-.815-1.816-1.818-1.816-.399 0-.778.129-1.09.363v-.002zM2.711 9.963c-1.003 0-1.817.816-1.817 1.818 0 .543.239 1.048.644 1.389.401-1.079 1.172-2.053 2.213-2.876-.302-.21-.663-.329-1.039-.329v-.002zm9.217 12.079c-5.906 0-10.709-3.205-10.709-7.142 0-.275.023-.544.068-.809C.494 13.598 0 12.729 0 11.777c0-1.496 1.227-2.713 2.725-2.713.674 0 1.303.246 1.797.682 1.856-1.191 4.357-1.941 7.112-1.992l1.812-5.524.404.095s.016 0 .016.002l4.223.993c.344-.798 1.138-1.36 2.065-1.36 1.229 0 2.231 1.004 2.231 2.234 0 1.232-1.003 2.234-2.231 2.234s-2.23-1.004-2.23-2.23l-3.851-.912-1.467 4.477c2.65.105 5.047.854 6.844 2.021.494-.464 1.144-.719 1.833-.719 1.498 0 2.718 1.213 2.718 2.711 0 .987-.54 1.886-1.378 2.365.029.255.059.494.059.749-.015 3.938-4.806 7.143-10.72 7.143l-.034.009zm8.179-19.187c-.74 0-1.34.599-1.34 1.338 0 .738.6 1.34 1.34 1.34.732 0 1.33-.6 1.33-1.334 0-.733-.598-1.332-1.347-1.332l.017-.012z"/></svg>
+      </a>
+    </li-->
+	</ul>
+</div>
+      </footer>
+    </div>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-134645025-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>
