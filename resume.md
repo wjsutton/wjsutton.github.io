@@ -7,8 +7,8 @@ I develop end-to-end solutions to problems with data. From the extraction of raw
 
 #### Summary
 
-- 6+ Years’ experience building interactive dashboards with Tableau, SQL (AWS Redshift), and R.
-- 5+ Years’ building and maintaining ETL jobs in Alteryx, Talend, SQL and R.
+- 7+ Years’ experience building interactive dashboards with Tableau, SQL (AWS Redshift), and R.
+- 6+ Years’ building and maintaining ETL jobs in Alteryx, Talend, SQL and R.
 - 2.1 Mathematics and Management (Hons) BSc from Loughborough University
 
 ### RELEVANT HIGHLIGHTS FROM WORK EXPERIENCE
@@ -64,7 +64,7 @@ Educational Qualifications
     </span>
 </p>
 
-Over 40+ Tableau visualisations available on my profile, here are a few of my favourites.
+Over 50+ Tableau visualisations available on my profile, here are a few of my favourites.
 
 <div style="display: flex; flex-wrap: wrap;">
 <div style="width: 32%; height:250px; overflow: hidden;margin: 0 2% 0 0">
@@ -77,11 +77,17 @@ Over 40+ Tableau visualisations available on my profile, here are a few of my fa
 <img src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Th&#47;TheMarathonTheHardPartBeginsAtMile20&#47;TheMarathonTheHardPartBeginsAtMile20&#47;1.png' style="width: 300px; height: 433px">
 </a>
 </div>
-<div style="width: 32%; height:250px; overflow: hidden;margin: 0 0 0 0">
+<!--div style="width: 32%; height:250px; overflow: hidden;margin: 0 0 0 0">
 <a href="https://public.tableau.com/views/DataVisualizationSocietySkillSpread/DVSSpreadofSkills?:display_count=y&:origin=viz_share_link">
 <img src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Da&#47;DataVisualizationSocietySkillSpread&#47;DVSSpreadofSkills&#47;1.png' style="width: 340px; height: 320px">
 </a>
+</div-->
+<div style="width: 32%; height:250px; overflow: hidden;margin: 0 0 0 0">
+<a href="https://public.tableau.com/profile/will7508#!/vizhome/ArthurianLegend/ArthurianLegend">
+<img src='https://public.tableau.com/static/images/Ar/ArthurianLegend/ArthurianLegend/1.png' style="width: 340px; height: 320px">
+</a>
 </div>
+
 </div>
 
 ---
@@ -96,6 +102,7 @@ Over 40+ Tableau visualisations available on my profile, here are a few of my fa
 
 A blog site I developed to document personal projects for my reference and the benefit of others. 
 
+- [📰 Assembling a Gallery of Iron Viz Submissions](https://wjsutton.github.io/data-viz/2020/08/24/Ironviz-2020-Gallery.html) Extracting submissions of Tableau's Iron Viz competition and compiling them into a regularly updated gallery webpage
 - [📰 Building an Animated Voronoi Chart in R](https://wjsutton.github.io/data-viz/2020/05/19/Building-Animated-Voronoi-Chart-In-R.html) Building an animated Voronoi chart to show controlled space in a football match, using R, ggplot2, ggvoronoi, ScreenToGif and ezgif.com.
 - [📰 Passing the Tableau Desktop Certified Professional Qualification](https://wjsutton.github.io/data-viz/2020/04/10/The-Tableau-Professional-Certification.html) Tips and techniques I used to prepare for the Tableau Desktop Certified Professional Qualification
 
@@ -111,9 +118,9 @@ A blog site I developed to document personal projects for my reference and the b
 
 Personal Github account for personal projects and testing.
 
-- [📘 parkrun_parser](https://github.com/wjsutton/parkrun_parser) Extract parkrun.org results from the consolidated club report pages for a weekly email to my running club.
-- [📘 internet_speed_test](https://github.com/wjsutton/internet_speed_test) Monitoring and recording my home internet speed and visualising the results in a [dashboard 📈](https://public.tableau.com/profile/will7508#!/vizhome/MyHomeBroadband/MyHomeBroadband)
-- [📘 ggplot2_snippets](https://github.com/wjsutton/ggplot2_snippets) R ggplot2 templates building from [https://www.r-graph-gallery.com/](https://www.r-graph-gallery.com/)
+- [📘 parkrun_parser](https://github.com/wjsutton/parkrun_parser) Webscraping parkrun.org results from the consolidated club report pages for a weekly email to my running club.
+- [📘 house of games](https://github.com/wjsutton/house_of_games) Reducing lockdown boredom with an on-demand quiz based on the TV show House of Games [shiny app 📈](https://wjsutton.shinyapps.io/house_of_games/)
+- [📘 ggplot2_snippets](https://github.com/wjsutton/ggplot2_snippets) Faster data viz with a gallery of R ggplot2 templates I've produced
 
 ---
 
@@ -126,6 +133,11 @@ Personal Github account for personal projects and testing.
 - Started UK office blood donation group (Cerulli)
 - Competed in over 20 Triathlon Events at University Level
 - Many Charity events including Palace to Palace Cycle Ride and Invesco Highlands
+
+#### Citations
+
+- [Tableau's Best of the Web, Aug 2020](https://www.tableau.com/about/blog/2020/8/best-tableau-web-its-iron-viz-season)
+
 
 #### Interests
 

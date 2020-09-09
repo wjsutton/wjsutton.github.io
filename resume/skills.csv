@@ -1,8 +1,8 @@
 skill,frequency,start_date,stop_date
 Microsoft Office,Daily,01/06/2010,
-Tableau,Daily,01/01/2014,
-SQL,Daily,01/06/2014,
-R,Daily,01/01/2015,
+Tableau,Daily,01/09/2013,
+SQL,Daily,01/03/2014,
+R,Daily,01/09/2014,
 Alteryx (ETL),Working Knowledge,01/01/2014,01/01/2017
 Talend (ETL),Working Knowledge,01/04/2017,01/11/2018
 Python,Weekly,01/03/2019,
