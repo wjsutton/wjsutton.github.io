@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-12T11:28:08+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Assembling a Gallery of Iron Viz 2020 Submissions from Twitter</title><link href="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html" rel="alternate" type="text/html" title="Assembling a Gallery of Iron Viz 2020 Submissions from Twitter" /><published>2020-08-24T00:00:00+01:00</published><updated>2020-08-24T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html">&lt;h2 id=&quot;assembling-a-gallery-of-iron-viz-submissions&quot;&gt;Assembling a Gallery of Iron Viz Submissions&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wjsutton.github.io/ironviz2020.html&quot;&gt;
+&lt;img src=&quot;/assets/images/ironviz_gallery_image.PNG&quot; align=&quot;right&quot; style=&quot;width:35%;height:35%;padding-left:10px;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This is the Iron Viz Gallery Page built from this project: &lt;a href=&quot;https://wjsutton.github.io/ironviz2020.html&quot;&gt;wjsutton.github.io/ironviz2020&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This project involves building a HTML gallery webpage of Tableau Public ironviz 2020 submissions on Twitter. Identified by the hashtag “#ironviz” or “#ironviz2020” and a Tableau Public URL.
+Please note this is a cut-down, conceptual walkthrough. The full documentation is available at &lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery&quot;&gt;github.com/wjsutton/ironviz_2020_gallery&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This project can be divided up into 3 main phases of work&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Pulling #ironviz and #ironviz2020 tweets from Twitter&lt;/li&gt;
+  &lt;li&gt;Identifying Tableau Public URLs and obtaining dashboard images&lt;/li&gt;
+  &lt;li&gt;Building HTML code to displaying images in a grid&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/ironviz_gallery_flow_diagram.PNG&quot; style=&quot;width:100%;padding:10px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;phase-1---pulling-tweets-from-twitter&quot;&gt;Phase 1 - Pulling Tweets from Twitter&lt;/h3&gt;
+
+&lt;p&gt;This section involves interfacing with the Twitter API to pull tweets containing the hashtags ‘ironviz’ and/or ‘ironviz2020’. The original code was written in R utilising the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rtweet&lt;/code&gt; package but many coding languages can be used to pull this data, e.g. Python with the Tweepy library, Javascript, etc.&lt;/p&gt;
+
+&lt;p&gt;With R and rtweet the process change be as straightforward as:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;library(rtweet)
+data &amp;lt;- rtweet::search_tweets('#ironviz', n = 10000)
+View(data)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Notes on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rtweet::search_tweets()&lt;/code&gt; function:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Only returns data from the past 6-9 days&lt;/li&gt;
+  &lt;li&gt;This extract will include retweets, to exclude them add the clause &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;include_rts = FALSE&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;To return more than 18,000 statuses you will need to include the clause &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;retryonratelimit = TRUE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Also, please note this may require you to have a Twitter App setup, instructions on how to do this can be found here: &lt;a href=&quot;https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html&quot;&gt;https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;After pulling the tweets we will save them locally to be used later.&lt;/p&gt;
+
+&lt;h3 id=&quot;phase-2---identifying-tableau-public-urls&quot;&gt;Phase 2 - Identifying Tableau Public URLs&lt;/h3&gt;
+
+&lt;p&gt;Using the data collected in Phase 1, we are looking for URLs under the column urls_expanded_url that look like either of these:&lt;/p&gt;
+
+&lt;p&gt;Case 1. &lt;a href=&quot;ttps://public.tableau.com/views/dashboard_name/tab_name?.......&quot;&gt;https://public.tableau.com/views/dashboard_name/tab_name?…….&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Case 2. &lt;a href=&quot;https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name&quot;&gt;https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;There are a few issues we’ll run into:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Tweets that aren’t ironviz submissions but ‘inspired by’ posts&lt;/li&gt;
+  &lt;li&gt;Submission URLs that link to a profile rather than a viz&lt;/li&gt;
+  &lt;li&gt;Short/compressed URLs&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;For issues 1 &amp;amp; 2, under time constraints these were manual workarounds, in which we edit the data as part of the script. Regarding 3, we used the package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;longurl&lt;/code&gt; to expand short URLs. More on these tackling these issues in the docs &lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery&quot;&gt;github.com/wjsutton/ironviz_2020_gallery&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;converting-tableau-public-urls-into-screenshots&quot;&gt;Converting Tableau Public URLs into Screenshots&lt;/h4&gt;
+
+&lt;p&gt;Tableau Public auto-generates a screenshot of the dashboard, and the link to the image is based on the name of the dashboard uploaded, an example below:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;This is a Tableau Public URL&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&quot;https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus&quot;&gt;https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;This is a screenshot of the URL&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&quot;https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png&quot;&gt;https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png&lt;/a&gt;
+)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;So the form is like this&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&quot;https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png&quot;&gt;https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png&lt;/a&gt;
+&lt;br /&gt;&lt;em&gt;where da is the first two letters of the dashboard name.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Knowing this we can rework all of our Tableau Public URLs to be screenshots of the dashboards to make our gallery page.&lt;/p&gt;
+
+&lt;p&gt;These can be then inserted into the HTML as a long list of images using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;img&amp;gt;&lt;/code&gt; tag&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;img src='https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png'&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;A link can be then applied to wrap the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;img&amp;gt;&lt;/code&gt; tag with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;a href='link'&amp;gt;&amp;lt;/a&amp;gt;&lt;/code&gt;, for this project I decided to link back to the submitter’s original tweet, so they can get an introduction from the author and promotes the opportunity to give a like or post a comment to the author.&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;a href='https://twitter.com/pradeep_zen/status/1287756788792729600'&amp;gt;&amp;lt;img src='https://public.tableau.com/static/images/Wh/WhatisReallyinYourCosmetics/IronViz/1.png'&amp;gt;&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Lastly, the order of the images in the dashboard was determined at random, and the order was re-randomised with each update (every few hours) so it gave everyone a fair shot of being top of the page and helped the discovery of submissions that the user may not have been seen before.&lt;/p&gt;
+
+&lt;h3 id=&quot;phase-3---building-a-html-gallery-page&quot;&gt;Phase 3 - Building a HTML Gallery Page&lt;/h3&gt;
+
+&lt;p&gt;This section involves building the HTML gallery page using R (other scripting languages are available) and the CSS file which lays out the images into a grid and works for mobile and desktop views.&lt;/p&gt;
+
+&lt;p&gt;The HTML was divided into 4 parts:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;header&lt;/li&gt;
+  &lt;li&gt;blurb&lt;/li&gt;
+  &lt;li&gt;images&lt;/li&gt;
+  &lt;li&gt;footer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;and pasted together to form one document.&lt;/p&gt;
+
+&lt;p&gt;Templates of the files can be found here &lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery/tree/master/html&quot;&gt;github.com/wjsutton/ironviz_2020_gallery/html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;These are read in R, the blurb KPI ‘NUM_OF_VIZZES’ from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;blurb_template.txt&lt;/code&gt; is updated with the number of iron viz submissions, merged as one variable and written as the HTML file using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readLines()&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;writeLines()&lt;/code&gt; functions.&lt;/p&gt;
+
+&lt;p&gt;Lastly, to view the gallery page locally you can use a regular Chrome browser and navigate to a file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ironviz.html&lt;/code&gt; however the folder must also contain the CSS file for the image grid to work &lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery&quot;&gt;https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;appreciations&quot;&gt;Appreciations&lt;/h3&gt;
+
+&lt;p&gt;The response from the Tableau community has been immense for what started as a weekend project. I’ve really appreciated hearing all your support and feedback it’s really made all my efforts worthwhile and inspires me to do more - so watch this space!&lt;/p&gt;
+
+&lt;p&gt;The project was even recognised by Francois Ajenstat, Tableau’s Chief Product Officer&lt;/p&gt;
+
+&lt;iframe src=&quot;https://www.linkedin.com/embed/feed/update/urn:li:share:6695742671723606016&quot; height=&quot;438&quot; width=&quot;504&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot; title=&quot;Embedded post&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;and made an appearance on &lt;a href=&quot;https://www.tableau.com/about/blog/2020/8/best-tableau-web-its-iron-viz-season&quot;&gt;Tableau’s Best of the Web&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you have any feedback for this project please feel free to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/contact.html&quot;&gt;Contact me&lt;/a&gt;📫&lt;/li&gt;
+  &lt;li&gt;Raise a pull request on &lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery&quot;&gt;wjsutton/ironviz_2020_gallery&lt;/a&gt;🐙&lt;/li&gt;
+  &lt;li&gt;Or send a tweet to &lt;a href=&quot;https://twitter.com/WJSutton12&quot;&gt;@WJSutton12&lt;/a&gt;💬&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Will Sutton</name></author><summary type="html">Assembling a Gallery of Iron Viz Submissions</summary></entry><entry><title type="html">Building a Shiny App Quiz inspired by BBC’s House of Games</title><link href="http://localhost:4000/data-viz/2020/07/18/House-of-Games.html" rel="alternate" type="text/html" title="Building a Shiny App Quiz inspired by BBC's House of Games" /><published>2020-07-18T00:00:00+01:00</published><updated>2020-07-18T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/07/18/House-of-Games</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/07/18/House-of-Games.html">&lt;h2 id=&quot;building-a-shiny-app-quiz&quot;&gt;Building a Shiny App Quiz&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wjsutton.shinyapps.io/house_of_games/&quot;&gt;
+&lt;img src=&quot;/assets/images/house_of_games_micro.PNG&quot; align=&quot;right&quot; style=&quot;width:35%;height:35%;padding-left:10px;&quot; /&gt; 
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I love a good quiz, and I’m a regular watcher of gameshows old and new.&lt;/p&gt;
+
+&lt;p&gt;After watching a few episodes of Richard Osman’s House of Games I figured I could recreate a similar style of quiz for friends and family to take part in.&lt;/p&gt;
+
+&lt;p&gt;Richard Osman’s House of Games is composed of several rounds, each with their own question format, some examples are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Cine-nyms&lt;/strong&gt; &lt;br /&gt;Film quotes are reworded using a thesaurus.&lt;br /&gt;&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Where is Kazakhstan&lt;/strong&gt; &lt;br /&gt;Answer to a question is a point on a map, you give your answer as a location point on a map.&lt;br /&gt;&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Answer Smash&lt;/strong&gt; &lt;br /&gt;Picture from a theme (e.g. tools) and answer to a question smash together to form 1 answer, e.g. picture of a Hammer + “Underwater Disney adventure about this little humanoid creature” = Hammermaid (Hammer + Mermaid).&lt;br /&gt;&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Broken Karaoke&lt;/strong&gt; &lt;br /&gt;The first letter of each word from the lyrics of a popular song appears on screen in the rhythm of the song.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some rounds present a higher technical challenge than others. For speed of deployment, I opted for what was currently possible with open source tools provided.&lt;/p&gt;
+
+&lt;h4 id=&quot;the-learnr-package&quot;&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;learnr&lt;/code&gt; Package&lt;/h4&gt;
+
+&lt;p&gt;After some research, I found the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;learnr&lt;/code&gt; package, which was developed by the RStudio team to support workshops and new users learn the R language.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;learnr&lt;/code&gt; package builds a shiny app document with support for is creating quiz questions. From reviewing the docs the quiz question formats are limited to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Multiple choice, single answer&lt;/li&gt;
+  &lt;li&gt;Multiple choice, multiple answers&lt;/li&gt;
+  &lt;li&gt;Put the option in the correct order&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So rounds like &lt;strong&gt;Where is Kazakhstan&lt;/strong&gt; would not be possible without development work. But I still felt a fun &amp;amp; challenging quiz would be possible.&lt;/p&gt;
+
+&lt;h4 id=&quot;building-questions&quot;&gt;Building Questions&lt;/h4&gt;
+
+&lt;p&gt;To get a prototype quiz up and running I manually made the quiz questions. I had attempted building a function to reword film quotes &lt;strong&gt;Cine-nyms&lt;/strong&gt; but the quality of output was quite poor, and for what was a weekend project this was eating up too much time.&lt;/p&gt;
+
+&lt;p&gt;There are plans to develop an automated solution to expand the number of questions available depending on feedback.&lt;/p&gt;
+
+&lt;p&gt;Embeding questions in the Rmarkdown file follows the form:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;quiz(caption=&quot;&quot;,
+  question(&quot;What is 1 + 2?&quot;),
+    answer(&quot;1&quot;),
+    answer(&quot;2&quot;),
+    answer(&quot;3&quot;, correct = TRUE),
+    answer(&quot;4&quot;),
+    random_answer_order = TRUE
+    ,correct = paste0('CORRECT! The answer is 3!)
+    ,incorrect = paste0('WRONG! The answer is 3!')
+  ),
+#	...
+#	Add additional questions here
+#	...
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;random_answer_order&lt;/code&gt; will randomise up the answers to questions.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;correct&lt;/code&gt; &amp;amp; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;incorrect&lt;/code&gt; are custom messages upon submitting the right/wrong answers.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;styling-with-css&quot;&gt;Styling with CSS&lt;/h4&gt;
+
+&lt;p&gt;The custom style here makes a bit impact on the looks and feel of the quiz. I honestly received better feedback for the app after styling it - despite the quiz questions bein the same!&lt;/p&gt;
+
+&lt;p&gt;To add a custom style to the shiny app you can create a css file. The css file must be located in the following path:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;project_folder/css/mystyles.css
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;and in the Rmarkdown yaml you can reference this css file using:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;output: 
+  learnr::tutorial:
+          progressive: true
+          allow_skip: true
+          css: css/house_of_games.css
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For building the css file my process involved a lot of back and forth using the Google chrome developer tools.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Inspect the section you want to change it with Google developer tools.&lt;/li&gt;
+  &lt;li&gt;Add some styles to the css file for that section.&lt;/li&gt;
+  &lt;li&gt;Refresh the page and see if anything has changed.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;publishing&quot;&gt;Publishing&lt;/h4&gt;
+
+&lt;p&gt;The last step is publishing the quiz, this requires a &lt;a href=&quot;https://www.shinyapps.io/&quot;&gt;shinyapp.io account&lt;/a&gt; free accounts are available. And publishing can be executed from RStudio.&lt;/p&gt;
+
+&lt;p&gt;You can try out my quiz for yourself by clicking the image below or this link: &lt;a href=&quot;https://wjsutton.shinyapps.io/house_of_games/&quot;&gt;wjsutton.shinyapps.io/house_of_games/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;a href=&quot;https://wjsutton.shinyapps.io/house_of_games/&quot;&gt;
+&lt;img src=&quot;/assets/images/house_of_games.PNG&quot; style=&quot;width:90%;height:90%;&quot; /&gt; 
+&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If you have any feedback for this project please feel free to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/contact.html&quot;&gt;Contact me&lt;/a&gt;📫&lt;/li&gt;
+  &lt;li&gt;Raise a pull request on &lt;a href=&quot;https://github.com/wjsutton/house_of_games&quot;&gt;wjsutton/house_of_games&lt;/a&gt;🐙&lt;/li&gt;
+  &lt;li&gt;Or send a tweet to &lt;a href=&quot;https://twitter.com/WJSutton12&quot;&gt;@WJSutton12&lt;/a&gt;💬&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Will Sutton</name></author><summary type="html">Building a Shiny App Quiz</summary></entry><entry><title type="html">Decreasing the Time from Data -&amp;gt; Viz with ggplot2 Templates</title><link href="http://localhost:4000/data-viz/2020/06/07/ggplot2-snippets.html" rel="alternate" type="text/html" title="Decreasing the Time from Data -&gt; Viz with ggplot2 Templates" /><published>2020-06-07T00:00:00+01:00</published><updated>2020-06-07T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/06/07/ggplot2-snippets</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/06/07/ggplot2-snippets.html">&lt;h2 id=&quot;r-ggplot2-templates&quot;&gt;R ggplot2 Templates&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/beyond_the_defaults_gifs/barplot_loop.gif&quot; align=&quot;right&quot; style=&quot;width:35%;height:35%;padding-left:10px;&quot; /&gt;
+ggplot2 is the go-to package for creating data visualisations with R, with the vast majority of chart types supported or possible with additional packages.&lt;/p&gt;
+
+&lt;p&gt;There are many websites and tutorials to get started. From experience, they provide good, approachable examples but lack options on how to alter the aesthetics of the charts.&lt;/p&gt;
+
+&lt;p&gt;The aesthetics (referring to ggplot2’s theme and labelling) are crucially important for the ease and interpretability of the visuals you produce.&lt;/p&gt;
+
+&lt;h4 id=&quot;the-problem-️&quot;&gt;The Problem ⚠️&lt;/h4&gt;
+
+&lt;p&gt;However after building the basic chart, I found I was spending more time on Google than wanted.&lt;/p&gt;
+
+&lt;p&gt;I found myself Googling endless questions:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;How do I add a title?&lt;/li&gt;
+  &lt;li&gt;How do I change the font size?&lt;/li&gt;
+  &lt;li&gt;How do I remove the grey background?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;the-solution-&quot;&gt;The Solution 💡&lt;/h4&gt;
+
+&lt;p&gt;I created a Github repo to make my own set of templates to refer to.&lt;/p&gt;
+
+&lt;p&gt;The repository &lt;a href=&quot;https://github.com/wjsutton/ggplot2_snippets&quot;&gt;github.com/wjsutton/ggplot2_snippets&lt;/a&gt; offers a selection of chart templates each chart has:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;A clean theme easy to customise included&lt;/li&gt;
+  &lt;li&gt;Comments at each line of the ggplot2 code&lt;/li&gt;
+  &lt;li&gt;Code for saving of the charts locally as png/gif&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;a href=&quot;https://github.com/wjsutton/ggplot2_snippets&quot;&gt;
+&lt;img src=&quot;/assets/images/ggsnippets_repo.PNG&quot; style=&quot;width:90%;height:90%;&quot; /&gt; 
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;Inspiration for project comes from the &lt;a href=&quot;https://www.r-graph-gallery.com/&quot;&gt;r-graph-gallery.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you have any feedback for this project please feel free to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/contact.html&quot;&gt;Contact me&lt;/a&gt;📫&lt;/li&gt;
+  &lt;li&gt;Raise a pull request on &lt;a href=&quot;https://github.com/wjsutton/ggplot2_snippets&quot;&gt;wjsutton/ggplot2_snippets&lt;/a&gt;🐙&lt;/li&gt;
+  &lt;li&gt;Or send a tweet to &lt;a href=&quot;https://twitter.com/WJSutton12&quot;&gt;@WJSutton12&lt;/a&gt;💬&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Will Sutton</name></author><summary type="html">R ggplot2 Templates</summary></entry><entry><title type="html">Understanding Trends for Unpaid Work in America with D3</title><link href="http://localhost:4000/data-viz/2020/05/24/Womens-Unpaid-Work-D3.html" rel="alternate" type="text/html" title="Understanding Trends for Unpaid Work in America with D3" /><published>2020-05-24T00:00:00+01:00</published><updated>2020-05-24T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/05/24/Womens-Unpaid-Work-D3</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/05/24/Womens-Unpaid-Work-D3.html">&lt;h3 id=&quot;women-remain-unpaid-for-the-actual-hours-they-work-in-the-united-states&quot;&gt;Women remain unpaid for the actual hours they work in the United States&lt;/h3&gt;
+
+&lt;p&gt;Data from &lt;a href=&quot;https://unstats.un.org/unsd/gender/timeuse/index.html&quot;&gt;UN Stats&lt;/a&gt; shows us the time adults in the United States spend working paid and unpaid hours. The data shows consistently that women on average spend more time carrying out work that results in no pay.&lt;/p&gt;
+
+&lt;p&gt;The trend from 2003 - 2015 remains consistent each year that for 7 hours of work a woman will only be paid for 3 of them.&lt;/p&gt;
+
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;wrapper&quot;&gt;&lt;/div&gt;
+        &lt;div id=&quot;legend&quot; style=&quot;text-align: center&quot;&gt;&lt;/div&gt;
+		&lt;div id=&quot;source&quot; style=&quot;font-size:14px;&quot;&gt;Author: Will Sutton | Source: UN Stats&lt;/div&gt;
+        &lt;script src=&quot;/assets/d3/makeover_monday_2020w14/d3.v5.js&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;/assets/d3/makeover_monday_2020w14/mom_2020w14_men.js&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;/assets/d3/makeover_monday_2020w14/mom_2020w14_women.js&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;/assets/d3/makeover_monday_2020w14/mom_2020w14_legend.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+&lt;p&gt;&lt;br /&gt;
+Inspiration for this post comes from the &lt;a href=&quot;https://www.makeovermonday.co.uk/&quot;&gt;Makeover Monday&lt;/a&gt; project, a weekly data visualisation exercise.&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Women remain unpaid for the actual hours they work in the United States</summary></entry><entry><title type="html">Exploring Football Player Positions with Animated Voronoi Charts in R</title><link href="http://localhost:4000/data-viz/2020/05/19/Building-Animated-Voronoi-Chart-In-R.html" rel="alternate" type="text/html" title="Exploring Football Player Positions with Animated Voronoi Charts in R" /><published>2020-05-19T00:00:00+01:00</published><updated>2020-05-19T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/05/19/Building-Animated-Voronoi-Chart-In-R</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/05/19/Building-Animated-Voronoi-Chart-In-R.html">&lt;h2 id=&quot;exploring-football-player-position-data-with-animated-voronoi-charts-in-r&quot;&gt;Exploring Football Player Position Data with Animated Voronoi Charts in R&lt;/h2&gt;
+
+&lt;p&gt;This workflow builds from Eva Murray’s tutorial on building a Voronoi chart in Tableau here: &lt;a href=&quot;https://www.exasol.com/en/blog/controlling-space-in-football/&quot;&gt;Controlling space in football - Exasol&lt;/a&gt;. Eva demoed the process at a Tableau London User Group, which led me to think whether it could be achieved using R as well.&lt;/p&gt;
+
+&lt;div style=&quot;text-align:center&quot;&gt;
+  &lt;p&gt;&lt;img src=&quot;/assets/beyond_the_defaults/gifs/football_voronoi_20_speed_compressed.gif&quot; style=&quot;width:80%;height:80%;&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;What is it?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A Voronoi chart (or diagram) overlays a regular scatter chart and divides the chart up drawing line representing the area closest to each point on the scatter chart. For our example of football, this shows roughly how much space each player controls, i.e. if the ball was stationary in a player’s area they should be able to gain possession before the other players. Other factors that can affect this which we haven’t considered e.g. player speed and reaction times.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Outline of process&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Set up an individual frame&lt;/li&gt;
+  &lt;li&gt;Write all frames to a folder&lt;/li&gt;
+  &lt;li&gt;Knit frames together with ScreenToGif&lt;/li&gt;
+  &lt;li&gt;Speed up gif and reduce the size using ezgif.com&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Set up an individual frame&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In R:
+&lt;a href=&quot;https://github.com/wjsutton/ggplot2_snippets/tree/master/voronoi_charts&quot;&gt;Github Link&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Load libraries&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggvoronoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gganimate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dplyr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Load data source and give columns names&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'https://raw.githubusercontent.com/exasol/sports-analytics/master/voronoi%20showcase/position_example.csv'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read.csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stringsAsFactors&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sep&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;';'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Match_ID&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Match_Half&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Team_ID&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Player_ID&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Frame&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Time&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;x&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;y&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Splitting ball position to its own column&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ball&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dplyr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Team_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BALL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;players&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dplyr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Team_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BALL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ball_adj&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ball&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Frame&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;x&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;y&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ball_adj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ball_frame&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ball_x&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ball_y&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left_join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;players&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ball_adj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Frame&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ball_frame&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Team_ID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Filtering for just first frame&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ff_total&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Frame&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Defining pitch size for voronoi plot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rectangle&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;55.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;55.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-55.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-55.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Make first frame and test what image looks like&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ff&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ff_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_voronoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;.125&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outline&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rectangle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_vline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xintercept&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'white'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linetype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'solid'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stat_voronoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;path&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outline&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rectangle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ball_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ball_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;white&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;panel.grid.major&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove gridlines (major)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;panel.grid.minor&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove gridlines (minor)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;panel.background&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove grey background&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot.title&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hjust&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#323232&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Title size and colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot.subtitle&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hjust&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#323232&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Subtitle size and colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot.caption&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vjust&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#323232&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Caption size and colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.ticks.y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove tick marks (Y-Axis)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.text.y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove scale marks (Y-Axis)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.title.y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove axis label (Y-Axis) &lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.ticks.x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove tick marks (X-Axis)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.text.x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove axis scale (X-Axis)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.title.x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove axis label (X-Axis) &lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend.position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bottom&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scale_fill_discrete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Team A&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Team B&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Controlling Space in a Football Match'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Title text&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;caption&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Author: Will Sutton, Source: Exasol&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Create test image&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggsave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;test.png&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# filename&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ff&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# variable for file&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dpi&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;300&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;units&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;in&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# dimensions and image quality&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This will generate an image “test.png” which you can check whether this is the output you want for you gif, if not amend the code above.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Write all frames to a folder&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If you are happy with the image generated in step 1 now you just have to write a loop to generate all the frames. It is advisable to write these images to a separate folder, as it will make the import to ScreenToGif less taxing.&lt;/p&gt;
+
+&lt;p&gt;In R:
+&lt;a href=&quot;https://github.com/wjsutton/ggplot2_snippets/tree/master/voronoi_charts&quot;&gt;Github Link&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Loop through all frames&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))){&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Frame&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_voronoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;.125&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outline&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rectangle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_vline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xintercept&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'white'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linetype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'solid'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stat_voronoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;path&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outline&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rectangle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ball_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ball_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;white&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;panel.grid.major&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove gridlines (major)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;panel.grid.minor&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove gridlines (minor)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;panel.background&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove grey background&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot.title&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hjust&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#323232&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Title size and colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot.subtitle&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hjust&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#323232&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Subtitle size and colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot.caption&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vjust&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#323232&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Caption size and colour&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.ticks.y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove tick marks (Y-Axis)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.text.y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove scale marks (Y-Axis)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.title.y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove axis label (Y-Axis) &lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.ticks.x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove tick marks (X-Axis)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.text.x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove axis scale (X-Axis)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis.title.x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Remove axis label (X-Axis) &lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend.position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bottom&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scale_fill_discrete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Team A&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Team B&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Controlling Space in a Football Match'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Title text&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;caption&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Author: Will Sutton, Source: Exasol&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  
+  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Save the plot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggsave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paste0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;frames/frame_&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.png&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# filename&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# variable for file&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dpi&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;300&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;units&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;in&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# dimensions and image quality&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  
+  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Writing print to console so you can check where the code is&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paste0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Frame: &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; done!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;3. Knit frames together with ScreenToGif&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Open &lt;a href=&quot;https://www.screentogif.com/&quot;&gt;ScreenToGif&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Select “Editor”&lt;/li&gt;
+  &lt;li&gt;Select “File &amp;gt; Load”&lt;/li&gt;
+  &lt;li&gt;Navigate to where you have saved the frames&lt;/li&gt;
+  &lt;li&gt;Select all and click “Open”&lt;/li&gt;
+  &lt;li&gt;Wait for the frames to load&lt;/li&gt;
+  &lt;li&gt;Select “Edit &amp;gt; Override” - this changes the delay between frames&lt;/li&gt;
+  &lt;li&gt;Enter “10” - this changes the time between frames to 10 milliseconds this is currently the shortest time between frames&lt;/li&gt;
+  &lt;li&gt;Select “File &amp;gt; Save as”&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Then check the following:&lt;/p&gt;
+
+    &lt;ul class=&quot;task-list&quot;&gt;
+      &lt;li&gt;File Type: Gif&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Looped Gif&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Repeat Forever&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Detect unchanged pixels&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Save the file to a folder of your choice&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Select Save and wait for the gif to be made&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;4. Speed up gif and reduce the size using ezgif.com&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If the gif is too slow you can speed it up using &lt;a href=&quot;https://ezgif.com/speed&quot;&gt;ezgif.com/speed&lt;/a&gt; upload your gif and then you can select to increase the speed and optimize the size of the gif.&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Exploring Football Player Position Data with Animated Voronoi Charts in R</summary></entry><entry><title type="html">Passing the Tableau Desktop Certified Professional Qualification</title><link href="http://localhost:4000/data-viz/2020/04/10/The-Tableau-Professional-Certification.html" rel="alternate" type="text/html" title="Passing the Tableau Desktop Certified Professional Qualification" /><published>2020-04-10T00:00:00+01:00</published><updated>2020-04-10T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/04/10/The-Tableau-Professional-Certification</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/04/10/The-Tableau-Professional-Certification.html">&lt;h2 id=&quot;passing-the-tableau-desktop-certified-professional-qualification&quot;&gt;Passing the Tableau Desktop Certified Professional Qualification&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/desktop-certified-professional-300x300.png&quot; align=&quot;left&quot; style=&quot;width:30%;height:30%;padding-right:10px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The Tableau Desktop Certified Professional Qualification is the last of three exams you can take to demonstrate and prove your ability with the desktop product. To attempt the test you need to have passed the level 2 exam (Certified Associate) and are recommended to have been using the product for over a year - more details can be found here: &lt;a href=&quot;https://www.tableau.com/en-gb/learn/certification/desktop-certified-professional&quot;&gt;https://www.tableau.com/en-gb/learn/certification/desktop-certified-professional&lt;/a&gt;
+&lt;br /&gt;&lt;br /&gt;
+What it boils down to is:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Knowing what you’re going to be tested on&lt;/li&gt;
+  &lt;li&gt;Knowing what they want to see&lt;/li&gt;
+  &lt;li&gt;Knowing where to improve&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;what-youre-going-to-be-tested-on&quot;&gt;What you’re going to be tested on&lt;/h3&gt;
+
+&lt;p&gt;The version tested from the exam, then reviewing what has been released to the product up to that version &lt;a href=&quot;https://www.tableau.com/en-gb/products/all-features&quot;&gt;https://www.tableau.com/en-gb/products/all-features&lt;/a&gt; you may end up tested specifically on features that were introduced several versions ago.&lt;/p&gt;
+
+&lt;p&gt;The format of mocks, at the time of writing there, is only one mock available online - use this to get an idea of the calibre of questions you’ll be asked in each of the sections.&lt;/p&gt;
+
+&lt;p&gt;This gives you an exam syllabus to work towards, a resource you can use to identify areas that require more focused effort.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-they-want-to-see&quot;&gt;What they want to see&lt;/h3&gt;
+
+&lt;p&gt;Often we have a picture in our heads about what best practice looks like, however, we’re not marking this exam - Tableau is. Reviewing their documents provides good direction on what they want to see and where you should spend your time when against the clock.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;What chart &lt;a href=&quot;https://www.tableau.com/en-nz/learn/whitepapers/which-chart-or-graph-is-right-for-you&quot;&gt;https://www.tableau.com/en-nz/learn/whitepapers/which-chart-or-graph-is-right-for-you&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Visual best practices &lt;a href=&quot;https://www.tableau.com/learn/whitepapers/tableau-visual-guidebook&quot;&gt;https://www.tableau.com/learn/whitepapers/tableau-visual-guidebook&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Effective dashboard design &lt;a href=&quot;https://www.tableau.com/learn/whitepapers/building-effective-dashboards-it-user&quot;&gt;https://www.tableau.com/learn/whitepapers/building-effective-dashboards-it-user&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Take notes from these, it can be helpful to build a checklist of what Tableau consider best practice.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Two takeaways I found:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Formatted Tooltips: taking the time to construct tooltips that add value than the default, e.g. “Sales in the US for 2018 were $300K” rather than “US: $300K”&lt;/li&gt;
+    &lt;li&gt;Descriptive Titles: Saying “Global sales rose 25% from 2016 to 2018” rather than “Global Sales, 2016-2018”&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;These are little changes that take 1-2 minutes to do but make a difference - very good to keep in mind when you’re reviewing your work with limited time left.&lt;/p&gt;
+
+&lt;h3 id=&quot;where-to-improve&quot;&gt;Where to improve&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Identify gaps in knowledge&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;From pulling together everything you’re going to be tested on should give you a list of topics/product features, some used regularly some not so much. The objective is to get confident with all of these in case they are tested.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I identified weaknesses with Level of Detail (LOD) calculations and Set &amp;amp; Parameter Actions, it then becomes a matter of setting aside time to tackle these topics individually and look for applications for my day to day work.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;For set actions I found Lindsey Poulter’s blog a valuable resource &lt;a href=&quot;http://www.lindseypoulter.com/tag/set-actions/&quot;&gt;http://www.lindseypoulter.com/tag/set-actions/&lt;/a&gt; and then started practising her techniques and others which I built a dashboard:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/profile/will7508#!/vizhome/PracticingSetActions/TblCalcWeightedAvg&quot;&gt;&lt;img alt=&quot; &quot; src=&quot;https:&amp;#47;&amp;#47;public.tableau.com&amp;#47;static&amp;#47;images&amp;#47;Pr&amp;#47;PracticingSetActions&amp;#47;SetActionsDrilldown&amp;#47;1_rss.png&quot; style=&quot;border: none&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Similarly, with the weaknesses you find, look for examples from Tableau and the community and then recreate them with another data source.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Practice against the clock&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;During the exam, you’ll be asked to produce many sheets and dashboards in a much short timeframe then you’d expect in a work environment. So being able to create visually effective content at speed is vital with no knowledge of what data you’re going to be dealing with.&lt;/p&gt;
+
+&lt;p&gt;I’ve found Makeover Monday &lt;a href=&quot;https://www.makeovermonday.co.uk&quot;&gt;https://www.makeovermonday.co.uk&lt;/a&gt; an excellent community project to help build the muscle memory for building charts quickly, they have a back catalogue of datasets on their website and webinar reviews so you can see what others have done and hear feedback on how effective their work is.&lt;/p&gt;
+
+&lt;p&gt;In part with tackling these datasets, you can practice building charts under time pressure.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Start with 1 hour to produce a dashboard from one of their datasets&lt;/li&gt;
+  &lt;li&gt;Record the time you take deciding on a story, building charts, formatting charts for when you’re looking on where you can speed up&lt;/li&gt;
+  &lt;li&gt;Then try building dashboards in 30 minutes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I noticed I would spend a large proportion of time formatting charts, e.g. I would format a chart, then decide I didn’t need it and delete it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you are feeling comfortable building with a 30 minutes deadline try building multiple dashboards in a set time. Viz fatigue is a real thing, only something I learnt attempting a 3 hour mock to make 6 Makeover Monday charts.&lt;/p&gt;
+
+&lt;p&gt;Remember this is about improving your time effectiveness, not perfection&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Give your best shot&lt;/li&gt;
+  &lt;li&gt;Review in line with what they want to see&lt;/li&gt;
+  &lt;li&gt;Highlight areas to focus on for next time&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And then practice more. Lots of practice. This doesn’t come overnight, but forming a routine of regular practice as part of community projects or otherwise helps the development of your skills.&lt;/p&gt;
+
+&lt;p&gt;Other Online Resources I Found Useful&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Sarah Barlett’s Blog Post: &lt;a href=&quot;https://sarahlovesdata.co.uk/2019/09/07/practical-tips-to-help-you-prepare-for-the-tableau-desktop-certified-professional-exam/&quot;&gt;https://sarahlovesdata.co.uk/2019/09/07/practical-tips-to-help-you-prepare-for-the-tableau-desktop-certified-professional-exam/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Saahithi Jyothy Surapaneni’s Medium Post: &lt;a href=&quot;https://medium.com/@saahithisurapaneni/i-got-tableau-certified-you-can-too-9cd134c34068&quot;&gt;https://medium.com/@saahithisurapaneni/i-got-tableau-certified-you-can-too-9cd134c34068&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Also at the time of writing Tableau’s online training is now free for 90 days: &lt;a href=&quot;https://www.tableau.com/learn/training/elearning&quot;&gt;https://www.tableau.com/learn/training/elearning&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Good Luck!&lt;/strong&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Passing the Tableau Desktop Certified Professional Qualification</summary></entry><entry><title type="html">Upskill your Tableau Game with these Tips &amp;amp; Tricks</title><link href="http://localhost:4000/data-viz/2018/09/30/Upskill-Your-Tableau-Game-with-these-Tips-&-Tricks.html" rel="alternate" type="text/html" title="Upskill your Tableau Game with these Tips &amp; Tricks" /><published>2018-09-30T00:00:00+01:00</published><updated>2018-09-30T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2018/09/30/Upskill%20Your%20Tableau%20Game%20with%20these%20Tips%20&amp;%20Tricks</id><content type="html" xml:base="http://localhost:4000/data-viz/2018/09/30/Upskill-Your-Tableau-Game-with-these-Tips-&amp;-Tricks.html">&lt;div&gt;
+  &lt;p&gt;&lt;img src=&quot;https://pbs.twimg.com/profile_images/1228767622432464896/wi01-oYY_400x400.jpg&quot; align=&quot;left&quot; style=&quot;width:20%;height:20%;padding-right:10px;&quot; /&gt; Hey, I’m Will, I work as a data analyst at the BBC specialising in data visualisation and automated processes.&lt;/p&gt;
+  &lt;p&gt;This blog is where I test out new projects and document the things I’ve learnt along the way. If you like what you see or want to know a bit more shoot me a tweet at &lt;a href=&quot;https://twitter.com/WJSutton12&quot;&gt;@WJSutton12&lt;/a&gt; or contact me &lt;a href=&quot;/contact.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;hr /&gt;
+
+&lt;h4&gt;TABLEAU TIPS &amp;amp; TRICKS&lt;/h4&gt;
+
+&lt;ul&gt;
+	
+	&lt;div&gt;
+		&lt;a href=&quot;/tableau%20tips%20&amp;amp;%20tricks/2018/09/16/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html&quot; style=&quot;color: inherit;text-decoration: inherit&quot;&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_4_tidy_up_seq.gif&quot; align=&quot;left&quot; style=&quot;width:100px;height:100px;padding-right:10px;&quot; /&gt;&lt;h5&gt;Tableau Tips &amp;amp; Tricks - 4 Custom Sequential Legends&lt;/h5&gt;
+		&lt;span&gt;September 16, 2018 | tableau tips &amp;amp; tricks | 2 mins &lt;/span&gt;
+		&lt;p&gt;Customised sequential legends in Tableau.&lt;/p&gt;&lt;/a&gt;
+		&lt;br /&gt;
+	&lt;/div&gt;
+	
+	&lt;div&gt;
+		&lt;a href=&quot;/tableau%20tips%20&amp;amp;%20tricks/2018/09/12/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html&quot; style=&quot;color: inherit;text-decoration: inherit&quot;&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif&quot; align=&quot;left&quot; style=&quot;width:100px;height:100px;padding-right:10px;&quot; /&gt;&lt;h5&gt;Tableau Tips &amp;amp; Tricks - 3 Custom Categorical Legends&lt;/h5&gt;
+		&lt;span&gt;September 12, 2018 | tableau tips &amp;amp; tricks | 2 mins &lt;/span&gt;
+		&lt;p&gt;Customised categorical legends in Tableau.&lt;/p&gt;&lt;/a&gt;
+		&lt;br /&gt;
+	&lt;/div&gt;
+	
+	&lt;div&gt;
+		&lt;a href=&quot;/tableau%20tips%20&amp;amp;%20tricks/2018/09/08/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html&quot; style=&quot;color: inherit;text-decoration: inherit&quot;&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_final.gif&quot; align=&quot;left&quot; style=&quot;width:100px;height:100px;padding-right:10px;&quot; /&gt;&lt;h5&gt;Tableau Tips &amp;amp; Tricks - 2 Title as a Sheet&lt;/h5&gt;
+		&lt;span&gt;September 8, 2018 | tableau tips &amp;amp; tricks | 2 mins &lt;/span&gt;
+		&lt;p&gt;Have charts in Tableau that need different titles and a standard chart title doesn’t do what you want? Here's a fix for that.&lt;/p&gt;&lt;/a&gt;
+		&lt;br /&gt;
+	&lt;/div&gt;
+	
+	&lt;div&gt;
+		&lt;a href=&quot;/tableau%20tips%20&amp;amp;%20tricks/2018/09/04/Tableau-Tips-Tricks-1-Sheet-Selectors.html&quot; style=&quot;color: inherit;text-decoration: inherit&quot;&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_01_sheet_selector/sheet_selector_final.gif&quot; align=&quot;left&quot; style=&quot;width:100px;height:100px;padding-right:10px;&quot; /&gt;&lt;h5&gt;Tableau Tips &amp;amp; Tricks - 1 Sheet Selectors&lt;/h5&gt;
+		&lt;span&gt;September 4, 2018 | tableau tips &amp;amp; tricks | 3 mins &lt;/span&gt;
+		&lt;p&gt;Sheet swapping in Tableau, a technique that allows you to change the type of charts shown on a dashboard.&lt;/p&gt;&lt;/a&gt;
+		&lt;br /&gt;
+	&lt;/div&gt;
+	
+&lt;/ul&gt;</content><author><name>Will Sutton</name></author><summary type="html">Hey, I’m Will, I work as a data analyst at the BBC specialising in data visualisation and automated processes. This blog is where I test out new projects and document the things I’ve learnt along the way. If you like what you see or want to know a bit more shoot me a tweet at @WJSutton12 or contact me here.</summary></entry><entry><title type="html">Tableau Tips &amp;amp; Tricks - 4 Custom Sequential Legends</title><link href="http://localhost:4000/tableau%20tips%20&%20tricks/2018/09/16/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html" rel="alternate" type="text/html" title="Tableau Tips &amp; Tricks - 4 Custom Sequential Legends" /><published>2018-09-16T00:00:00+01:00</published><updated>2018-09-16T00:00:00+01:00</updated><id>http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/16/Tableau-Tips-Tricks-4-Custom-Sequential-Legend</id><content type="html" xml:base="http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/16/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html">&lt;h2 id=&quot;tableau-tips--tricks-4-custom-sequential-legends&quot;&gt;Tableau Tips &amp;amp; Tricks: #4 Custom Sequential Legends&lt;/h2&gt;
+&lt;p&gt;AKA: Legend as a Sheet&lt;/p&gt;
+
+&lt;h3 id=&quot;outline&quot;&gt;Outline&lt;/h3&gt;
+
+&lt;p&gt;Add a custom sequential legend to a dashboard&lt;/p&gt;
+
+&lt;h3 id=&quot;use-cases&quot;&gt;Use Cases&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Making a consistent legend not dependent on a chart&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;step-1---set-all-sequential-charts-to-the-same-range&quot;&gt;Step 1 - Set all Sequential Charts to the same range&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;In your Tableau dashboard for each chart using a sequential range set them all to a standard range by:&lt;/li&gt;
+  &lt;li&gt;Go to sheet&lt;/li&gt;
+  &lt;li&gt;Click “Color”, Edit Colours&lt;/li&gt;
+  &lt;li&gt;Click “Advanced” then set you start and end ranges&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_1_set_seq_for_all.gif&quot; alt=&quot;Step 1&quot; title=&quot;Step 1&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;step-2---build-legend-range-in-excel-and-insert-to-tableau&quot;&gt;Step 2 - Build Legend Range in Excel and Insert to Tableau&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Create a numerical list based on the colour range you entered in Step 1, I use 10 points (this only affects the numbers of colours displayed in the legend - you can increase or decrease this depending on your case)&lt;/li&gt;
+  &lt;li&gt;Copy the Excel data, in Tableau right click on “Data” and then “Paste” to enter the data as a data source&lt;/li&gt;
+  &lt;li&gt;Begin building the sequential legend:&lt;/li&gt;
+  &lt;li&gt;Duplicate “Legend”, convert it to a Dimension and add it to Rows&lt;/li&gt;
+  &lt;li&gt;Create a calculated field
+   name: dummy field
+   calculation: MIN(1)&lt;/li&gt;
+  &lt;li&gt;Add “dummy field” to Columns&lt;/li&gt;
+  &lt;li&gt;Add the Measure version of “Legend” to Color&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_2_excel_transfer.gif&quot; alt=&quot;Step 2&quot; title=&quot;Step 2&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;step-3---continue-building-sequential-legend&quot;&gt;Step 3 - Continue Building Sequential Legend&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Rotate axis so the coloured bars are horizontal and maximise their size&lt;/li&gt;
+  &lt;li&gt;Create data labels by adding your measure to Label and set “Marks to Label” to “Max/Min”, format the measure if necessary&lt;/li&gt;
+  &lt;li&gt;Hide the axis header by right-clicking and unticking “Show Header”, remove default legend&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_3_build_seq.gif&quot; alt=&quot;Step 3&quot; title=&quot;Step 3&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;step-4---tidy-up-sequential-legend&quot;&gt;Step 4 - Tidy up Sequential Legend&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Alter the dummy field axis to move the sequential legend up by altering the axis range, in the example I pick -0.2 to 1, however you may need to convert the dummy field to a numeric/decimal type - this can be done by edit the calculated field to MIN(1.0)&lt;/li&gt;
+  &lt;li&gt;Rename the Sheet Title to Legend and format
+&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_4_tidy_up_seq.gif&quot; alt=&quot;Step 4&quot; title=&quot;Step 4&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;step-5---add-legend-to-dashboard&quot;&gt;Step 5 - Add legend to dashboard&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Drag the newly sheet into your dashboard, adjust as necessary&lt;/li&gt;
+  &lt;li&gt;Make sure you disable any filter or actions from affecting this sheet&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_5_add_to_dash.gif&quot; alt=&quot;Step 5&quot; title=&quot;Step 5&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;faqs&quot;&gt;FAQs&lt;/h3&gt;
+
+&lt;p&gt;Do I have to insert data from Excel?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;try-it-yourself&quot;&gt;Try it yourself!&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/views/TipsTricks4-CustomSequentialLegend/GlobalSuperstoreSales?:embed=y&amp;amp;:display_count=yes&quot;&gt;Dashboard Link&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Tableau Tips &amp;amp; Tricks: #4 Custom Sequential Legends AKA: Legend as a Sheet</summary></entry><entry><title type="html">Tableau Tips &amp;amp; Tricks - 3 Custom Categorical Legends</title><link href="http://localhost:4000/tableau%20tips%20&%20tricks/2018/09/12/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html" rel="alternate" type="text/html" title="Tableau Tips &amp; Tricks - 3 Custom Categorical Legends" /><published>2018-09-12T00:00:00+01:00</published><updated>2018-09-12T00:00:00+01:00</updated><id>http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/12/Tableau-Tips-Tricks-3-Custom-Categorical-Legend</id><content type="html" xml:base="http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/12/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html">&lt;h2 id=&quot;tableau-tips--tricks-3-custom-categorical-legends&quot;&gt;Tableau Tips &amp;amp; Tricks: #3 Custom Categorical Legends&lt;/h2&gt;
+&lt;p&gt;AKA: Legend as a Sheet&lt;/p&gt;
+
+&lt;h3 id=&quot;outline&quot;&gt;Outline&lt;/h3&gt;
+
+&lt;p&gt;Add a custom categorical legend to a dashboard&lt;/p&gt;
+
+&lt;h3 id=&quot;use-cases&quot;&gt;Use Cases&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Making a consistent legend not dependent on a chart&lt;/li&gt;
+  &lt;li&gt;Merging different legends together as one&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;example-of-problem&quot;&gt;Example of Problem&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_1.gif&quot; alt=&quot;Example of Problem&quot; title=&quot;Example of Problem&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I have a standard Tableau legend for three charts in my dashboard, if I apply filters they will be applied to the legend, in some cases, the legend will not represent all the colours in the dashboard which may be confusing.&lt;/p&gt;
+
+&lt;h3 id=&quot;step-1---build-the-data-in-excel-and-import-to-tableau&quot;&gt;Step 1 - Build the data in Excel and import to Tableau&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;In Excel in a column enter a heading (in this case “Legend”) followed by your legend options&lt;/li&gt;
+  &lt;li&gt;Copy this data in Excel&lt;/li&gt;
+  &lt;li&gt;In Tableau, under the heading “Data” click “Paste”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_2_excel_transfer.gif&quot; alt=&quot;Step 1&quot; title=&quot;Step 1&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;step-2---create-a-dummy-field-and-build-a-legend&quot;&gt;Step 2 - Create a dummy field and build a legend&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Using the imported data start building the legend by:&lt;/li&gt;
+  &lt;li&gt;Add “Legend” to Rows&lt;/li&gt;
+  &lt;li&gt;Add “Legend” to Color&lt;/li&gt;
+  &lt;li&gt;Create a calculated field
+   name: dummy field
+   calculation: MIN(1)&lt;/li&gt;
+  &lt;li&gt;Add “dummy field” to Columns&lt;/li&gt;
+  &lt;li&gt;Change chart type to Shape: Filled Square&lt;/li&gt;
+  &lt;li&gt;Add “Legend” to Label&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_3_build_dummy_field.gif&quot; alt=&quot;Step 2&quot; title=&quot;Step 2&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;step-3---clean-up-the-legend&quot;&gt;Step 3 - Clean up the legend&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Edit the axis of “dummy field” to a range of 0 to 8 (this will shift the marks to the left, you can adjust this range to your preference)&lt;/li&gt;
+  &lt;li&gt;Right click on the axis, untick “Show Header”&lt;/li&gt;
+  &lt;li&gt;Format the lines on the chart, set all to “None” until no lines appear on the legend&lt;/li&gt;
+  &lt;li&gt;Edit the title to Legend and format&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_4_clean_up.gif&quot; alt=&quot;Step 3&quot; title=&quot;Step 3&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;step-4---add-the-legend-to-the-dashboard&quot;&gt;Step 4 - Add the legend to the dashboard&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Drag the newly created sheet to your dashboard&lt;/li&gt;
+  &lt;li&gt;Delete the default legend which is inserted&lt;/li&gt;
+  &lt;li&gt;Set view to “Entire View”&lt;/li&gt;
+  &lt;li&gt;If you have dashboard actions make sure they don’t apply to your legend sheet&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif&quot; alt=&quot;Step 4&quot; title=&quot;Step 4&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;faqs&quot;&gt;FAQs&lt;/h3&gt;
+
+&lt;p&gt;Do I have to insert data from Excel?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;try-it-yourself&quot;&gt;Try it yourself!&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/views/TipsTricks3-CustomCategoricalLegend/GlobalSuperstoreSales?:embed=y&amp;amp;:display_count=yes&quot;&gt;Dashboard Link&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Tableau Tips &amp;amp; Tricks: #3 Custom Categorical Legends AKA: Legend as a Sheet</summary></entry><entry><title type="html">Tableau Tips &amp;amp; Tricks - 2 Title as a Sheet</title><link href="http://localhost:4000/tableau%20tips%20&%20tricks/2018/09/08/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html" rel="alternate" type="text/html" title="Tableau Tips &amp; Tricks - 2 Title as a Sheet" /><published>2018-09-08T00:00:00+01:00</published><updated>2018-09-08T00:00:00+01:00</updated><id>http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/08/Tableau-Tips-Tricks-2-Title-as-a-Sheet</id><content type="html" xml:base="http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/08/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html">&lt;h2 id=&quot;tableau-tips--tricks-2-title-as-a-sheet&quot;&gt;Tableau Tips &amp;amp; Tricks: #2 Title as a Sheet&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_final.gif&quot; alt=&quot;Title as a Sheet&quot; title=&quot;Title as a Sheet&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;outline&quot;&gt;Outline&lt;/h3&gt;
+
+&lt;p&gt;Adding a title as a separate sheet rather than using the standard chart titles.&lt;/p&gt;
+
+&lt;h3 id=&quot;use-cases&quot;&gt;Use Cases&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;When using a sheet selector the standard chart titles will appear as ‘NULL’ or ‘None’&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h3&gt;
+
+&lt;p&gt;You have charts that need different titles where the standard chart title doesn’t do what you want.&lt;/p&gt;
+
+&lt;h3 id=&quot;step-1---create-a-sheet-and-a-calculated-field&quot;&gt;Step 1 - Create a Sheet and a Calculated Field&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Create a new sheet that will be your title&lt;/li&gt;
+  &lt;li&gt;Create a calculated field using a CASE expression mapping your parameter inputs to a specific title, for example:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;CASE [SALES]
+WHEN ‘By State’ THEN ‘US Superstore Sales by State, 2014’
+WHEN ‘By Sub-Category’ THEN ‘US Superstore Sales by Sub-Category, 2014’
+END
+Where:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;[SALES] is the input Parameter&lt;/li&gt;
+  &lt;li&gt;‘By State’ and ‘By Sub-Category’ are the values for the Parameter [SALES],&lt;/li&gt;
+  &lt;li&gt;‘US Superstore Sales by State, 2014’ and ‘US Superstore Sales by Sub-Category, 2014’ are example titles&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_1_create_sheet_and_calc_field.gif&quot; alt=&quot;Step 1&quot; title=&quot;Step 1&quot; /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;step-2---format-title&quot;&gt;Step 2 - Format Title&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Format the title using the text box to your preference or style guide&lt;/li&gt;
+  &lt;li&gt;Turn off tooltips if you don’t need them&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_2_create_chart_title.gif&quot; alt=&quot;Step 2&quot; title=&quot;Step 2&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;step-3---add-sheet-to-dashboard&quot;&gt;Step 3 - Add Sheet to Dashboard&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Drag the sheet to the top of the layout container&lt;/li&gt;
+  &lt;li&gt;Set Fit to ‘Fit Width’&lt;/li&gt;
+  &lt;li&gt;Check the Parameter works as expected&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_3_add_title_to_dashboard.gif&quot; alt=&quot;Step 3&quot; title=&quot;Step 3&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;faqs&quot;&gt;FAQs&lt;/h3&gt;
+
+&lt;p&gt;Can I use this without a parameter input?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Essentially yes, all we are doing here is defining a title as a calculated field and saying “If Option A happens show Title A” as such the CASE expression in Step 1 can be reworked to use a quick filter or dashboard action.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As this is a calculated field can I add dimensions and measures to it, e.g. year?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Yes, although you will need to pass on any filters to the Chart Title sheet, and ensure the all the dimensions and measures are aggregated to one value, otherwise, you’ll end up with multiple titles in the sheet, e.g. 
+      US Superstore Sales by State, 2014
+      US Superstore Sales by State, 2013&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;try-it-yourself&quot;&gt;Try it yourself!&lt;/h3&gt;
+&lt;p&gt;Dashboard Link: &lt;a href=&quot;https://public.tableau.com/views/TipsTricks2-TitleasaSheet/TitleasaSheet?:embed=y&amp;amp;:display_count=yes&quot;&gt;https://public.tableau.com/views/TipsTricks2-TitleasaSheet/TitleasaSheet?:embed=y&amp;amp;:display_count=yes&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Tableau Tips &amp;amp; Tricks: #2 Title as a Sheet</summary></entry></feed>

@@ -52,7 +52,7 @@ gantt <- ggplot(data, aes(fill=Type, x=Organisation, y=duration)) + # enter data
            ,stat = "identity"
            ,colour = "white" # colour borders
            ,show.legend = FALSE) + # remove legend
-  scale_fill_manual("Legend", values = c("Work" = "#3374FF", "Education" = "#B3CBFF","Education2" = "#B3CBFF", "Gap1" = "#FFFFFF","Work2" = "#3374FF","Work3" = "#3374FF","Work4" = "#3374FF","Gap2" = "#FFFFFF","Gap3" = "#FFFFFF","Gap4" = "#FFFFFF","Gap5" = "#FFFFFF")) +
+  scale_fill_manual("Legend", values = c("Work" = "#016E8F", "Education" = "#9BD5E7","Education2" = "#9BD5E7", "Gap1" = "#FFFFFF","Work2" = "#016E8F","Work3" = "#016E8F","Work4" = "#016E8F","Gap2" = "#FFFFFF","Gap3" = "#FFFFFF","Gap4" = "#FFFFFF","Gap5" = "#FFFFFF")) +
   coord_flip() + # flip vertical bars into horizontal bar
   theme(
     panel.grid.major = element_blank() # Remove gridlines (major)
@@ -76,10 +76,10 @@ gantt <- ggplot(data, aes(fill=Type, x=Organisation, y=duration)) + # enter data
   # Adding Legend
   annotate(xmin = 0.6, xmax = 1, 
            ymin = (as.integer(max(data$End) - min(data$Start))), ymax = (as.integer(max(data$End) - min(data$Start)) +250),  
-           geom = "rect", fill = "#B3CBFF") +
+           geom = "rect", fill = "#9BD5E7") +
   annotate(xmin = 1.1, xmax = 1.5, 
            ymin = (as.integer(max(data$End) - min(data$Start))), ymax = (as.integer(max(data$End) - min(data$Start)) +250), 
-           geom = "rect", fill = "#3374FF") +
+           geom = "rect", fill = "#016E8F") +
   annotate("text", x = 0.8, y = (as.integer(max(data$End) - min(data$Start)) +250), label = " Education", hjust = 0) +
   annotate("text", x = 1.3, y = (as.integer(max(data$End) - min(data$Start)) +250), label = " Work", hjust = 0) +
   geom_hline(yintercept=0, color = "black", size=0.5) + # Axis line size and colour (X-Axis)

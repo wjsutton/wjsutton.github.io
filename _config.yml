@@ -14,3 +14,8 @@ kramdown:
 theme:  jekyll-theme-slate
 
 google_analytics: UA-134645025-1
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag

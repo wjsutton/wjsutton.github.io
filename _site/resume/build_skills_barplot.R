@@ -25,7 +25,7 @@ skills$frequency <- as.factor(skills$frequency)
 
 barplot <- ggplot(skills, aes(x=reorder(skill, years), y=years, fill = frequency)) + # enter data frame
   geom_bar(stat = "identity",colour = 'black') + 
-  scale_fill_manual("Current Usage:     ", values = c("Daily" = "#323232", "Weekly" = "grey", "Working Knowledge" = "white")) +
+  scale_fill_manual("Current Usage:     ", values = c("Daily" = "#188B8F", "Weekly" = "#4FD9DB", "Working Knowledge" = "#DEFBFC")) +
   coord_flip() + # flip vertical bars into horizontal bar
   geom_text(aes(label = years # data labels
                 ,y =  years + max(years)*0.01) # positioned just outside bar
@@ -51,7 +51,7 @@ barplot <- ggplot(skills, aes(x=reorder(skill, years), y=years, fill = frequency
     ,legend.text = element_text(hjust = 0, size = 16, colour = "#323232") # Title size and colour
     ,legend.title = element_text(hjust = 0, size = 16, colour = "#323232") # Title size and colour
   ) +
-  geom_hline(yintercept=0, color = "#7f7fff", size=1) + # Axis line size and colour (Y-Axis)
+  geom_hline(yintercept=0, color = "#323232", size=1) + # Axis line size and colour (Y-Axis)
   labs(title = 'Software Skills' # Title text
        ,subtitle = element_blank() # Subtitle text
        ,x = element_blank() # Removed Y-Axis text (flipped co-ordinates) 
