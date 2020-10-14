@@ -7,8 +7,13 @@ layout: default
 
 <div style="display: flex; flex-wrap: wrap;">
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
+<a href="https://public.tableau.com/profile/will7508#!/vizhome/RunningforOlympicGold/RunningforOlympicGold">
+<img src='https://public.tableau.com/static/images/Ru/RunningforOlympicGold/RunningforOlympicGold/1.png' style="width: 450px">
+</a>
+</div>
+<div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
 <a href="https://public.tableau.com/profile/will7508#!/vizhome/ArthurianLegend/ArthurianLegend">
-<img src='https://public.tableau.com/static/images/Ar/ArthurianLegend/ArthurianLegend/1.png' style="width: 600px">
+<img src='https://public.tableau.com/static/images/Ar/ArthurianLegend/ArthurianLegend/1.png' style="width: 350px">
 </a>
 </div>
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
