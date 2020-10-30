@@ -79,7 +79,7 @@ Please note this is a cut-down, conceptual walkthrough. The full documentation i
   <li>Building HTML code to displaying images in a grid</li>
 </ol>
 
-<p><img src="/assets/images/ironviz_gallery_flow_diagram.PNG" style="width:100%;padding:10px;" /></p>
+<p><img src="/assets/images/ironviz_gallery_flow_diagram.PNG" style="width:95%;padding:10px;" /></p>
 
 <h3 id="phase-1---pulling-tweets-from-twitter">Phase 1 - Pulling Tweets from Twitter</h3>
 
@@ -107,9 +107,9 @@ View(data)
 
 <p>Using the data collected in Phase 1, we are looking for URLs under the column urls_expanded_url that look like either of these:</p>
 
-<p>Case 1. <a href="ttps://public.tableau.com/views/dashboard_name/tab_name?.......">https://public.tableau.com/views/dashboard_name/tab_name?…….</a></p>
+<p style="font-size:60%"><strong>Case 1.</strong> [<a href="ttps://public.tableau.com/views/dashboard_name/tab_name?.......">https://public.tableau.com/views/dashboard_name/tab_name?…….</a></p>
 
-<p>Case 2. <a href="https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name">https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name</a></p>
+<p style="font-size:60%"><strong>Case 2.</strong> [<a href="https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name">https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name</a></p>
 
 <p>There are a few issues we’ll run into:</p>
 
@@ -119,22 +119,22 @@ View(data)
   <li>Short/compressed URLs</li>
 </ol>
 
-<p>For issues 1 &amp; 2, under time constraints these were manual workarounds, in which we edit the data as part of the script. Regarding 3, we used the package <code class="language-plaintext highlighter-rouge">longurl</code> to expand short URLs. More on these tackling these issues in the docs <a href="https://github.com/wjsutton/ironviz_2020_gallery">github.com/wjsutton/ironviz_2020_gallery</a></p>
+<p>For issues 1 &amp; 2, under time constraints these were manual workarounds, in which we edit the data as part of the script. Regarding 3, we used the package <code class="language-plaintext highlighter-rouge">longurl</code> to expand short URLs. More on these tackling these issues in the docs &lt;p style="font-size:60%"&gt;<a href="https://github.com/wjsutton/ironviz_2020_gallery">github.com/wjsutton/ironviz_2020_gallery</a>&lt;/p&gt;</p>
 
 <h4 id="converting-tableau-public-urls-into-screenshots">Converting Tableau Public URLs into Screenshots</h4>
 
 <p>Tableau Public auto-generates a screenshot of the dashboard, and the link to the image is based on the name of the dashboard uploaded, an example below:</p>
 
-<p><strong>This is a Tableau Public URL</strong><br />
-<a href="https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus">https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus</a></p>
+<p><strong>This is a Tableau Public URL</strong></p>
+<p style="font-size:60%"><a href="https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus">https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus</a></p>
 
-<p><strong>This is a screenshot of the URL</strong><br />
-<a href="https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png">https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png</a>
-)</p>
+<p><strong>This is a screenshot of the URL</strong><br /></p>
+<p style="font-size:60%">[<a href="https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png">https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png</a></p>
+<p>)</p>
 
-<p><strong>So the form is like this</strong><br />
-<a href="https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png">https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png</a>
-<br /><em>where da is the first two letters of the dashboard name.</em></p>
+<p><strong>So the form is like this</strong></p>
+<p style="font-size:60%">[<a href="https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png">https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png</a></p>
+<p><br /><em>where da is the first two letters of the dashboard name.</em></p>
 
 <p>Knowing this we can rework all of our Tableau Public URLs to be screenshots of the dashboards to make our gallery page.</p>
 
@@ -166,11 +166,13 @@ View(data)
 
 <p>and pasted together to form one document.</p>
 
-<p>Templates of the files can be found here <a href="https://github.com/wjsutton/ironviz_2020_gallery/tree/master/html">github.com/wjsutton/ironviz_2020_gallery/html</a></p>
+<p>Templates of the files can be found here: <br />
+<a href="https://github.com/wjsutton/ironviz_2020_gallery/tree/master/html">github.com/wjsutton/ironviz_2020_gallery/html</a></p>
 
 <p>These are read in R, the blurb KPI ‘NUM_OF_VIZZES’ from <code class="language-plaintext highlighter-rouge">blurb_template.txt</code> is updated with the number of iron viz submissions, merged as one variable and written as the HTML file using the <code class="language-plaintext highlighter-rouge">readLines()</code> and <code class="language-plaintext highlighter-rouge">writeLines()</code> functions.</p>
 
-<p>Lastly, to view the gallery page locally you can use a regular Chrome browser and navigate to a file <code class="language-plaintext highlighter-rouge">ironviz.html</code> however the folder must also contain the CSS file for the image grid to work <a href="https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery">https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery</a></p>
+<p>Lastly, to view the gallery page locally you can use a regular Chrome browser and navigate to a file <code class="language-plaintext highlighter-rouge">ironviz.html</code> however the folder must also contain the CSS file for the image grid to work:
+<br /><a href="https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery">ironviz_2020_gallery/tree/master/gallery</a></p>
 
 <h3 id="appreciations">Appreciations</h3>
 
@@ -178,7 +180,7 @@ View(data)
 
 <p>The project was even recognised by Francois Ajenstat, Tableau’s Chief Product Officer</p>
 
-<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6695742671723606016" height="438" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6695742671723606016" height="438" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
 
 <p>and made an appearance on <a href="https://www.tableau.com/about/blog/2020/8/best-tableau-web-its-iron-viz-season">Tableau’s Best of the Web</a>.</p>
 

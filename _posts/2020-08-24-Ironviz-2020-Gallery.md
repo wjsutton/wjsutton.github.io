@@ -23,7 +23,7 @@ This project can be divided up into 3 main phases of work
 2. Identifying Tableau Public URLs and obtaining dashboard images
 3. Building HTML code to displaying images in a grid
 
-<img src="/assets/images/ironviz_gallery_flow_diagram.PNG" style="width:100%;padding:10px;"/>
+<img src="/assets/images/ironviz_gallery_flow_diagram.PNG" style="width:95%;padding:10px;"/>
 
 ### Phase 1 - Pulling Tweets from Twitter
 
@@ -51,9 +51,9 @@ After pulling the tweets we will save them locally to be used later.
 
 Using the data collected in Phase 1, we are looking for URLs under the column urls_expanded_url that look like either of these:
 
-Case 1. [https://public.tableau.com/views/dashboard_name/tab_name?.......](ttps://public.tableau.com/views/dashboard_name/tab_name?.......)
+<p style="font-size:60%">**Case 1.** [[https://public.tableau.com/views/dashboard_name/tab_name?.......](ttps://public.tableau.com/views/dashboard_name/tab_name?.......)</p>
 
-Case 2. [https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name](https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name)
+<p style="font-size:60%">**Case 2.** [[https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name](https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name)</p>
 
 There are a few issues we'll run into:
 
@@ -61,21 +61,21 @@ There are a few issues we'll run into:
 2. Submission URLs that link to a profile rather than a viz
 3. Short/compressed URLs
 
-For issues 1 & 2, under time constraints these were manual workarounds, in which we edit the data as part of the script. Regarding 3, we used the package `longurl` to expand short URLs. More on these tackling these issues in the docs [github.com/wjsutton/ironviz_2020_gallery](https://github.com/wjsutton/ironviz_2020_gallery)
+For issues 1 & 2, under time constraints these were manual workarounds, in which we edit the data as part of the script. Regarding 3, we used the package `longurl` to expand short URLs. More on these tackling these issues in the docs <p style="font-size:60%">[github.com/wjsutton/ironviz_2020_gallery](https://github.com/wjsutton/ironviz_2020_gallery)</p>
 
 #### Converting Tableau Public URLs into Screenshots
 
 Tableau Public auto-generates a screenshot of the dashboard, and the link to the image is based on the name of the dashboard uploaded, an example below:
 
-**This is a Tableau Public URL**<br>
-[https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus](https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus)
+**This is a Tableau Public URL**
+<p style="font-size:60%">[https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus](https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus)</p>
 
 **This is a screenshot of the URL**<br>
-[https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png](https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png)
+<p style="font-size:60%">[[https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png](https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png)</p>
 )
 
-**So the form is like this**<br>
-[https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png](https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png)
+**So the form is like this**
+<p style="font-size:60%">[[https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png](https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png)</p>
 <br>*where da is the first two letters of the dashboard name.*
 
 Knowing this we can rework all of our Tableau Public URLs to be screenshots of the dashboards to make our gallery page.
@@ -109,11 +109,13 @@ The HTML was divided into 4 parts:
 
 and pasted together to form one document. 
 
-Templates of the files can be found here [github.com/wjsutton/ironviz_2020_gallery/html](https://github.com/wjsutton/ironviz_2020_gallery/tree/master/html)
+Templates of the files can be found here: <br>
+[github.com/wjsutton/ironviz_2020_gallery/html](https://github.com/wjsutton/ironviz_2020_gallery/tree/master/html)
 
 These are read in R, the blurb KPI 'NUM_OF_VIZZES' from `blurb_template.txt` is updated with the number of iron viz submissions, merged as one variable and written as the HTML file using the `readLines()` and `writeLines()` functions.
 
-Lastly, to view the gallery page locally you can use a regular Chrome browser and navigate to a file `ironviz.html` however the folder must also contain the CSS file for the image grid to work [https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery](https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery)
+Lastly, to view the gallery page locally you can use a regular Chrome browser and navigate to a file `ironviz.html` however the folder must also contain the CSS file for the image grid to work:
+<br>[ironviz_2020_gallery/tree/master/gallery](https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery)
 
 
 ### Appreciations
@@ -122,7 +124,7 @@ The response from the Tableau community has been immense for what started as a w
 
 The project was even recognised by Francois Ajenstat, Tableau's Chief Product Officer
 
-<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6695742671723606016" height="438" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6695742671723606016" height="438" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
 
 and made an appearance on [Tableau's Best of the Web](https://www.tableau.com/about/blog/2020/8/best-tableau-web-its-iron-viz-season).
 

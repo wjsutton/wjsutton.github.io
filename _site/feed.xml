@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-14T16:40:43+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Assembling a Gallery of Iron Viz 2020 Submissions from Twitter</title><link href="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html" rel="alternate" type="text/html" title="Assembling a Gallery of Iron Viz 2020 Submissions from Twitter" /><published>2020-08-24T00:00:00+01:00</published><updated>2020-08-24T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html">&lt;h2 id=&quot;assembling-a-gallery-of-iron-viz-submissions&quot;&gt;Assembling a Gallery of Iron Viz Submissions&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-30T21:31:49+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Assembling a Gallery of Iron Viz 2020 Submissions from Twitter</title><link href="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html" rel="alternate" type="text/html" title="Assembling a Gallery of Iron Viz 2020 Submissions from Twitter" /><published>2020-08-24T00:00:00+01:00</published><updated>2020-08-24T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html">&lt;h2 id=&quot;assembling-a-gallery-of-iron-viz-submissions&quot;&gt;Assembling a Gallery of Iron Viz Submissions&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://wjsutton.github.io/ironviz2020.html&quot;&gt;
 &lt;img src=&quot;/assets/images/ironviz_gallery_image.PNG&quot; align=&quot;right&quot; style=&quot;width:35%;height:35%;padding-left:10px;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
@@ -16,7 +16,7 @@ Please note this is a cut-down, conceptual walkthrough. The full documentation i
   &lt;li&gt;Building HTML code to displaying images in a grid&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/ironviz_gallery_flow_diagram.PNG&quot; style=&quot;width:100%;padding:10px;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/ironviz_gallery_flow_diagram.PNG&quot; style=&quot;width:95%;padding:10px;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;phase-1---pulling-tweets-from-twitter&quot;&gt;Phase 1 - Pulling Tweets from Twitter&lt;/h3&gt;
 
@@ -44,9 +44,9 @@ View(data)
 
 &lt;p&gt;Using the data collected in Phase 1, we are looking for URLs under the column urls_expanded_url that look like either of these:&lt;/p&gt;
 
-&lt;p&gt;Case 1. &lt;a href=&quot;ttps://public.tableau.com/views/dashboard_name/tab_name?.......&quot;&gt;https://public.tableau.com/views/dashboard_name/tab_name?…….&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;font-size:60%&quot;&gt;&lt;strong&gt;Case 1.&lt;/strong&gt; [&lt;a href=&quot;ttps://public.tableau.com/views/dashboard_name/tab_name?.......&quot;&gt;https://public.tableau.com/views/dashboard_name/tab_name?…….&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Case 2. &lt;a href=&quot;https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name&quot;&gt;https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;font-size:60%&quot;&gt;&lt;strong&gt;Case 2.&lt;/strong&gt; [&lt;a href=&quot;https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name&quot;&gt;https://public.tableau.com/profile/profile_name#!/vizhome/dashboard_name/tab_name&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;There are a few issues we’ll run into:&lt;/p&gt;
 
@@ -56,22 +56,22 @@ View(data)
   &lt;li&gt;Short/compressed URLs&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;For issues 1 &amp;amp; 2, under time constraints these were manual workarounds, in which we edit the data as part of the script. Regarding 3, we used the package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;longurl&lt;/code&gt; to expand short URLs. More on these tackling these issues in the docs &lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery&quot;&gt;github.com/wjsutton/ironviz_2020_gallery&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For issues 1 &amp;amp; 2, under time constraints these were manual workarounds, in which we edit the data as part of the script. Regarding 3, we used the package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;longurl&lt;/code&gt; to expand short URLs. More on these tackling these issues in the docs &amp;lt;p style=&quot;font-size:60%&quot;&amp;gt;&lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery&quot;&gt;github.com/wjsutton/ironviz_2020_gallery&lt;/a&gt;&amp;lt;/p&amp;gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;converting-tableau-public-urls-into-screenshots&quot;&gt;Converting Tableau Public URLs into Screenshots&lt;/h4&gt;
 
 &lt;p&gt;Tableau Public auto-generates a screenshot of the dashboard, and the link to the image is based on the name of the dashboard uploaded, an example below:&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;This is a Tableau Public URL&lt;/strong&gt;&lt;br /&gt;
-&lt;a href=&quot;https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus&quot;&gt;https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is a Tableau Public URL&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;font-size:60%&quot;&gt;&lt;a href=&quot;https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus&quot;&gt;https://public.tableau.com/profile/fredfery#!/vizhome/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;This is a screenshot of the URL&lt;/strong&gt;&lt;br /&gt;
-&lt;a href=&quot;https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png&quot;&gt;https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png&lt;/a&gt;
-)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is a screenshot of the URL&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;font-size:60%&quot;&gt;[&lt;a href=&quot;https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png&quot;&gt;https://public.tableau.com/static/images/Th/ThefailingoftheFirstworldcountriesagainstCovid-19ironviz2020/Manyfirstworldleadershavefailedintheirresponsetocoronavirus/1.png&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;)&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;So the form is like this&lt;/strong&gt;&lt;br /&gt;
-&lt;a href=&quot;https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png&quot;&gt;https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png&lt;/a&gt;
-&lt;br /&gt;&lt;em&gt;where da is the first two letters of the dashboard name.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;So the form is like this&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=&quot;font-size:60%&quot;&gt;[&lt;a href=&quot;https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png&quot;&gt;https://public.tableau.com/static/images/da/dashboard_name/tab_name/1.png&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;em&gt;where da is the first two letters of the dashboard name.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Knowing this we can rework all of our Tableau Public URLs to be screenshots of the dashboards to make our gallery page.&lt;/p&gt;
 
@@ -103,11 +103,13 @@ View(data)
 
 &lt;p&gt;and pasted together to form one document.&lt;/p&gt;
 
-&lt;p&gt;Templates of the files can be found here &lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery/tree/master/html&quot;&gt;github.com/wjsutton/ironviz_2020_gallery/html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Templates of the files can be found here: &lt;br /&gt;
+&lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery/tree/master/html&quot;&gt;github.com/wjsutton/ironviz_2020_gallery/html&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;These are read in R, the blurb KPI ‘NUM_OF_VIZZES’ from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;blurb_template.txt&lt;/code&gt; is updated with the number of iron viz submissions, merged as one variable and written as the HTML file using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readLines()&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;writeLines()&lt;/code&gt; functions.&lt;/p&gt;
 
-&lt;p&gt;Lastly, to view the gallery page locally you can use a regular Chrome browser and navigate to a file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ironviz.html&lt;/code&gt; however the folder must also contain the CSS file for the image grid to work &lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery&quot;&gt;https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Lastly, to view the gallery page locally you can use a regular Chrome browser and navigate to a file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ironviz.html&lt;/code&gt; however the folder must also contain the CSS file for the image grid to work:
+&lt;br /&gt;&lt;a href=&quot;https://github.com/wjsutton/ironviz_2020_gallery/tree/master/gallery&quot;&gt;ironviz_2020_gallery/tree/master/gallery&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;appreciations&quot;&gt;Appreciations&lt;/h3&gt;
 
@@ -115,7 +117,7 @@ View(data)
 
 &lt;p&gt;The project was even recognised by Francois Ajenstat, Tableau’s Chief Product Officer&lt;/p&gt;
 
-&lt;iframe src=&quot;https://www.linkedin.com/embed/feed/update/urn:li:share:6695742671723606016&quot; height=&quot;438&quot; width=&quot;504&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot; title=&quot;Embedded post&quot;&gt;&lt;/iframe&gt;
+&lt;iframe src=&quot;https://www.linkedin.com/embed/feed/update/urn:li:share:6695742671723606016&quot; height=&quot;438&quot; width=&quot;100%&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot; title=&quot;Embedded post&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;and made an appearance on &lt;a href=&quot;https://www.tableau.com/about/blog/2020/8/best-tableau-web-its-iron-viz-season&quot;&gt;Tableau’s Best of the Web&lt;/a&gt;.&lt;/p&gt;
 
