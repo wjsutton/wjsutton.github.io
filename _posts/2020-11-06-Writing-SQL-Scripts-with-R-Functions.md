@@ -3,7 +3,7 @@ layout: default
 title: Writing SQL Scripts with R Functions
 categories: [data-automation]
 blurb: Tips on producing fast, flexible and replicable SQL scripts with R 
-img: assets/images/printer_icon.PNG
+img: assets/images/printer_icon.png
 published: true
 ---
 
