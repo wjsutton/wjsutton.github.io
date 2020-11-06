@@ -1,4 +1,189 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-30T21:31:49+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Assembling a Gallery of Iron Viz 2020 Submissions from Twitter</title><link href="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html" rel="alternate" type="text/html" title="Assembling a Gallery of Iron Viz 2020 Submissions from Twitter" /><published>2020-08-24T00:00:00+01:00</published><updated>2020-08-24T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html">&lt;h2 id=&quot;assembling-a-gallery-of-iron-viz-submissions&quot;&gt;Assembling a Gallery of Iron Viz Submissions&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-06T11:09:45+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Writing SQL Scripts with R Functions</title><link href="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html" rel="alternate" type="text/html" title="Writing SQL Scripts with R Functions" /><published>2020-11-06T00:00:00+00:00</published><updated>2020-11-06T00:00:00+00:00</updated><id>http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions</id><content type="html" xml:base="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html">&lt;h2 id=&quot;producing-fast-flexible-and-replicable-sql-scripts-with-r&quot;&gt;Producing fast, flexible and replicable SQL scripts with R&lt;/h2&gt;
+
+&lt;p&gt;For the majority of analytics functions, there is usually some element of reporting to stakeholders, which can be a repetitive and time-consuming task and more required than ever given the demand from business to respond swiftly to changes.&lt;/p&gt;
+
+&lt;p&gt;In my role, I’ve combined m knowledge of SQL and R programming to ease the reporting burden on my team, freeing up time to focus on additional insights we can provide.&lt;/p&gt;
+
+&lt;p&gt;The reporting needs translate to several SQL scripts run need to be:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;run every day&lt;/li&gt;
+  &lt;li&gt;consistent with your reporting definitions&lt;/li&gt;
+  &lt;li&gt;efficient, so they don’t waste resources, reduce the risk of bottlenecks and cost less (if using a data lake cost per query solution)&lt;/li&gt;
+  &lt;li&gt;redefined when definitions or requirements change&lt;/li&gt;
+  &lt;li&gt;reproduced to re-run data, backfilled after a change in definitions or be executed after a server mishap&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Using R (or any other scripting language like Python) you can create functions to write SQL statements. You can give this function arguments which can then be included in the SQL script, for example, the date range of the SQL query.&lt;/p&gt;
+
+&lt;h4 id=&quot;create-function-and-write-sql-to-a-file&quot;&gt;Create function and write SQL to a file&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Create Function
+global_sales_weekly &amp;lt;- function(date_from,date_to){
+  
+  query &amp;lt;- paste0(&quot;
+SELECT 
+region
+,DATE_TRUNC('week',date) as date
+,'Weekly' as date_type
+,product
+,SUM(sales) as sales
+,'&quot;,Sys.Date(),&quot;' as data_written_date
+FROM schema.global_sales
+WHERE date&amp;gt;='&quot;,date_from,&quot;'
+AND date&amp;lt;='&quot;,date_to,&quot;'
+GROUP BY 
+region
+,DATE_TRUNC('week',date)
+,product
+&quot;)
+  
+  return(query)
+  
+}
+
+# Run Function
+weekly_sales &amp;lt;- global_sales_weekly(date_from = '2020-10-26',date_to = '2020-11-01')
+
+# Write SQL to file
+fileConn &amp;lt;- file(&quot;weekly_sales.sql&quot;)
+writeLines(weekly_sales, fileConn)
+close(fileConn)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Note:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;,'Weekly' as date_type&lt;/code&gt; is for the future user viewing this in a spreadsheet, so it is clear that the data was run over the week than just a day&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;,'&quot;,Sys.Date(),&quot;' as data_written_date&lt;/code&gt; is for reference so we know when the data was run if we need to understand if it’s been affected by any issues with the database&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can open this file with a text editor and copy it to a SQL application (like SQL Workbench) and execute the query, which is fine if we only have a few queries to execute.&lt;/p&gt;
+
+&lt;h4 id=&quot;looping-over-several-dates-to-create-multiple-queries&quot;&gt;Looping over several dates to create multiple queries&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Make lists of start &amp;amp; end dates
+start_dates &amp;lt;- c('2020-10-26','2020-10-19','2020-10-12')
+end_dates &amp;lt;- c('2020-11-01','2020-10-25','2020-10-18')
+
+# Loop over all dates
+for(i in seq(start_dates)){
+  
+  # Run Function
+  weekly_sales &amp;lt;- global_sales_weekly(date_from = start_dates[i],date_to = end_dates[i])
+  
+  # Remove dashs for file name
+  file_date &amp;lt;- gsub('-','',start_dates[i])
+  
+  # Write SQL to file
+  fileConn &amp;lt;- file(paste0(&quot;weekly_sales_&quot;,file_date,&quot;.sql&quot;))
+  writeLines(weekly_sales, fileConn)
+  close(fileConn)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If you are fortunate to have access to a server that is connected to your database you can write several queries to a folder and have a script that iterates through the folder and executes each script. This can be very handy for running SQL queries overnight.&lt;/p&gt;
+
+&lt;h4 id=&quot;executing-queries&quot;&gt;Executing queries&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Function to read SQL scripts
+# From: https://stackoverflow.com/questions/44853322/how-to-read-the-contents-of-an-sql-file-into-an-r-script-to-run-a-query
+getSQL &amp;lt;- function(filepath){
+  con = file(filepath, &quot;r&quot;)
+  sql.string &amp;lt;- &quot;&quot;
+  
+  while (TRUE){
+    line &amp;lt;- readLines(con, n = 1)
+    
+    if ( length(line) == 0 ){
+      break
+    }
+    
+    line &amp;lt;- gsub(&quot;\\t&quot;, &quot; &quot;, line)
+    
+    if(grepl(&quot;--&quot;,line) == TRUE){
+      line &amp;lt;- paste(sub(&quot;--&quot;,&quot;/*&quot;,line),&quot;*/&quot;)
+    }
+    
+    sql.string &amp;lt;- paste(sql.string, line)
+  }
+  
+  close(con)
+  return(sql.string)
+}
+
+# Connect to Database (Redshift)
+library(RJDBC)
+conn &amp;lt;- dbConnect(...)
+
+# Read SQL and get query results
+query &amp;lt;- getSQL(&quot;weekly_sales.sql&quot;)
+orders &amp;lt;- dbGetQuery(conn,query)
+
+# Write data as insert
+query &amp;lt;- getSQL(&quot;weekly_sales.sql&quot;)
+insert_query &amp;lt;- paste0(&quot;INSERT INTO my_schema.my_global_weekly_sales_table (&quot;,query,&quot;)&quot;)
+dbSendQuery(conn,query)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So we’ve created weekly sale, what about daily or monthly? For these, we can edit our function to add the option of picking the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;date_type&lt;/code&gt; of Daily, Weekly or Monthly.&lt;/p&gt;
+
+&lt;h4 id=&quot;adding-additional-arguments&quot;&gt;Adding additional arguments&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Create Function
+global_sales &amp;lt;- function(date_from,date_to,date_type = c('Daily','Weekly','Monthly')){
+  
+  date_column &amp;lt;- ifelse(date_type == &quot;Daily&quot;,&quot;date&quot;,
+                        ifelse(date_type == &quot;Weekly&quot;,&quot;DATE_TRUNC('week',date)&quot;
+                               ,&quot;DATE_TRUNC('month',date)&quot;))
+  
+  
+  query &amp;lt;- paste0(&quot;
+SELECT 
+region
+,&quot;,date_column,&quot; as date
+,'&quot;,date_type,&quot;' as date_type
+,product
+,SUM(sales) as sales
+,'&quot;,Sys.Date(),&quot;' as data_written_date
+FROM schema.global_sales
+WHERE date&amp;gt;='&quot;,date_from,&quot;'
+AND date&amp;lt;='&quot;,date_to,&quot;'
+GROUP BY 
+region
+,&quot;,date_column,&quot;
+,product
+&quot;)
+  
+  return(query)
+  
+}
+
+daily_sales &amp;lt;- global_sales(date_from = '2020-10-26',date_to = '2020-11-01',date_type = 'Daily')
+weekly_sales &amp;lt;- global_sales(date_from = '2020-10-26',date_to = '2020-11-01',date_type = 'Weekly')
+monthly_sales &amp;lt;- global_sales(date_from = '2020-10-01',date_to = '2020-10-31',date_type = 'Monthly')
+
+# Write SQL to file
+fileConn &amp;lt;- file(&quot;daily_sales.sql&quot;)
+writeLines(daily_sales, fileConn)
+close(fileConn)
+
+fileConn &amp;lt;- file(&quot;weekly_sales.sql&quot;)
+writeLines(weekly_sales, fileConn)
+close(fileConn)
+
+fileConn &amp;lt;- file(&quot;monthly_sales.sql&quot;)
+writeLines(monthly_sales, fileConn)
+close(fileConn)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h4 id=&quot;central-definitions&quot;&gt;Central definitions&lt;/h4&gt;
+
+&lt;p&gt;In practice, I have 10-20 functions that are writing 100s of queries in a week. Some standard definitions will apply to all the queries, like country grouping.&lt;/p&gt;
+
+&lt;p&gt;In these cases, you can create a central &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;definitions&lt;/code&gt; file and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;source(definitions.R)&lt;/code&gt; at the beginning of each function. In doing this when you make changes to the central &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;definitions&lt;/code&gt; file the changes will be automatically applied to all of your future SQL queries.&lt;/p&gt;
+
+&lt;p&gt;If you have any feedback for this project please feel free to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/contact.html&quot;&gt;Contact me&lt;/a&gt;📫&lt;/li&gt;
+  &lt;li&gt;Raise a pull request on &lt;a href=&quot;https://github.com/wjsutton/useful_r_functions&quot;&gt;wjsutton/useful_r_functions&lt;/a&gt;🐙&lt;/li&gt;
+  &lt;li&gt;Or send a tweet to &lt;a href=&quot;https://twitter.com/WJSutton12&quot;&gt;@WJSutton12&lt;/a&gt;💬&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Cover icon made by &lt;a href=&quot;https://www.flaticon.com/authors/icongeek26&quot; title=&quot;Icongeek26&quot;&gt;Icongeek26&lt;/a&gt; from &lt;a href=&quot;https://www.flaticon.com/&quot; title=&quot;Flaticon&quot;&gt; www.flaticon.com&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Producing fast, flexible and replicable SQL scripts with R</summary></entry><entry><title type="html">Assembling a Gallery of Iron Viz 2020 Submissions from Twitter</title><link href="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html" rel="alternate" type="text/html" title="Assembling a Gallery of Iron Viz 2020 Submissions from Twitter" /><published>2020-08-24T00:00:00+01:00</published><updated>2020-08-24T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/08/24/Ironviz-2020-Gallery.html">&lt;h2 id=&quot;assembling-a-gallery-of-iron-viz-submissions&quot;&gt;Assembling a Gallery of Iron Viz Submissions&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://wjsutton.github.io/ironviz2020.html&quot;&gt;
 &lt;img src=&quot;/assets/images/ironviz_gallery_image.PNG&quot; align=&quot;right&quot; style=&quot;width:35%;height:35%;padding-left:10px;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
@@ -725,74 +910,4 @@ What it boils down to is:&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;try-it-yourself&quot;&gt;Try it yourself!&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/views/TipsTricks3-CustomCategoricalLegend/GlobalSuperstoreSales?:embed=y&amp;amp;:display_count=yes&quot;&gt;Dashboard Link&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Tableau Tips &amp;amp; Tricks: #3 Custom Categorical Legends AKA: Legend as a Sheet</summary></entry><entry><title type="html">Tableau Tips &amp;amp; Tricks - 2 Title as a Sheet</title><link href="http://localhost:4000/tableau%20tips%20&%20tricks/2018/09/08/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html" rel="alternate" type="text/html" title="Tableau Tips &amp; Tricks - 2 Title as a Sheet" /><published>2018-09-08T00:00:00+01:00</published><updated>2018-09-08T00:00:00+01:00</updated><id>http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/08/Tableau-Tips-Tricks-2-Title-as-a-Sheet</id><content type="html" xml:base="http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/08/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html">&lt;h2 id=&quot;tableau-tips--tricks-2-title-as-a-sheet&quot;&gt;Tableau Tips &amp;amp; Tricks: #2 Title as a Sheet&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_final.gif&quot; alt=&quot;Title as a Sheet&quot; title=&quot;Title as a Sheet&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;outline&quot;&gt;Outline&lt;/h3&gt;
-
-&lt;p&gt;Adding a title as a separate sheet rather than using the standard chart titles.&lt;/p&gt;
-
-&lt;h3 id=&quot;use-cases&quot;&gt;Use Cases&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;When using a sheet selector the standard chart titles will appear as ‘NULL’ or ‘None’&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h3&gt;
-
-&lt;p&gt;You have charts that need different titles where the standard chart title doesn’t do what you want.&lt;/p&gt;
-
-&lt;h3 id=&quot;step-1---create-a-sheet-and-a-calculated-field&quot;&gt;Step 1 - Create a Sheet and a Calculated Field&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Create a new sheet that will be your title&lt;/li&gt;
-  &lt;li&gt;Create a calculated field using a CASE expression mapping your parameter inputs to a specific title, for example:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;CASE [SALES]
-WHEN ‘By State’ THEN ‘US Superstore Sales by State, 2014’
-WHEN ‘By Sub-Category’ THEN ‘US Superstore Sales by Sub-Category, 2014’
-END
-Where:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;[SALES] is the input Parameter&lt;/li&gt;
-  &lt;li&gt;‘By State’ and ‘By Sub-Category’ are the values for the Parameter [SALES],&lt;/li&gt;
-  &lt;li&gt;‘US Superstore Sales by State, 2014’ and ‘US Superstore Sales by Sub-Category, 2014’ are example titles&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_1_create_sheet_and_calc_field.gif&quot; alt=&quot;Step 1&quot; title=&quot;Step 1&quot; /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;step-2---format-title&quot;&gt;Step 2 - Format Title&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Format the title using the text box to your preference or style guide&lt;/li&gt;
-  &lt;li&gt;Turn off tooltips if you don’t need them&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_2_create_chart_title.gif&quot; alt=&quot;Step 2&quot; title=&quot;Step 2&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;step-3---add-sheet-to-dashboard&quot;&gt;Step 3 - Add Sheet to Dashboard&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Drag the sheet to the top of the layout container&lt;/li&gt;
-  &lt;li&gt;Set Fit to ‘Fit Width’&lt;/li&gt;
-  &lt;li&gt;Check the Parameter works as expected&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_3_add_title_to_dashboard.gif&quot; alt=&quot;Step 3&quot; title=&quot;Step 3&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;faqs&quot;&gt;FAQs&lt;/h3&gt;
-
-&lt;p&gt;Can I use this without a parameter input?&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Essentially yes, all we are doing here is defining a title as a calculated field and saying “If Option A happens show Title A” as such the CASE expression in Step 1 can be reworked to use a quick filter or dashboard action.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;As this is a calculated field can I add dimensions and measures to it, e.g. year?&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Yes, although you will need to pass on any filters to the Chart Title sheet, and ensure the all the dimensions and measures are aggregated to one value, otherwise, you’ll end up with multiple titles in the sheet, e.g. 
-      US Superstore Sales by State, 2014
-      US Superstore Sales by State, 2013&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;try-it-yourself&quot;&gt;Try it yourself!&lt;/h3&gt;
-&lt;p&gt;Dashboard Link: &lt;a href=&quot;https://public.tableau.com/views/TipsTricks2-TitleasaSheet/TitleasaSheet?:embed=y&amp;amp;:display_count=yes&quot;&gt;https://public.tableau.com/views/TipsTricks2-TitleasaSheet/TitleasaSheet?:embed=y&amp;amp;:display_count=yes&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Tableau Tips &amp;amp; Tricks: #2 Title as a Sheet</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/views/TipsTricks3-CustomCategoricalLegend/GlobalSuperstoreSales?:embed=y&amp;amp;:display_count=yes&quot;&gt;Dashboard Link&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Tableau Tips &amp;amp; Tricks: #3 Custom Categorical Legends AKA: Legend as a Sheet</summary></entry></feed>
