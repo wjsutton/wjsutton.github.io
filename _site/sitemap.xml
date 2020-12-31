@@ -49,6 +49,10 @@
 <lastmod>2020-11-06T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running.html</loc>
+<lastmod>2020-12-31T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/automation.html</loc>
 </url>
 <url>
@@ -71,6 +75,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/resume.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/viz_recap_running.html</loc>
 </url>
 <url>
 <loc>http://localhost:4000/assets/images/parkrun_report.html</loc>

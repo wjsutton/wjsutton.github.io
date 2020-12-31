@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-25T22:52:23+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Writing SQL Scripts with R Functions</title><link href="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html" rel="alternate" type="text/html" title="Writing SQL Scripts with R Functions" /><published>2020-11-06T00:00:00+00:00</published><updated>2020-11-06T00:00:00+00:00</updated><id>http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions</id><content type="html" xml:base="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html">&lt;h2 id=&quot;producing-fast-flexible-and-replicable-sql-scripts-with-r&quot;&gt;Producing fast, flexible and replicable SQL scripts with R&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-31T17:59:00+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Viz Recap - Running</title><link href="http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running.html" rel="alternate" type="text/html" title="Viz Recap - Running" /><published>2020-12-31T00:00:00+00:00</published><updated>2020-12-31T00:00:00+00:00</updated><id>http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running.html"></content><author><name>Will Sutton</name></author><summary type="html"></summary></entry><entry><title type="html">Writing SQL Scripts with R Functions</title><link href="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html" rel="alternate" type="text/html" title="Writing SQL Scripts with R Functions" /><published>2020-11-06T00:00:00+00:00</published><updated>2020-11-06T00:00:00+00:00</updated><id>http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions</id><content type="html" xml:base="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html">&lt;h2 id=&quot;producing-fast-flexible-and-replicable-sql-scripts-with-r&quot;&gt;Producing fast, flexible and replicable SQL scripts with R&lt;/h2&gt;
 
 &lt;p&gt;For the majority of analytics functions, there is usually some element of reporting to stakeholders, which can be a repetitive and time-consuming task and more required than ever given the demand from business to respond swiftly to changes.&lt;/p&gt;
 
@@ -839,75 +839,4 @@ What it boils down to is:&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;try-it-yourself&quot;&gt;Try it yourself!&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/views/TipsTricks4-CustomSequentialLegend/GlobalSuperstoreSales?:embed=y&amp;amp;:display_count=yes&quot;&gt;Dashboard Link&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Tableau Tips &amp;amp; Tricks: #4 Custom Sequential Legends AKA: Legend as a Sheet</summary></entry><entry><title type="html">Tableau Tips &amp;amp; Tricks - 3 Custom Categorical Legends</title><link href="http://localhost:4000/tableau%20tips%20&%20tricks/2018/09/12/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html" rel="alternate" type="text/html" title="Tableau Tips &amp; Tricks - 3 Custom Categorical Legends" /><published>2018-09-12T00:00:00+01:00</published><updated>2018-09-12T00:00:00+01:00</updated><id>http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/12/Tableau-Tips-Tricks-3-Custom-Categorical-Legend</id><content type="html" xml:base="http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/12/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html">&lt;h2 id=&quot;tableau-tips--tricks-3-custom-categorical-legends&quot;&gt;Tableau Tips &amp;amp; Tricks: #3 Custom Categorical Legends&lt;/h2&gt;
-&lt;p&gt;AKA: Legend as a Sheet&lt;/p&gt;
-
-&lt;h3 id=&quot;outline&quot;&gt;Outline&lt;/h3&gt;
-
-&lt;p&gt;Add a custom categorical legend to a dashboard&lt;/p&gt;
-
-&lt;h3 id=&quot;use-cases&quot;&gt;Use Cases&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Making a consistent legend not dependent on a chart&lt;/li&gt;
-  &lt;li&gt;Merging different legends together as one&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;example-of-problem&quot;&gt;Example of Problem&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_1.gif&quot; alt=&quot;Example of Problem&quot; title=&quot;Example of Problem&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I have a standard Tableau legend for three charts in my dashboard, if I apply filters they will be applied to the legend, in some cases, the legend will not represent all the colours in the dashboard which may be confusing.&lt;/p&gt;
-
-&lt;h3 id=&quot;step-1---build-the-data-in-excel-and-import-to-tableau&quot;&gt;Step 1 - Build the data in Excel and import to Tableau&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;In Excel in a column enter a heading (in this case “Legend”) followed by your legend options&lt;/li&gt;
-  &lt;li&gt;Copy this data in Excel&lt;/li&gt;
-  &lt;li&gt;In Tableau, under the heading “Data” click “Paste”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_2_excel_transfer.gif&quot; alt=&quot;Step 1&quot; title=&quot;Step 1&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;step-2---create-a-dummy-field-and-build-a-legend&quot;&gt;Step 2 - Create a dummy field and build a legend&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Using the imported data start building the legend by:&lt;/li&gt;
-  &lt;li&gt;Add “Legend” to Rows&lt;/li&gt;
-  &lt;li&gt;Add “Legend” to Color&lt;/li&gt;
-  &lt;li&gt;Create a calculated field
-   name: dummy field
-   calculation: MIN(1)&lt;/li&gt;
-  &lt;li&gt;Add “dummy field” to Columns&lt;/li&gt;
-  &lt;li&gt;Change chart type to Shape: Filled Square&lt;/li&gt;
-  &lt;li&gt;Add “Legend” to Label&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_3_build_dummy_field.gif&quot; alt=&quot;Step 2&quot; title=&quot;Step 2&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;step-3---clean-up-the-legend&quot;&gt;Step 3 - Clean up the legend&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Edit the axis of “dummy field” to a range of 0 to 8 (this will shift the marks to the left, you can adjust this range to your preference)&lt;/li&gt;
-  &lt;li&gt;Right click on the axis, untick “Show Header”&lt;/li&gt;
-  &lt;li&gt;Format the lines on the chart, set all to “None” until no lines appear on the legend&lt;/li&gt;
-  &lt;li&gt;Edit the title to Legend and format&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_4_clean_up.gif&quot; alt=&quot;Step 3&quot; title=&quot;Step 3&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;step-4---add-the-legend-to-the-dashboard&quot;&gt;Step 4 - Add the legend to the dashboard&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Drag the newly created sheet to your dashboard&lt;/li&gt;
-  &lt;li&gt;Delete the default legend which is inserted&lt;/li&gt;
-  &lt;li&gt;Set view to “Entire View”&lt;/li&gt;
-  &lt;li&gt;If you have dashboard actions make sure they don’t apply to your legend sheet&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif&quot; alt=&quot;Step 4&quot; title=&quot;Step 4&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;faqs&quot;&gt;FAQs&lt;/h3&gt;
-
-&lt;p&gt;Do I have to insert data from Excel?&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;try-it-yourself&quot;&gt;Try it yourself!&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/views/TipsTricks3-CustomCategoricalLegend/GlobalSuperstoreSales?:embed=y&amp;amp;:display_count=yes&quot;&gt;Dashboard Link&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Tableau Tips &amp;amp; Tricks: #3 Custom Categorical Legends AKA: Legend as a Sheet</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/views/TipsTricks4-CustomSequentialLegend/GlobalSuperstoreSales?:embed=y&amp;amp;:display_count=yes&quot;&gt;Dashboard Link&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><summary type="html">Tableau Tips &amp;amp; Tricks: #4 Custom Sequential Legends AKA: Legend as a Sheet</summary></entry></feed>
