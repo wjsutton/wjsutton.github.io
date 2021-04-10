@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<p style="text-align: center;">Tap on an image to learn more</p>
+<h3 style="text-align: center;">Tap on an image to learn more</h3>
 
 <div style="display: flex; flex-wrap: wrap;">
 <div style="width: 100%; height:100%; overflow: hidden;margin: 0 0px 0 0">
