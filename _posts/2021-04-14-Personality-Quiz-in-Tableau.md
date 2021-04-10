@@ -3,8 +3,8 @@ layout: default
 title: Building a Personality Quiz in Tableau
 categories: [data-viz]
 blurb: Giving users a personalised data story through personality quizzes 
-img: assets/images/personality-quiz-in-tableau.PNG
-published: true
+img: assets/images/personality-quiz-in-tableau.png
+published: false
 ---
 
 ## Building a Personality Quiz in Tableau
@@ -80,7 +80,7 @@ For which I gave the answers:
 
 <br>Repeat for all your questions
 
-<img src="/assets/images/personality-quiz-parameter.PNG" style="width:95%;padding:10px;"/>
+<img src="/assets/images/personality-quiz-parameter.png" style="width:95%;padding:10px;"/>
 
 0 is reserved for the default option, which is displayed as "pick an option", more on that later.
 
@@ -109,7 +109,7 @@ For the 0 - pick an option, you can decide what the default option is, I chose t
 In my example linked below, the quiz is on the second tab, which then leads to the third tab where your character and associated data are displayed. 
 
 <a href="https://public.tableau.com/profile/wjsutton#!/vizhome/ChessLifeExpectancy/Title">
-<img src="/assets/images/personality-quiz-dashboard.PNG" style="width:95%;padding:10px;"/>
+<img src="/assets/images/personality-quiz-dashboard.png" style="width:95%;padding:10px;"/>
 </a>
 
 
