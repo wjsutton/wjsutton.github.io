@@ -42,6 +42,12 @@ layout: default
 <a href="https://public.tableau.com/profile/wjsutton#!/vizhome/ChildMarriage_16014531003290/ChildMarriageInstaviz">
 <img src='https://instagram.flhr4-3.fna.fbcdn.net/v/t51.2885-15/e35/s150x150/123011216_383187112822062_4363120991001686478_n.jpg?tp=1&_nc_ht=instagram.flhr4-3.fna.fbcdn.net&_nc_cat=106&_nc_ohc=UJFPZB_09K4AX8vcr_k&edm=ABfd0MgAAAAA&ccb=7-4&oh=ef63f3747d3277b2940aab206a4245c7&oe=6098079A&_nc_sid=7bff83' style="width: 32%">
 </a>
+<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/ChildMarriage_16014531003290/ChildMarriageInstaviz">
+<img src='https://instagram.flhr4-3.fna.fbcdn.net/v/t51.2885-15/e35/s150x150/123011216_383187112822062_4363120991001686478_n.jpg?tp=1&_nc_ht=instagram.flhr4-3.fna.fbcdn.net&_nc_cat=106&_nc_ohc=UJFPZB_09K4AX8vcr_k&edm=ABfd0MgAAAAA&ccb=7-4&oh=ef63f3747d3277b2940aab206a4245c7&oe=6098079A&_nc_sid=7bff83' style="width: 32%">
+</a>
+<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/ChildMarriage_16014531003290/ChildMarriageInstaviz">
+<img src='https://instagram.flhr4-3.fna.fbcdn.net/v/t51.2885-15/e35/s150x150/123011216_383187112822062_4363120991001686478_n.jpg?tp=1&_nc_ht=instagram.flhr4-3.fna.fbcdn.net&_nc_cat=106&_nc_ohc=UJFPZB_09K4AX8vcr_k&edm=ABfd0MgAAAAA&ccb=7-4&oh=ef63f3747d3277b2940aab206a4245c7&oe=6098079A&_nc_sid=7bff83' style="width: 32%">
+</a>
 
 </div>
 </div>
