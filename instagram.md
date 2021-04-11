@@ -10,7 +10,6 @@ layout: default
 <a href="https://wjsutton.github.io/data-viz/2020/05/19/Building-Animated-Voronoi-Chart-In-R.html">
 <img src='https://instagram.flhr4-4.fna.fbcdn.net/v/t51.2885-15/e35/c120.0.480.480a/s150x150/171034016_454563385647634_3290110854682050149_n.jpg?tp=1&_nc_ht=instagram.flhr4-4.fna.fbcdn.net&_nc_cat=110&_nc_ohc=dRDHJCexcGcAX9fIIKe&edm=ABfd0MgAAAAA&ccb=7-4&oh=876a98e69b364c5e50030c8772e203df&oe=6075838B&_nc_sid=7bff83' style="width: 32%">
 </a>
-
 <a href="https://public.tableau.com/profile/wjsutton#!/vizhome/GoldenRatioPrinciplesofDesigninDataviz/Title">
 <img src='https://instagram.flhr4-4.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s750x750/170148108_3915963141823834_911011171028857222_n.jpg?tp=1&_nc_ht=instagram.flhr4-4.fna.fbcdn.net&_nc_cat=110&_nc_ohc=KM4Ppi9vtukAX8flmB7&edm=AABBvjUAAAAA&ccb=7-4&oh=b1d4f1baa8fbe6f39879d81992f8e8bf&oe=6095A825&_nc_sid=83d603' style="width: 32%">
 </a>
@@ -42,12 +41,7 @@ layout: default
 <a href="https://public.tableau.com/profile/wjsutton#!/vizhome/ChildMarriage_16014531003290/ChildMarriageInstaviz">
 <img src='https://instagram.flhr4-3.fna.fbcdn.net/v/t51.2885-15/e35/s150x150/123011216_383187112822062_4363120991001686478_n.jpg?tp=1&_nc_ht=instagram.flhr4-3.fna.fbcdn.net&_nc_cat=106&_nc_ohc=UJFPZB_09K4AX8vcr_k&edm=ABfd0MgAAAAA&ccb=7-4&oh=ef63f3747d3277b2940aab206a4245c7&oe=6098079A&_nc_sid=7bff83' style="width: 32%">
 </a>
-<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/ChildMarriage_16014531003290/ChildMarriageInstaviz">
-<img src='https://instagram.flhr4-3.fna.fbcdn.net/v/t51.2885-15/e35/s150x150/123011216_383187112822062_4363120991001686478_n.jpg?tp=1&_nc_ht=instagram.flhr4-3.fna.fbcdn.net&_nc_cat=106&_nc_ohc=UJFPZB_09K4AX8vcr_k&edm=ABfd0MgAAAAA&ccb=7-4&oh=ef63f3747d3277b2940aab206a4245c7&oe=6098079A&_nc_sid=7bff83' style="width: 32%">
-</a>
-<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/ChildMarriage_16014531003290/ChildMarriageInstaviz">
-<img src='https://instagram.flhr4-3.fna.fbcdn.net/v/t51.2885-15/e35/s150x150/123011216_383187112822062_4363120991001686478_n.jpg?tp=1&_nc_ht=instagram.flhr4-3.fna.fbcdn.net&_nc_cat=106&_nc_ohc=UJFPZB_09K4AX8vcr_k&edm=ABfd0MgAAAAA&ccb=7-4&oh=ef63f3747d3277b2940aab206a4245c7&oe=6098079A&_nc_sid=7bff83' style="width: 32%">
-</a>
+
 
 </div>
 </div>
