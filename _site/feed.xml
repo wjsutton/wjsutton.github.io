@@ -1,4 +1,123 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-04-11T15:40:09+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Viz Recap - Running</title><link href="http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running.html" rel="alternate" type="text/html" title="Viz Recap - Running" /><published>2020-12-31T00:00:00+00:00</published><updated>2020-12-31T00:00:00+00:00</updated><id>http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running.html"></content><author><name>Will Sutton</name></author><category term="data-viz" /><summary type="html"></summary></entry><entry><title type="html">Writing SQL Scripts with R Functions</title><link href="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html" rel="alternate" type="text/html" title="Writing SQL Scripts with R Functions" /><published>2020-11-06T00:00:00+00:00</published><updated>2020-11-06T00:00:00+00:00</updated><id>http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions</id><content type="html" xml:base="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html">&lt;h2 id=&quot;producing-fast-flexible-and-replicable-sql-scripts-with-r&quot;&gt;Producing fast, flexible and replicable SQL scripts with R&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-04-14T17:05:53+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Building a Personality Quiz in Tableau</title><link href="http://localhost:4000/data-viz/2021/04/14/Personality-Quiz-in-Tableau.html" rel="alternate" type="text/html" title="Building a Personality Quiz in Tableau" /><published>2021-04-14T00:00:00+01:00</published><updated>2021-04-14T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2021/04/14/Personality-Quiz-in-Tableau</id><content type="html" xml:base="http://localhost:4000/data-viz/2021/04/14/Personality-Quiz-in-Tableau.html">&lt;h2 id=&quot;building-a-personality-quiz-in-tableau&quot;&gt;Building a Personality Quiz in Tableau&lt;/h2&gt;
+
+&lt;p&gt;Personality quizzes have been around since the 1920s. Essentially, it’s a short questionnaire that tests traits and behaviours that people exhibit in various situations.&lt;/p&gt;
+
+&lt;h5 id=&quot;typical-uses-are&quot;&gt;Typical uses are:&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Self-awareness, e.g. Myers Briggs Type&lt;/li&gt;
+  &lt;li&gt;Profiling of job candidates&lt;/li&gt;
+  &lt;li&gt;Entertainment, which fictional/movie character are you? &lt;a href=&quot;https://openpsychometrics.org/tests/characters/&quot;&gt;https://openpsychometrics.org/tests/characters/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;why-would-you-create-a-personality-quiz-in-tableau&quot;&gt;Why would you create a Personality Quiz in Tableau?&lt;/h3&gt;
+&lt;p&gt;To add a narrative storey to your dashboard, where the workflow is as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The user fills out the quiz.&lt;/li&gt;
+  &lt;li&gt;Their answers then filters the data for a specific character&lt;/li&gt;
+  &lt;li&gt;This creates a personalised data story&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;When should you add a personality quiz?
+Adding this type of section would not be recommended in all situations, especially if you’re creating a business dashboard where your users are looking for quick insights - for example, did sales go up last week?&lt;/p&gt;
+
+&lt;p&gt;When you add a quiz, you decrease the speed at which users receive insights, but you increase interest and engagement by providing a personalized experience.&lt;/p&gt;
+
+&lt;h5 id=&quot;when-it-works&quot;&gt;When it works&lt;/h5&gt;
+
+&lt;p&gt;You want to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Create a connection between your user and the data&lt;/li&gt;
+  &lt;li&gt;Get your audience to see the world from a new perspective&lt;/li&gt;
+  &lt;li&gt;Build a storyboard / tabbed view&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;when-it-doesnt-work&quot;&gt;When it doesn’t work&lt;/h5&gt;
+
+&lt;p&gt;When speed matters, your audience wants to see the data quickly, i.e. did sales increase last week?&lt;/p&gt;
+
+&lt;h3 id=&quot;build-the-quiz&quot;&gt;Build the quiz&lt;/h3&gt;
+
+&lt;p&gt;Before diving into Tableau, you need to decide on the content for your quiz.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Decide on the characters (max. 6) that can be chosen&lt;/li&gt;
+  &lt;li&gt;Give each character a personality or typical behaviour&lt;/li&gt;
+  &lt;li&gt;Create 4-6 situational questions for your characters to respond to&lt;/li&gt;
+  &lt;li&gt;Write an answer to each question based on the personalities of all your characters&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&quot;example&quot;&gt;Example&lt;/h5&gt;
+
+&lt;p&gt;For my use case, choosing a chess piece, my characters are:
+&lt;br /&gt;King ♚, Queen ♛, Bishop ♝, Knight ♞, Rook ♜, Pawn ♟&lt;/p&gt;
+
+&lt;p&gt;Then I gave each character a personality: 
+&lt;br /&gt;♚ -&amp;gt; Commanding  ♞ -&amp;gt; Courageous
+&lt;br /&gt;♛ -&amp;gt; Powerful          ♜ -&amp;gt; Strategic
+&lt;br /&gt;♝ -&amp;gt; Personal          ♟ -&amp;gt; Lawful&lt;/p&gt;
+
+&lt;p&gt;The questions were themed around a quest to a nearby location giving a few decisions on the way, such as:
+Whilst travelling you meet a fork in the road, what do you do?&lt;/p&gt;
+
+&lt;p&gt;For which I gave the answers:
+&lt;br /&gt;♚ (Commanding) - Pay someone to take you.
+&lt;br /&gt;♛ (Powerful) - Climb a tree to get a better view of your destination
+&lt;br /&gt;♝ (Personal) - Wait and ask someone
+&lt;br /&gt;♞ (Courageous) - Take the path less travelled
+&lt;br /&gt;♜ (Strategic) - Take the more travelled path
+&lt;br /&gt;♟ (Lawful) - Flip a coin&lt;/p&gt;
+
+&lt;h5 id=&quot;in-tableau&quot;&gt;In Tableau&lt;/h5&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create a parameter for each of your questions, data type = string.&lt;/li&gt;
+  &lt;li&gt;Assign a number for each character 1 - the total number of characters.&lt;/li&gt;
+  &lt;li&gt;In the parameter menu, change “Display as” from a number to the answer of the character to the question&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;Repeat for all your questions&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/personality-quiz-parameter.png&quot; style=&quot;width:95%;padding:10px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;0 is reserved for the default option, which is displayed as “pick an option”, more on that later.&lt;/p&gt;
+
+&lt;h5 id=&quot;quiz-scores&quot;&gt;Quiz Scores&lt;/h5&gt;
+
+&lt;p&gt;You will need to calculate the score of each character based on the question parameters.
+Since our parameters are strings we need to make sure we match strings or convert the strings to integers.
+Repeat for each character&lt;/p&gt;
+
+&lt;h5 id=&quot;example-1&quot;&gt;Example&lt;/h5&gt;
+&lt;p&gt;Quiz - Character 2 score&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(IF INT([Question 1])=2 THEN 1 ELSE 0 END) +
+(IF INT([Question 2])=2 THEN 1 ELSE 0 END) +
+(IF INT([Question 3])=2 THEN 1 ELSE 0 END) +
+(IF INT([Question 4])=2 THEN 1 ELSE 0 END) +
+(IF INT([Question 5])=2 THEN 1 ELSE 0 END)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The calculated field says: “Does the answer to the question match this character? If yes then count that answer and sum to give a total score”.&lt;/p&gt;
+
+&lt;p&gt;For the 0 - pick an option, you can decide what the default option is, I chose the weakest character. If completing the quiz is required, you can set up a sheet to block the option to continue, which will be removed when all of the questions are answered. Search for “tableau sheet selector” to check out this technique&lt;/p&gt;
+
+&lt;h5 id=&quot;in-a-dashboard&quot;&gt;In a dashboard&lt;/h5&gt;
+
+&lt;p&gt;In my example linked below, the quiz is on the second tab, which then leads to the third tab where your character and associated data are displayed.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/profile/wjsutton#!/vizhome/ChessLifeExpectancy/Title&quot;&gt;
+&lt;img src=&quot;/assets/images/personality-quiz-dashboard.png&quot; style=&quot;width:95%;padding:10px;&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you have any feedback for this project please feel free to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/contact.html&quot;&gt;Contact me&lt;/a&gt;📫&lt;/li&gt;
+  &lt;li&gt;Comment on my Instagram account &lt;a href=&quot;https://www.instagram.com/data.gram/&quot;&gt;instagram.com/data.gram&lt;/a&gt;📸&lt;/li&gt;
+  &lt;li&gt;Or send a tweet to &lt;a href=&quot;https://twitter.com/WJSutton12&quot;&gt;@WJSutton12&lt;/a&gt;💬&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Will Sutton</name></author><category term="data-viz" /><summary type="html">Building a Personality Quiz in Tableau</summary></entry><entry><title type="html">Viz Recap - Running</title><link href="http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running.html" rel="alternate" type="text/html" title="Viz Recap - Running" /><published>2020-12-31T00:00:00+00:00</published><updated>2020-12-31T00:00:00+00:00</updated><id>http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running</id><content type="html" xml:base="http://localhost:4000/data-viz/2020/12/31/Viz-Recap-Running.html"></content><author><name>Will Sutton</name></author><category term="data-viz" /><summary type="html"></summary></entry><entry><title type="html">Writing SQL Scripts with R Functions</title><link href="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html" rel="alternate" type="text/html" title="Writing SQL Scripts with R Functions" /><published>2020-11-06T00:00:00+00:00</published><updated>2020-11-06T00:00:00+00:00</updated><id>http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions</id><content type="html" xml:base="http://localhost:4000/data-automation/2020/11/06/Writing-SQL-Scripts-with-R-Functions.html">&lt;h2 id=&quot;producing-fast-flexible-and-replicable-sql-scripts-with-r&quot;&gt;Producing fast, flexible and replicable SQL scripts with R&lt;/h2&gt;
 
 &lt;p&gt;For the majority of analytics functions, there is usually some element of reporting to stakeholders, which can be a repetitive and time-consuming task and more required than ever given the demand from business to respond swiftly to changes.&lt;/p&gt;
 
@@ -769,74 +888,4 @@ What it boils down to is:&lt;/p&gt;
 		&lt;br /&gt;
 	&lt;/div&gt;
 	
-&lt;/ul&gt;</content><author><name>Will Sutton</name></author><category term="data-viz" /><summary type="html">Hey, I’m Will, I work as a data analyst at the BBC specialising in data visualisation and automated processes. This blog is where I test out new projects and document the things I’ve learnt along the way. If you like what you see or want to know a bit more shoot me a tweet at @WJSutton12 or contact me here.</summary></entry><entry><title type="html">Tableau Tips &amp;amp; Tricks - 4 Custom Sequential Legends</title><link href="http://localhost:4000/tableau%20tips%20&%20tricks/2018/09/16/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html" rel="alternate" type="text/html" title="Tableau Tips &amp;amp; Tricks - 4 Custom Sequential Legends" /><published>2018-09-16T00:00:00+01:00</published><updated>2018-09-16T00:00:00+01:00</updated><id>http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/16/Tableau-Tips-Tricks-4-Custom-Sequential-Legend</id><content type="html" xml:base="http://localhost:4000/tableau%20tips%20&amp;%20tricks/2018/09/16/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html">&lt;h2 id=&quot;tableau-tips--tricks-4-custom-sequential-legends&quot;&gt;Tableau Tips &amp;amp; Tricks: #4 Custom Sequential Legends&lt;/h2&gt;
-&lt;p&gt;AKA: Legend as a Sheet&lt;/p&gt;
-
-&lt;h3 id=&quot;outline&quot;&gt;Outline&lt;/h3&gt;
-
-&lt;p&gt;Add a custom sequential legend to a dashboard&lt;/p&gt;
-
-&lt;h3 id=&quot;use-cases&quot;&gt;Use Cases&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Making a consistent legend not dependent on a chart&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;step-1---set-all-sequential-charts-to-the-same-range&quot;&gt;Step 1 - Set all Sequential Charts to the same range&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;In your Tableau dashboard for each chart using a sequential range set them all to a standard range by:&lt;/li&gt;
-  &lt;li&gt;Go to sheet&lt;/li&gt;
-  &lt;li&gt;Click “Color”, Edit Colours&lt;/li&gt;
-  &lt;li&gt;Click “Advanced” then set you start and end ranges&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_1_set_seq_for_all.gif&quot; alt=&quot;Step 1&quot; title=&quot;Step 1&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;step-2---build-legend-range-in-excel-and-insert-to-tableau&quot;&gt;Step 2 - Build Legend Range in Excel and Insert to Tableau&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Create a numerical list based on the colour range you entered in Step 1, I use 10 points (this only affects the numbers of colours displayed in the legend - you can increase or decrease this depending on your case)&lt;/li&gt;
-  &lt;li&gt;Copy the Excel data, in Tableau right click on “Data” and then “Paste” to enter the data as a data source&lt;/li&gt;
-  &lt;li&gt;Begin building the sequential legend:&lt;/li&gt;
-  &lt;li&gt;Duplicate “Legend”, convert it to a Dimension and add it to Rows&lt;/li&gt;
-  &lt;li&gt;Create a calculated field
-   name: dummy field
-   calculation: MIN(1)&lt;/li&gt;
-  &lt;li&gt;Add “dummy field” to Columns&lt;/li&gt;
-  &lt;li&gt;Add the Measure version of “Legend” to Color&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_2_excel_transfer.gif&quot; alt=&quot;Step 2&quot; title=&quot;Step 2&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;step-3---continue-building-sequential-legend&quot;&gt;Step 3 - Continue Building Sequential Legend&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Rotate axis so the coloured bars are horizontal and maximise their size&lt;/li&gt;
-  &lt;li&gt;Create data labels by adding your measure to Label and set “Marks to Label” to “Max/Min”, format the measure if necessary&lt;/li&gt;
-  &lt;li&gt;Hide the axis header by right-clicking and unticking “Show Header”, remove default legend&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_3_build_seq.gif&quot; alt=&quot;Step 3&quot; title=&quot;Step 3&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;step-4---tidy-up-sequential-legend&quot;&gt;Step 4 - Tidy up Sequential Legend&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Alter the dummy field axis to move the sequential legend up by altering the axis range, in the example I pick -0.2 to 1, however you may need to convert the dummy field to a numeric/decimal type - this can be done by edit the calculated field to MIN(1.0)&lt;/li&gt;
-  &lt;li&gt;Rename the Sheet Title to Legend and format
-&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_4_tidy_up_seq.gif&quot; alt=&quot;Step 4&quot; title=&quot;Step 4&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;step-5---add-legend-to-dashboard&quot;&gt;Step 5 - Add legend to dashboard&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Drag the newly sheet into your dashboard, adjust as necessary&lt;/li&gt;
-  &lt;li&gt;Make sure you disable any filter or actions from affecting this sheet&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_5_add_to_dash.gif&quot; alt=&quot;Step 5&quot; title=&quot;Step 5&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;faqs&quot;&gt;FAQs&lt;/h3&gt;
-
-&lt;p&gt;Do I have to insert data from Excel?&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;No depending on how your data is structured you may be able to use the existing data source and create a sheet in a similar fashion.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;try-it-yourself&quot;&gt;Try it yourself!&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/views/TipsTricks4-CustomSequentialLegend/GlobalSuperstoreSales?:embed=y&amp;amp;:display_count=yes&quot;&gt;Dashboard Link&lt;/a&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><category term="tableau tips &amp; tricks" /><summary type="html">Tableau Tips &amp;amp; Tricks: #4 Custom Sequential Legends AKA: Legend as a Sheet</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Will Sutton</name></author><category term="data-viz" /><summary type="html">Hey, I’m Will, I work as a data analyst at the BBC specialising in data visualisation and automated processes. This blog is where I test out new projects and document the things I’ve learnt along the way. If you like what you see or want to know a bit more shoot me a tweet at @WJSutton12 or contact me here.</summary></entry></feed>

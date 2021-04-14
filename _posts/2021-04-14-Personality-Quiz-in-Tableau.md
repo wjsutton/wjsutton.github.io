@@ -4,7 +4,7 @@ title: Building a Personality Quiz in Tableau
 categories: [data-viz]
 blurb: Giving users a personalised data story through personality quizzes 
 img: assets/images/personality-quiz-in-tableau.png
-published: false
+published: true
 ---
 
 ## Building a Personality Quiz in Tableau
