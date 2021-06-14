@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-UK" }}">
+
+<head>
+<meta charset='utf-8'>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,maximum-scale=2">
+<!--link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style_extras.css?v=' | append: site.github.build_revision | relative_url }}"-->
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/image_grid_2021.css?v=' | append: site.github.build_revision | relative_url }}">
+
+    {% feed_meta %}
+    {% seo %}
+</head>
+<body>
+<div style="float: right;">
+<h4><a href="https://wjsutton.github.io/">RETURN TO BLOG ↦</a></h4>
+</div>
+<div style="float: left;">
+<h1>IRON VIZ 2021 Submissions from Twitter</h1>
+</div>
+
+<br><br><br><br>
+<div>
+<p>
+<a href="https://www.tableau.com/community/iron-viz">Iron Viz</a> is Tableau's ultimate data competition where cash prizes, charity donations and conference places are up for grabs! 
+</p>
+<p>
+This year's global qualifier focuses on Data + Joy, entrants are to viz what they love and submit a Tableau viz before the 2nd July 2021 deadline. Find out more <a href="https://www.tableau.com/about/blog/2021/6/viz-what-you-love-iron-viz-2021">here.</a>
+</p> 
+<p>
+Below are 3 incredible Iron Viz submissions I've compiled from Twitter. Please give plenty of support to these entrants by clicking the viz and going to their Twitter pages.
+</p>
+</div>
+<section id="gallery">
+<a href='https://twitter.com/FlerlageKev/status/1404410550495367169'><img src='https://public.tableau.com/static/images/Th/TheHistoryofTableausIronViz/TheHistoryofTableausIronViz/1.png'></a>
+<a href='https://twitter.com/ninjavizlouis/status/1404290730110029824'><img src='https://public.tableau.com/static/images/Ha/HastheGamingTrendchangedinJapan/Explore/1.png'></a>
+<a href='https://twitter.com/fredffery/status/1403317156746387472'><img src='https://public.tableau.com/static/images/Pi/PinkFloydSales1967-2014/PinkFloydSales1967-20142/1.png'></a>
+</section>
+{% if site.google_analytics %}
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', '{{ site.google_analytics }}', 'auto');
+ga('send', 'pageview');
+</script>
+{% endif %}
+</body>
+</html>
