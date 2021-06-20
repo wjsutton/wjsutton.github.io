@@ -1,4 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-14T21:51:39+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Building a Personality Quiz in Tableau</title><link href="http://localhost:4000/data-viz/2021/04/14/Personality-Quiz-in-Tableau.html" rel="alternate" type="text/html" title="Building a Personality Quiz in Tableau" /><published>2021-04-14T00:00:00+01:00</published><updated>2021-04-14T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2021/04/14/Personality-Quiz-in-Tableau</id><content type="html" xml:base="http://localhost:4000/data-viz/2021/04/14/Personality-Quiz-in-Tableau.html">&lt;h2 id=&quot;building-a-personality-quiz-in-tableau&quot;&gt;Building a Personality Quiz in Tableau&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-20T12:32:18+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Will Sutton</title><author><name>Will Sutton</name></author><entry><title type="html">Iron Viz 2021 Twitter Gallery</title><link href="http://localhost:4000/data-viz/2021/06/20/Iron-Viz-2021-Gallery.html" rel="alternate" type="text/html" title="Iron Viz 2021 Twitter Gallery" /><published>2021-06-20T00:00:00+01:00</published><updated>2021-06-20T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2021/06/20/Iron-Viz-2021-Gallery</id><content type="html" xml:base="http://localhost:4000/data-viz/2021/06/20/Iron-Viz-2021-Gallery.html">&lt;h4 id=&quot;new-gallery-for-2021&quot;&gt;New Gallery for 2021&lt;/h4&gt;
+
+&lt;p&gt;It’s Iron Viz time again in the Tableau community, and after a quick Twitter poll the Iron Viz Twitter submission gallery, available here: &lt;a href=&quot;https://wjsutton.github.io/ironviz2021.html&quot;&gt;https://wjsutton.github.io/ironviz2021.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wjsutton.github.io/ironviz2021.html&quot;&gt;
+&lt;img src=&quot;/assets/images/ironviz_gallery_image_2021.PNG&quot; align=&quot;center&quot; style=&quot;width:90%;height:90%;padding-left:10px;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt; The Twitter Poll, thanks to all those voters!
+&lt;br /&gt;
+&lt;a href=&quot;https://twitter.com/WJSutton12/status/1403639957013544964?s=20&quot;&gt;
+&lt;img src=&quot;/assets/images/ironviz_gallery_poll.PNG&quot; align=&quot;center&quot; style=&quot;width:90%;height:90%;padding-left:10px;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;some-notes-about-the-gallery&quot;&gt;Some notes about the gallery&lt;/h4&gt;
+
+&lt;p&gt;Content curation:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The process gathers data from Twitter, finding tweets including #ironviz or #ironviz2021 and a link to a Tableau Public Viz&lt;/li&gt;
+  &lt;li&gt;It doesn’t collect all tweets due to user preferences on data collection, so any missed submissions are welcome to be included&lt;/li&gt;
+  &lt;li&gt;Some tweets are excluded as viz being shared isn’t a submission to 2021’s ironviz, examples are sharing a previous years submission or sharing a project viz (e.g. Makeover Monday) and trying to increase the reach of the viz, if I’ve wrongly excluded a viz let me know&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The gallery page:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The images are extracted from the Tableau public link, details available here: &lt;a href=&quot;https://github.com/wjsutton/tableau_public_api#user-content-books-workbook-image&quot;&gt;https://github.com/wjsutton/tableau_public_api#user-content-books-workbook-image&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Images are arranged by a CSS photo grid, details of which is here: &lt;a href=&quot;https://css-tricks.com/seamless-responsive-photo-grid/&quot;&gt;https://css-tricks.com/seamless-responsive-photo-grid/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;The order of the vizzes is determined at random and refreshed with each update, this is to give every a fair chance of being near the top and for users to see new vizzes when they revisit the page&lt;/li&gt;
+  &lt;li&gt;Each image links back to Twitter so you can see what the author says about their work, and gives you the chance to give feedback and support on the viz, as well as a link to the Tableau public viz&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;2020’s submission gallery is still available to view here: 
+&lt;br /&gt;&lt;a href=&quot;https://wjsutton.github.io/ironviz2020.html&quot;&gt;https://wjsutton.github.io/ironviz2020.html&lt;/a&gt;
+&lt;br /&gt;
+and all 2020 Iron Viz submissions available on Tableau’s blog: 
+&lt;br /&gt;&lt;a href=&quot;https://public.tableau.com/en-us/s/blog/2020/08/explore-370-iron-viz-entries-health-and-wellness-data&quot;&gt;https://public.tableau.com/en-us/s/blog/2020/08/explore-370-iron-viz-entries-health-and-wellness-data&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;best-of-luck-to-all-those-entering-iron-viz-this-year&quot;&gt;Best of luck to all those entering Iron Viz this year!&lt;/h4&gt;
+
+&lt;p&gt;If you have any feedback for this project please feel free to send a tweet to &lt;a href=&quot;https://twitter.com/WJSutton12&quot;&gt;@WJSutton12&lt;/a&gt;💬&lt;/p&gt;</content><author><name>Will Sutton</name></author><category term="data-viz" /><summary type="html">New Gallery for 2021</summary></entry><entry><title type="html">Building a Personality Quiz in Tableau</title><link href="http://localhost:4000/data-viz/2021/04/14/Personality-Quiz-in-Tableau.html" rel="alternate" type="text/html" title="Building a Personality Quiz in Tableau" /><published>2021-04-14T00:00:00+01:00</published><updated>2021-04-14T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2021/04/14/Personality-Quiz-in-Tableau</id><content type="html" xml:base="http://localhost:4000/data-viz/2021/04/14/Personality-Quiz-in-Tableau.html">&lt;h2 id=&quot;building-a-personality-quiz-in-tableau&quot;&gt;Building a Personality Quiz in Tableau&lt;/h2&gt;
 
 &lt;p&gt;Personality quizzes have been around since the 1920s. Essentially, it’s a short questionnaire that tests traits and behaviours that people exhibit in various situations.&lt;/p&gt;
 
@@ -850,42 +887,4 @@ What it boils down to is:&lt;/p&gt;
   &lt;li&gt;Also at the time of writing Tableau’s online training is now free for 90 days: &lt;a href=&quot;https://www.tableau.com/learn/training/elearning&quot;&gt;https://www.tableau.com/learn/training/elearning&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Good Luck!&lt;/strong&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><category term="data-viz" /><summary type="html">Passing the Tableau Desktop Certified Professional Qualification</summary></entry><entry><title type="html">Upskill your Tableau Game with these Tips &amp;amp; Tricks</title><link href="http://localhost:4000/data-viz/2018/09/30/Upskill-Your-Tableau-Game-with-these-Tips-&-Tricks.html" rel="alternate" type="text/html" title="Upskill your Tableau Game with these Tips &amp;amp; Tricks" /><published>2018-09-30T00:00:00+01:00</published><updated>2018-09-30T00:00:00+01:00</updated><id>http://localhost:4000/data-viz/2018/09/30/Upskill%20Your%20Tableau%20Game%20with%20these%20Tips%20&amp;%20Tricks</id><content type="html" xml:base="http://localhost:4000/data-viz/2018/09/30/Upskill-Your-Tableau-Game-with-these-Tips-&amp;-Tricks.html">&lt;div&gt;
-  &lt;p&gt;&lt;img src=&quot;https://pbs.twimg.com/profile_images/1228767622432464896/wi01-oYY_400x400.jpg&quot; align=&quot;left&quot; style=&quot;width:20%;height:20%;padding-right:10px;&quot; /&gt; Hey, I’m Will, I work as a data analyst at the BBC specialising in data visualisation and automated processes.&lt;/p&gt;
-  &lt;p&gt;This blog is where I test out new projects and document the things I’ve learnt along the way. If you like what you see or want to know a bit more shoot me a tweet at &lt;a href=&quot;https://twitter.com/WJSutton12&quot;&gt;@WJSutton12&lt;/a&gt; or contact me &lt;a href=&quot;/contact.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;hr /&gt;
-
-&lt;h4&gt;TABLEAU TIPS &amp;amp; TRICKS&lt;/h4&gt;
-
-&lt;ul&gt;
-	
-	&lt;div&gt;
-		&lt;a href=&quot;/tableau%20tips%20&amp;amp;%20tricks/2018/09/16/Tableau-Tips-Tricks-4-Custom-Sequential-Legend.html&quot; style=&quot;color: inherit;text-decoration: inherit&quot;&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_04_sequential_legend/custom_seq_legend_4_tidy_up_seq.gif&quot; align=&quot;left&quot; style=&quot;width:100px;height:100px;padding-right:10px;&quot; /&gt;&lt;h5&gt;Tableau Tips &amp;amp; Tricks - 4 Custom Sequential Legends&lt;/h5&gt;
-		&lt;span&gt;September 16, 2018 | tableau tips &amp;amp; tricks | 2 mins &lt;/span&gt;
-		&lt;p&gt;Customised sequential legends in Tableau.&lt;/p&gt;&lt;/a&gt;
-		&lt;br /&gt;
-	&lt;/div&gt;
-	
-	&lt;div&gt;
-		&lt;a href=&quot;/tableau%20tips%20&amp;amp;%20tricks/2018/09/12/Tableau-Tips-Tricks-3-Custom-Categorical-Legend.html&quot; style=&quot;color: inherit;text-decoration: inherit&quot;&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_03_categorical_legend/custom_cat_legend_5_add_to_dash.gif&quot; align=&quot;left&quot; style=&quot;width:100px;height:100px;padding-right:10px;&quot; /&gt;&lt;h5&gt;Tableau Tips &amp;amp; Tricks - 3 Custom Categorical Legends&lt;/h5&gt;
-		&lt;span&gt;September 12, 2018 | tableau tips &amp;amp; tricks | 2 mins &lt;/span&gt;
-		&lt;p&gt;Customised categorical legends in Tableau.&lt;/p&gt;&lt;/a&gt;
-		&lt;br /&gt;
-	&lt;/div&gt;
-	
-	&lt;div&gt;
-		&lt;a href=&quot;/tableau%20tips%20&amp;amp;%20tricks/2018/09/08/Tableau-Tips-Tricks-2-Title-as-a-Sheet.html&quot; style=&quot;color: inherit;text-decoration: inherit&quot;&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_02_titles_as_sheet/title_as_sheet_final.gif&quot; align=&quot;left&quot; style=&quot;width:100px;height:100px;padding-right:10px;&quot; /&gt;&lt;h5&gt;Tableau Tips &amp;amp; Tricks - 2 Title as a Sheet&lt;/h5&gt;
-		&lt;span&gt;September 8, 2018 | tableau tips &amp;amp; tricks | 2 mins &lt;/span&gt;
-		&lt;p&gt;Have charts in Tableau that need different titles and a standard chart title doesn’t do what you want? Here's a fix for that.&lt;/p&gt;&lt;/a&gt;
-		&lt;br /&gt;
-	&lt;/div&gt;
-	
-	&lt;div&gt;
-		&lt;a href=&quot;/tableau%20tips%20&amp;amp;%20tricks/2018/09/04/Tableau-Tips-Tricks-1-Sheet-Selectors.html&quot; style=&quot;color: inherit;text-decoration: inherit&quot;&gt;&lt;img src=&quot;/assets/tableau_tips_and_tricks_gifs/t&amp;amp;t_01_sheet_selector/sheet_selector_final.gif&quot; align=&quot;left&quot; style=&quot;width:100px;height:100px;padding-right:10px;&quot; /&gt;&lt;h5&gt;Tableau Tips &amp;amp; Tricks - 1 Sheet Selectors&lt;/h5&gt;
-		&lt;span&gt;September 4, 2018 | tableau tips &amp;amp; tricks | 3 mins &lt;/span&gt;
-		&lt;p&gt;Sheet swapping in Tableau, a technique that allows you to change the type of charts shown on a dashboard.&lt;/p&gt;&lt;/a&gt;
-		&lt;br /&gt;
-	&lt;/div&gt;
-	
-&lt;/ul&gt;</content><author><name>Will Sutton</name></author><category term="data-viz" /><summary type="html">Hey, I’m Will, I work as a data analyst at the BBC specialising in data visualisation and automated processes. This blog is where I test out new projects and document the things I’ve learnt along the way. If you like what you see or want to know a bit more shoot me a tweet at @WJSutton12 or contact me here.</summary></entry></feed>
+&lt;p&gt;&lt;strong&gt;Good Luck!&lt;/strong&gt;&lt;/p&gt;</content><author><name>Will Sutton</name></author><category term="data-viz" /><summary type="html">Passing the Tableau Desktop Certified Professional Qualification</summary></entry></feed>
