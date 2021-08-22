@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-## WIILIAM JOE SUTTON IMC
+## WILLIAM JOE SUTTON IMC
 
 I develop end-to-end solutions to problems with data. From the extraction of raw results to producing interactive dashboards to influence and inform business stakeholders.
 

@@ -1,10 +1,10 @@
 - name: Home
   link: /
-- name: My Work
+- name: Portfolio
   link: /portfolio.html
 - name: Resume
   link: /resume.html
-- name: Contact Me
+- name: Contact
   link: /contact.html
 
 #- name: Automation

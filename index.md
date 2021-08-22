@@ -1,6 +1,5 @@
 ---
 layout: default
-title: Home
 ---
 <div>
 <img src="https://pbs.twimg.com/profile_images/1228767622432464896/wi01-oYY_400x400.jpg" align="left" style="width:20%;height:20%;padding-right:10px;"> Hey, I'm Will, I work as a data analyst at the BBC specialising in data visualisation and automated processes. 

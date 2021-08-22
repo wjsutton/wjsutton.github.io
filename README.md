@@ -29,3 +29,5 @@ To update the resume page [https://wjsutton.github.io/resume.html](https://wjsut
 - To edit the images (add new skils or work): navigate to `/resume` and edit the related .csv files and rerun the appropriate R script, images can be found in the folder `/resume/assets`
 
 Contact form integration using [https://formspree.io/](https://formspree.io/)
+
+Favicon from [https://favicon.io/](https://favicon.io/emoji-favicons/chart-increasing/)
