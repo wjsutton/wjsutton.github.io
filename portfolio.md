@@ -7,17 +7,17 @@ layout: default
 
 <div style="display: flex; flex-wrap: wrap;">
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
-<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/FinancialComplaintsRWFD/Overview">
+<a href="https://public.tableau.com/app/profile/wjsutton/viz/FinancialComplaintsRWFD/Overview">
 <img src='https://public.tableau.com/static/images/Fi/FinancialComplaintsRWFD/Overview/1.png' style="width: 450px">
 </a>
 </div>
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
-<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/DiversityScorecardRWFD/RWFDINC-DiversityScorecard">
+<a href="https://public.tableau.com/app/profile/wjsutton/viz/DiversityScorecardRWFD/RWFDINC-DiversityScorecard">
 <img src='https://public.tableau.com/static/images/Di/DiversityScorecardRWFD/RWFDINC-DiversityScorecard/1.png' style="width: 400px">
 </a>
 </div>
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
-<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/RunningforOlympicGold/RunningforOlympicGold">
+<a href="https://public.tableau.com/app/profile/wjsutton/viz/RunningforOlympicGold/RunningforOlympicGold">
 <img src='https://public.tableau.com/static/images/Ru/RunningforOlympicGold/RunningforOlympicGold/1.png' style="width: 400px">
 </a>
 </div>
@@ -29,19 +29,19 @@ layout: default
 </div>
 
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
-<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/ArthurianLegend/ArthurianLegend">
+<a href="https://public.tableau.com/app/profile/wjsutton/viz/ArthurianLegend/ArthurianLegend">
 <img src='https://public.tableau.com/static/images/Ar/ArthurianLegend/ArthurianLegend/1.png' style="width: 350px">
 </a>
 </div>
 
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
-<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/ChildMarriage_16014531003290/ChildMarriageInstaviz">
+<a href="https://public.tableau.com/app/profile/wjsutton/viz/ChildMarriage_16014531003290/ChildMarriageInstaviz">
 <img src='https://public.tableau.com/static/images/Ch/ChildMarriage_16014531003290/ChildMarriageInstaviz/1.png' style="width: 300px">
 </a>
 </div>
 
 <div style="width: 300px; height:300px; overflow: hidden;margin: 0 10px 0 0">
-<a href="https://public.tableau.com/profile/wjsutton#!/vizhome/TheWorldMarathonMajors/TheWorldMarathonMajors">
+<a href="https://public.tableau.com/app/profile/wjsutton/viz/TheWorldMarathonMajors/TheWorldMarathonMajors">
 <img src='https://public.tableau.com/static/images/Th/TheWorldMarathonMajors/TheWorldMarathonMajors/1.png' style="width: 300px">
 </a>
 </div>
