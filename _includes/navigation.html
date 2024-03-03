@@ -1,7 +1,0 @@
-<nav style="float:right;">
-  {% for item in site.data.navigation %}
-    <a href="{{ item.link }}" {% if page.url == item.link %}style="color: white;padding-left: 10px;"{% endif %} style="color: white;padding-left: 10px;">
-      {{ item.name | upcase }}
-    </a>
-  {% endfor %}
-</nav>
