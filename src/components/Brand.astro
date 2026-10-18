@@ -1,0 +1,68 @@
+<div class="brand" id="brand">
+  <h1 class="name"><span id="brand-name">Will Sutton</span></h1>
+  <p class="sub" id="brand-sub">An Expert in Analytics that<br />makes data work for you</p>
+</div>
+
+<style>
+  .brand {
+    position: fixed; z-index: 31;
+    top: var(--brand-top); left: var(--edge);
+    width: max-content;
+    display: flex; flex-direction: column; gap: 9px;
+  }
+  .name {
+    font-size: clamp(24px, 2.5vw, 38px); line-height: 0.95;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
+  }
+  .sub {
+    font-family: var(--font-label); font-size: 12px; font-weight: 500;
+    line-height: 1.6; letter-spacing: 0.04em; text-transform: uppercase;
+    white-space: nowrap; color: var(--muted-stronger);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
+  }
+  @media (max-width: 820px) {
+    .brand {
+      top: 0; left: 0; right: 0; width: auto;
+      padding: var(--brand-top) var(--edge) 18px;
+      background: linear-gradient(180deg, rgba(4, 11, 28, 0.92) 60%, rgba(4, 11, 28, 0));
+    }
+  }
+</style>
+
+<script>
+  const name = document.getElementById('brand-name')!;
+  const sub = document.getElementById('brand-sub')!;
+  const brand = document.getElementById('brand')!;
+  const width = (el: Node) => {
+    const r = document.createRange();
+    r.selectNodeContents(el);
+    return r.getBoundingClientRect().width;
+  };
+
+  // Tagline must never be wider than the rendered "WILL SUTTON".
+  function fitTagline() {
+    sub.style.fontSize = '';
+    const max = width(name);
+    let fs = parseFloat(getComputedStyle(sub).fontSize);
+    while (width(sub) > max && fs > 7) {
+      fs -= 0.25;
+      sub.style.fontSize = fs + 'px';
+    }
+  }
+
+  // Expose the brand's right/bottom edges so Connect can keep clear of it.
+  function brandVars() {
+    const r = brand.getBoundingClientRect();
+    if (!r.width) return;
+    const s = document.documentElement.style;
+    s.setProperty('--brand-r', Math.ceil(r.right + 40) + 'px');
+    s.setProperty('--brand-b', Math.ceil(r.bottom + 28) + 'px');
+  }
+
+  const update = () => { fitTagline(); brandVars(); };
+  update();
+  addEventListener('resize', update);
+  document.fonts?.ready.then(update);
+  addEventListener('section-change', brandVars);
+</script>

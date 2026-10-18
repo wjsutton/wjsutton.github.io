@@ -1,0 +1,230 @@
+---
+import { Image } from 'astro:assets';
+import { summary } from '../data/career';
+import hero from '../../assets/img/hero-no-background.png';
+import ironViz from '../../assets/img/WillSutton_IV2022.jpg';
+import tcp from '../../assets/img/credly/tableau-certified-professional.png';
+import pbi from '../../assets/img/credly/power-bi-data-analyst.png';
+import alteryx from '../../assets/img/credly/alteryx-designer-advanced-certification.png';
+import visionary from '../assets/badges/tableau-visionary-2025.png';
+import ambassador from '../assets/badges/tableau-ambassador-2024.png';
+import sfDataCloud from '../assets/badges/salesforce-data-cloud-consultant.png';
+import sfAi from '../assets/badges/salesforce-ai-associate.png';
+import dbtDev from '../assets/badges/dbt-certified-developer.png';
+import dbtArch from '../assets/badges/dbt-certified-architect.png';
+import dbtTrainer from '../assets/badges/dbt-authorized-trainer.png';
+
+// Build-time copy; the Gantt script refreshes it in the browser each month.
+const tl = summary(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
+
+const linkedIn = 'https://www.linkedin.com/in/will-sutton-14711627/';
+const ironVizBlog = 'https://www.tableau.com/blog/iron-viz-2022-championship';
+
+const badges = [
+  { name: 'Tableau Visionary 2025', href: 'https://www.credly.com/badges/947c3da1-cb39-4110-9b69-cc5be793b917/public_url', src: visionary },
+  { name: 'Tableau Ambassador 2024', href: 'https://www.credly.com/badges/495305b6-0fb9-494f-b63e-76bf90b92a2c/public_url', src: ambassador },
+  { name: 'Tableau Certified Professional', href: 'https://www.credly.com/badges/f481f7d5-a216-4ffc-aa1b-74b7fe388fab', src: tcp },
+  { name: 'Power BI Data Analyst', href: 'https://www.credly.com/badges/357d7051-7b8e-4e3a-a0e4-24e6e554b02b', src: pbi },
+  { name: 'Alteryx Designer Advanced', href: 'https://www.credly.com/badges/eaebd799-b3cf-460b-b844-da4bc9fe35ab/public_url', src: alteryx },
+  { name: 'Salesforce Certified Data Cloud Consultant', href: 'https://www.salesforce.com/trailblazer/willsutton0202', src: sfDataCloud },
+  { name: 'Salesforce Certified AI Associate', href: 'https://www.salesforce.com/trailblazer/willsutton0202', src: sfAi },
+  { name: 'dbt Certified Developer', href: 'https://credentials.getdbt.com/4bdd19a8-b15b-40fa-9fcb-6f2e3d8d1b0c#acc.8JWUF6uB', src: dbtDev },
+  { name: 'dbt Certified Architect', href: 'https://credentials.getdbt.com/fe2920d2-045c-4839-874b-ce2586dec021#acc.irZHeMmA', src: dbtArch },
+  { name: 'dbt Authorized Trainer', href: 'https://credentials.getdbt.com/e532120a-cb26-4638-aa32-2c2eea988687#acc.2D0MveAw', src: dbtTrainer },
+];
+
+const social = [
+  ['LinkedIn', linkedIn],
+  ['Instagram', 'https://www.instagram.com/data.gram/'],
+  ['YouTube', 'https://www.youtube.com/channel/UC3N21EOGbnVX5duBlfDCpng'],
+  ['GitHub', 'https://github.com/wjsutton'],
+  ['Tableau Public', 'https://public.tableau.com/app/profile/wjsutton/vizzes'],
+];
+---
+
+<div class="scroller connect">
+  <div class="c-block anim w-intro">
+    <div class="flow">
+      <h2 class="c-h">Hey, I’m Will</h2>
+      <p class="w-sub">I’m an Expert in Analytics that makes data work for you.</p>
+      <p>I build things people actually use:</p>
+      <ul class="w-list">
+        <li><b>Engaging visualisations</b> that turn raw data into insight and decisions, using Tableau</li>
+        <li><b>Engineered data applications</b> that meet real user needs, with SQL, Python, dbt, LangChain and AI</li>
+        <li><b>Practical training and tutorials</b> that upskill teams, through in-person sessions, YouTube and blogs</li>
+      </ul>
+    </div>
+    <div class="w-photo">
+      <Image src={hero} alt="Will Sutton" width={800} widths={[320, 480, 640, 800]} sizes="(max-width: 820px) 90vw, 360px" loading="lazy" />
+    </div>
+  </div>
+
+  <div class="c-block anim wc">
+    <div class="flow wc-top">
+      <h2 class="c-h">A World Champion in <span class="accent">Data Visualisation</span></h2>
+      <p>Since 2013, I've been hooked on building data visualisations with Tableau. This passion has led to several career highlights:</p>
+      <ul class="w-list">
+        <li>Saved the BBC over £400k with one chart detailing the outcome of a planned project</li>
+        <li>Demonstrated the value of Data Science attribution models to WorldRemit stakeholders</li>
+        <li>Upskilled and enabled new and existing users at The Information Lab</li>
+      </ul>
+    </div>
+    <div class="flow wc-text">
+      <p>In 2022, I travelled to Las Vegas to compete in the largest data visualisation contest globally, Tableau's <a href={ironVizBlog} target="_blank" rel="noopener">Iron Viz</a> competition. The final round involved presenting a 20-minute Tableau dashboard before a live audience of 5,000 and a global streaming audience.</p>
+      <p>Currently I am a <a href="https://www.tableau.com/community/community-leaders/visionaries" target="_blank" rel="noopener">Tableau Visionary</a>, <a href="https://www.tableau.com/community/community-leaders/ambassadors" target="_blank" rel="noopener">Tableau Ambassador</a>, Co-host of the <a href="https://gamesnightviz.webflow.io/" target="_blank" rel="noopener">GamesNightViz Community Project</a>, Leader of the <a href="https://usergroups.tableau.com/ai-tableau-user-group/" target="_blank" rel="noopener">AI + Tableau User Group</a>, and <a href={ironVizBlog} target="_blank" rel="noopener">2022 Iron Viz Champion</a>.</p>
+    </div>
+    <a class="wc-media frame" href="https://youtu.be/cIwCJ2V-KX8" target="_blank" rel="noopener" aria-label="Watch the Iron Viz 2022 final on YouTube">
+      <Image src={ironViz} alt="Will Sutton holding the Iron Viz 2022 trophy" width={640} widths={[320, 480, 640]} sizes="(max-width: 820px) 90vw, 320px" loading="lazy" />
+    </a>
+  </div>
+
+  <div class="c-block anim flow">
+    <h2 class="c-h">Career timeline, <span class="accent" id="tl-range">{tl.range}</span></h2>
+    <p class="c-sub" id="tl-years">{tl.years}</p>
+    <div id="gantt" class="gantt"></div>
+    <p class="c-note"><span id="tl-sectors">{tl.sectors}</span> <a href={linkedIn} target="_blank" rel="noopener">LinkedIn</a>.</p>
+  </div>
+
+  <div class="c-block anim flow">
+    <h2 class="c-h3">Certifications</h2>
+    <ul class="badges">
+      {
+        badges.map((b) => (
+          <li>
+            <a class="badge" href={b.href} target="_blank" rel="noopener" title={b.name}>
+              <Image src={b.src} alt={b.name} width={76} densities={[1, 2]} loading="lazy" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="c-block anim flow">
+    <h2 class="c-h">Let’s <span class="accent">connect</span></h2>
+    <p>Questions about anything on this page, or something you’ve seen elsewhere? Message me on <a href={linkedIn} target="_blank" rel="noopener">LinkedIn</a> and I’ll reply when I’m available. Prefer a more direct route? Reach out to your account manager at <a href="https://www.theinformationlab.co.uk/" target="_blank" rel="noopener">The Information Lab</a> and they’ll help.</p>
+    <ul class="social">
+      {social.map(([name, href]) => <li><a href={href} target="_blank" rel="noopener">{name}</a></li>)}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .connect {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: safe center; align-items: flex-start;
+    /* Never under the rail or the brand; measured by Brand.astro. */
+    padding: max(clamp(96px, 12vh, 140px), var(--brand-b, 0px)) var(--edge) clamp(84px, 10vh, 116px)
+      max(calc(var(--rail) + var(--edge)), var(--brand-r, 0px), calc((100vw - 900px) / 2));
+    overflow-x: hidden; overflow-y: auto; scrollbar-width: none;
+    color: var(--muted-stronger);
+  }
+  .connect::-webkit-scrollbar { display: none; }
+
+  .c-block { flex: none; width: min(900px, 100%); }
+  .c-block + .c-block { margin-top: var(--s3); }
+  .flow > * + * { margin-top: var(--flow, var(--s0)); }
+  .flow > :is(.c-h, .c-h3) + * { --flow: var(--s-1); }
+
+  .c-h { font-size: var(--s2); line-height: 1.1; color: var(--paper); }
+  .c-h3 { font-size: var(--s1); line-height: 1.2; color: var(--paper); }
+  .accent { color: var(--accent); }
+  .connect p { max-width: 62ch; text-wrap: pretty; }
+  .connect p a {
+    color: var(--paper); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px;
+  }
+  .connect p a:hover { color: var(--accent); }
+  .w-sub { font-size: var(--s1); line-height: 1.35; color: var(--paper); }
+  .w-list { display: flex; flex-direction: column; gap: var(--s-1); max-width: 58ch; } /* = the reference 62ch at 16px */
+  .w-list li { position: relative; padding-left: 22px; }
+  .w-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.62em; width: 8px; height: 8px;
+    background: var(--accent); clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+  .w-list b { font-weight: 500; color: var(--paper); }
+
+  .w-intro { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: clamp(20px, 3vw, 48px); align-items: center; }
+  .w-photo { position: relative; aspect-ratio: 4 / 5; width: 100%; max-height: 70vh; }
+  .w-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+
+  .wc { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 0 clamp(20px, 3vw, 48px); align-items: start; }
+  .wc-top { grid-column: 1 / -1; }
+  .wc-text { grid-column: 2; grid-row: 2; margin-top: var(--s0); }
+  .wc-media {
+    grid-column: 1; grid-row: 2; margin-top: var(--s0);
+    display: block; aspect-ratio: 4 / 5; max-height: 60vh; width: 100%; overflow: hidden;
+  }
+  .wc-media img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 20%; }
+
+  .c-sub { font-family: var(--font-label); font-size: var(--s-1); letter-spacing: 0.2em; text-transform: uppercase; }
+
+  .badges { display: flex; flex-wrap: wrap; gap: 12px; }
+  .badge { width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+  .badge:hover { transform: translateY(-3px); }
+  .badge img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+  .social {
+    display: flex; flex-wrap: wrap; gap: 22px; padding-top: 16px;
+    font-family: var(--font-label); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .social a { display: inline-block; padding-bottom: 4px; border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .social a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Staggered entrance */
+  .anim { opacity: 0; transform: translateY(12px); transition: opacity 0.55s ease, transform 0.55s var(--ease-io); }
+  :global(.section.is-active) .anim { opacity: 1; transform: none; }
+  :global(.section.is-active) .anim:nth-child(1) { transition-delay: 0.06s; }
+  :global(.section.is-active) .anim:nth-child(2) { transition-delay: 0.13s; }
+  :global(.section.is-active) .anim:nth-child(3) { transition-delay: 0.2s; }
+  :global(.section.is-active) .anim:nth-child(4) { transition-delay: 0.27s; }
+  :global(.section.is-active) .anim:nth-child(5) { transition-delay: 0.34s; }
+
+  /* ---- Gantt (elements are created by D3, hence :global) ---- */
+  .gantt { position: relative; margin-top: 18px; }
+  .gantt :global(svg) { display: block; overflow: visible; }
+  .gantt :global(.g-probe) { position: absolute; visibility: hidden; left: 0; top: 0; }
+  .gantt :global(.g-label) { font-family: var(--font-body); font-size: 11.5px; letter-spacing: 0.02em; fill: var(--paper); }
+  .gantt :global(.g-til) { font-size: 15px; letter-spacing: 0; }
+  .gantt :global(.g-axis text) { font-family: var(--font-label); font-size: 10px; letter-spacing: 0.1em; fill: var(--muted); }
+  .gantt :global(.g-grid line) { stroke: rgba(250, 247, 242, 0.07); }
+  .gantt :global(.g-yrs) { font-family: var(--font-body); font-size: 12px; fill: var(--paper); }
+  .gantt :global(.g-legend text) { font-family: var(--font-body); font-size: 11px; fill: var(--muted-stronger); }
+  .gantt :global(.g-hit) { fill: transparent; }
+  .gantt :global(.g-bar) { cursor: pointer; outline: none; transition: opacity 0.2s; }
+  .gantt :global(.g-orgs) { pointer-events: none; transition: opacity 0.2s; }
+  .gantt :global(.g-bar:focus-visible rect.seg) { stroke: var(--paper); stroke-width: 1.5; }
+  .gantt :global(svg.focus .g-bar:not(.hi)),
+  .gantt :global(svg.focus:not(.til-hi) .g-orgs) { opacity: 0.3; }
+  .gantt :global(rect.seg) {
+    transform-box: fill-box; transform-origin: left center;
+    transform: scaleX(0); transition: transform 0.9s var(--ease-out);
+  }
+  :global(.section.is-active) .gantt :global(svg.ready rect.seg) { transform: scaleX(1); }
+
+  @media (max-width: 820px) {
+    .connect { position: relative; inset: auto; padding: 56px var(--edge) 100px; overflow: visible; }
+    .anim { opacity: 1; transform: none; }
+    .gantt :global(rect.seg) { transform: none; }
+    .w-intro { grid-template-columns: 1fr; }
+    .w-photo { max-width: 420px; }
+    .wc { grid-template-columns: 1fr; }
+    .wc-text { grid-column: 1; }
+    .wc-media { grid-row: 3; max-width: 420px; }
+  }
+</style>
+
+<script>
+  import { desktop } from '../scripts/media';
+
+  // Load D3 + the chart only when Connect is first shown.
+  const host = document.getElementById('gantt')!;
+  const section = document.getElementById('connect')!;
+  let loaded = false;
+  const load = () => { if (!loaded) { loaded = true; import('../scripts/gantt'); } };
+
+  if (section.classList.contains('is-active')) load();
+  addEventListener('section-change', () => { if (section.classList.contains('is-active') && desktop.matches) load(); });
+  new IntersectionObserver((entries, io) => {
+    if (!desktop.matches && entries.some((e) => e.isIntersecting)) { load(); io.disconnect(); }
+  }, { rootMargin: '400px' }).observe(host);
+</script>
