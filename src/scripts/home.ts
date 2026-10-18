@@ -119,9 +119,16 @@ markScrolled();
 addEventListener('scroll', () => {
   markScrolled();
   if (desktop.matches) return;
-  const line = innerHeight * 0.4;
-  let cur = 0;
-  sections.forEach((s, k) => { if (s.getBoundingClientRect().top <= line) cur = k; });
+  // Visual order can differ from DOM order on mobile (Connect moves up), so
+  // pick the section whose top is closest above the line, not the last in the DOM.
+  // At the very bottom, the last section wins even if it's too short to reach the line.
+  const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+  const line = atBottom ? Infinity : innerHeight * 0.4;
+  let cur = 0, best = -Infinity;
+  sections.forEach((s, k) => {
+    const top = s.getBoundingClientRect().top;
+    if (top <= line && top > best) { best = top; cur = k; }
+  });
   setActive(cur);
 }, { passive: true });
 
