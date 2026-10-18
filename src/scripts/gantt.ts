@@ -14,11 +14,50 @@ document.getElementById('tl-sectors')!.textContent = s.sectors;
 
 const host = document.getElementById('gantt')!;
 
+/* Phones: a vertical timeline (newest first) instead of the horizontal Gantt.
+   Each entry shows dates, title, org and a duration bar scaled to the longest role. */
+function drawList() {
+  const longest = Math.max(...rows.map((r) => r.yrs));
+  const ol = document.createElement('ol');
+  ol.className = 'g-list';
+  rows.forEach((r, i) => {
+    const start = new Date(Math.min(...r.segs.map((g) => +g.s)));
+    const open = r.spans.some(([, e]) => e === null);
+    const continues = !!r.group && rows[i - 1]?.group === r.group; // same org as the entry above
+    const li = document.createElement('li');
+    li.className = `g-item g-${r.type}${continues ? ' g-cont' : ''}`;
+    const add = (tag: string, cls: string, text: string) => {
+      const el = document.createElement(tag);
+      el.className = cls;
+      el.textContent = text;
+      return li.appendChild(el);
+    };
+    if (r.group && !continues) add('p', 'g-org g-org-group', r.org);
+    add('p', 'g-when', `${fmtMonth(start)} – ${open ? 'Present' : fmtMonth(r.end)}`);
+    add('p', 'g-title', r.title);
+    if (r.org && !r.group) add('p', 'g-org', r.org);
+    const dur = add('p', 'g-dur', '');
+    const bar = document.createElement('span');
+    bar.className = 'g-dbar';
+    bar.style.width = `${Math.max(3, (r.yrs / longest) * 70)}%`; // longest role = 70%, leaving room for the label
+    const yrs = document.createElement('span');
+    yrs.textContent = yearsLabel(r.yrs);
+    dur.append(bar, yrs);
+    ol.append(li);
+  });
+  const key = document.createElement('p');
+  key.className = 'g-key';
+  key.innerHTML = '<span class="g-work">Work experience</span><span class="g-edu">Education</span>';
+  host.append(ol, key);
+}
+
 function draw() {
   select(host).select('svg').remove();
+  host.querySelectorAll('.g-list, .g-key').forEach((e) => e.remove());
   const W = host.clientWidth;
   if (!W) return;
-  const small = W < 640, rowH = small ? 44 : 34, bh = 9, gap = 10;
+  if (W < 640) return drawList();
+  const small = false, rowH = 34, bh = 9, gap = 10; // compact SVG layout is replaced by drawList()
 
   // Measure label text with the real SVG styles.
   const probe = select(host).append('svg').attr('class', 'g-probe');

@@ -201,6 +201,29 @@ const social = [
   }
   :global(.section.is-active) .gantt :global(svg.ready rect.seg) { transform: scaleX(1); }
 
+  /* ---- Phone timeline (built by gantt.ts below 640px) ---- */
+  .gantt :global(.g-list) { position: relative; padding-left: 24px; list-style: none; }
+  .gantt :global(.g-list)::before {
+    content: ''; position: absolute; left: 4px; top: 6px; bottom: 6px; width: 1px; background: var(--rule-strong);
+  }
+  .gantt :global(.g-item) { position: relative; padding-bottom: 20px; }
+  .gantt :global(.g-item)::before {
+    content: ''; position: absolute; left: -24px; top: 5px; width: 9px; height: 9px; background: var(--accent);
+  }
+  .gantt :global(.g-item.g-edu)::before { background: var(--peri); }
+  .gantt :global(.g-item.g-cont) { margin-top: -8px; }
+  .gantt :global(.g-item p) { margin: 0; max-width: none; }
+  .gantt :global(.g-org-group) { font-size: var(--s0); font-weight: 500; color: var(--paper); margin-bottom: 4px !important; }
+  .gantt :global(.g-when) { font-family: var(--font-label); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .gantt :global(.g-title) { font-weight: 500; color: var(--paper); line-height: 1.3; margin-top: 2px !important; }
+  .gantt :global(.g-org) { font-size: 0.9em; color: var(--muted-stronger); }
+  .gantt :global(.g-dur) { display: flex; align-items: center; gap: 10px; margin-top: 6px !important; font-size: 13px; color: var(--paper); }
+  .gantt :global(.g-dbar) { flex: none; height: 9px; background: var(--accent); }
+  .gantt :global(.g-edu .g-dbar) { background: var(--peri); }
+  .gantt :global(.g-key) { display: flex; gap: 18px; margin: 4px 0 0 !important; font-size: 12px; color: var(--muted-stronger); }
+  .gantt :global(.g-key span)::before { content: ''; display: inline-block; width: 12px; height: 9px; margin-right: 6px; background: var(--accent); }
+  .gantt :global(.g-key .g-edu)::before { background: var(--peri); }
+
   @media (max-width: 820px) {
     .connect { position: relative; inset: auto; padding: 56px var(--edge) 100px; overflow: visible; }
     .anim { opacity: 1; transform: none; }
