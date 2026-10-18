@@ -8,7 +8,7 @@ const items = await getItems();
 const chips = [{ id: 'all', label: 'All', n: items.length }, ...CATEGORIES.map((c) => ({ id: c.id, label: c.label, n: items.filter((i) => i.cat === c.id).length }))];
 ---
 
-<Base title="Content hub — Will Sutton" description="Every visualisation, repo, talk and blog post by Will Sutton, searchable and filterable by topic.">
+<Base title="Content hub, Will Sutton" description="Every visualisation, repo, talk and blog post by Will Sutton, searchable and filterable by topic.">
   <script is:inline>
     try { if (sessionStorage.getItem('ws-slide-in')) { document.body.classList.add('slide-in'); sessionStorage.removeItem('ws-slide-in'); } } catch (e) {}
   </script>
