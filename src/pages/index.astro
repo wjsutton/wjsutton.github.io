@@ -18,7 +18,8 @@ const items = await getItems();
   <main class="screen">
     <div class="sections">
       <section class="section is-active" id="welcome" aria-label="Welcome">
-        <!-- TODO(welcome-video): intentionally empty until the video overlay lands. -->
+        <!-- Intentionally empty: the sizzle reel plays behind (Backdrop.astro). Mobile gets a scroll cue. -->
+        <a class="scroll-cue label" href="#ai">Scroll <span aria-hidden="true">↓</span><span class="sr-only"> to AI for Analytics</span></a>
       </section>
       {
         CATEGORIES.map((c) => (
@@ -74,5 +75,15 @@ const items = await getItems();
       scroll-margin-top: 90px;
     }
     #welcome { min-height: 88dvh; }
+    .scroll-cue {
+      position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
+      display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px;
+      font-size: 11px; letter-spacing: 0.22em; color: var(--muted-stronger);
+      animation: cue 2.4s ease-in-out infinite;
+    }
+    .scroll-cue span { color: var(--accent); }
   }
+  .scroll-cue { display: none; }
+  @media (max-width: 820px) { .scroll-cue { display: inline-flex; } }
+  @keyframes cue { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 6px); } }
 </style>

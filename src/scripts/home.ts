@@ -112,8 +112,12 @@ menu.addEventListener('click', (e) => {
   goTo(Number(a.closest('li')!.dataset.i));
 });
 
-/* Mobile: track the section in view for the backdrop, nav and hash. */
+/* Mobile: slim the header once scrolled, and track the section in view
+   for the backdrop, nav and hash. */
+const markScrolled = () => document.body.classList.toggle('scrolled', !desktop.matches && scrollY > 40);
+markScrolled();
 addEventListener('scroll', () => {
+  markScrolled();
   if (desktop.matches) return;
   const line = innerHeight * 0.4;
   let cur = 0;
