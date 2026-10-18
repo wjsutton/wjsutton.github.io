@@ -26,7 +26,11 @@
       top: 0; left: 0; right: 0; width: auto;
       padding: var(--brand-top) var(--edge) 18px;
       background: linear-gradient(180deg, rgba(4, 11, 28, 0.92) 60%, rgba(4, 11, 28, 0));
+      transition: padding 0.25s ease;
     }
+    /* Once scrolled, collapse to a slim bar: name only. */
+    :global(body.scrolled) .brand { padding-top: 16px; padding-bottom: 14px; background: rgba(4, 11, 28, 0.92); }
+    :global(body.scrolled) .sub { display: none; }
   }
 </style>
 

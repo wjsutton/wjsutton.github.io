@@ -76,26 +76,31 @@ const ext = (i: Item) => (isExternal(i) ? { target: '_blank', rel: 'noopener' } 
     </ul>
   </div>
 
-  <!-- Mobile: top 3 as full cards -->
-  <div class="feed">
+  <!-- Mobile: the same top 5 as a swipeable row, then See more -->
+  <div class="feed" role="region" aria-label={`${label} items, swipe for more`} tabindex="0">
     {
-      top.slice(0, 3).map((item) => (
+      top.map((item) => (
         <article class="f-card">
           <div class="f-media frame">
-            <Media item={item} sizes="(max-width: 820px) 92vw, 1px" />
+            <Media item={item} sizes="(max-width: 820px) 80vw, 1px" />
           </div>
-          <p class="st-tag label">{item.tag}</p>
-          <h3 class="st-title">{item.title}</h3>
-          <p class="st-desc">{item.desc}</p>
-          {hasLink(item) && (
-            <a class="cta label" href={item.href} {...ext(item)}>
-              {item.link} <span class="arrow" aria-hidden="true">→</span>
-            </a>
-          )}
+          <div class="f-body">
+            <p class="st-tag label">{item.tag}</p>
+            <h3 class="st-title">{item.title}</h3>
+            <p class="st-desc">{item.desc}</p>
+            {hasLink(item) && (
+              <a class="cta label" href={item.href} {...ext(item)}>
+                {item.link} <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            )}
+          </div>
         </article>
       ))
     }
-    <a class="f-more label" href={more}>See more <span class="sr-only">{label}</span> <span aria-hidden="true">→</span></a>
+    <a class="f-more frame" href={more}>
+      <b>More <span class="arrow" aria-hidden="true">›</span></b>
+      <span class="sr-only">{label} content</span>
+    </a>
   </div>
 </div>
 
@@ -221,23 +226,39 @@ const ext = (i: Item) => (isExternal(i) ? { target: '_blank', rel: 'noopener' } 
   .more-tile .arrow { color: var(--accent); transition: transform 0.3s ease; }
   .more-tile:hover .arrow { transform: translateX(8px); }
 
-  /* ---- mobile feed ---- */
-  .feed { display: none; flex-direction: column; gap: 28px; }
-  .f-card { display: flex; flex-direction: column; gap: 12px; cursor: pointer; }
+  /* ---- mobile feed: a swipeable row of cards (hidden on desktop) ---- */
+  .feed {
+    display: none; gap: 12px;
+    margin: 0 calc(-1 * var(--edge)); padding: 0 var(--edge) 4px;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge);
+    scrollbar-width: none;
+  }
+  .feed::-webkit-scrollbar { display: none; }
+  .feed:focus-visible { outline-offset: -2px; }
+  .f-card {
+    flex: 0 0 min(82%, 360px); scroll-snap-align: start;
+    display: flex; flex-direction: column; cursor: pointer;
+    background: rgba(4, 11, 28, 0.82);
+  }
+  .f-body { display: flex; flex-direction: column; gap: 8px; padding: 14px 14px 6px; flex: 1; }
   .f-card .st-tag { margin-bottom: 0; }
+  .f-card .st-title { font-size: var(--s-half); }
   .f-card .st-desc { margin-top: 0; }
-  .f-card .cta { align-self: flex-start; margin-top: 2px; }
+  .f-card .cta { align-self: flex-start; margin-top: auto; min-height: 44px; border-bottom: 0; padding-bottom: 0; }
   .f-media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--hud-card); }
   .f-media :global(.m-ph) { padding: 22px; }
-  .f-media :global(.m-ph b) { font-size: 24px; max-width: 16ch; }
+  .f-media :global(.m-ph b) { font-size: 22px; max-width: 16ch; }
   .f-more {
-    display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px;
-    font-size: 12px; letter-spacing: 0.2em; background: rgba(4, 11, 28, 0.6);
+    flex: 0 0 34%; scroll-snap-align: start;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(180deg, rgba(4,11,28,0.35), rgba(4,11,28,0.85));
   }
-  .f-more:hover { background: var(--accent); color: var(--hud-dark); }
+  .f-more b { font-weight: 400; font-size: 22px; text-transform: uppercase; letter-spacing: 0.06em; display: flex; gap: 0.25em; }
+  .f-more .arrow { color: var(--accent); }
 
   @media (max-width: 820px) {
-    .sec-show { position: relative; inset: auto; padding: 56px var(--edge); }
+    .sec-show { position: relative; inset: auto; padding: 40px var(--edge); }
     .sec-show::before { background: linear-gradient(180deg, rgba(3,9,24,0.7), rgba(3,9,24,0.45)); }
     .sec-title {
       position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal;
