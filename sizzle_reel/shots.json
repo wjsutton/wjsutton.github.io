@@ -1,0 +1,137 @@
+{
+  "notes": "Welcome sizzle reel edit list. Times are in the source video. 0.5s crossfades; the last shot crossfades back into the first so the loop is seamless. Optional per shot: crop (ffmpeg w:h:x:y, applied before scaling), flip (mirror horizontally), pip {crop, width, x, y} (overlay another region of the same frame, e.g. a webcam tile).",
+  "sources": {
+    "ironviz": {
+      "file": "Tableau Conference 2022 ｜ Iron Viz [cIwCJ2V-KX8].mp4",
+      "owner": "Tableau",
+      "url": "https://www.youtube.com/watch?v=cIwCJ2V-KX8"
+    },
+    "keynote": {
+      "file": "Unlock the Power of Agentic Data ｜ Tableau Conference 2026 Keynote Replay [yh4rmD9OXyY].mp4",
+      "owner": "Salesforce",
+      "url": "https://www.youtube.com/watch?v=yh4rmD9OXyY"
+    },
+    "usergroup": {
+      "file": "Video Games Tableau User Group 26 Jun 2026 [W-eBqd73dQ0].mp4",
+      "owner": "The DataFam Tableau User Groups",
+      "url": "https://www.youtube.com/watch?v=W-eBqd73dQ0"
+    },
+    "worldtour": {
+      "file": "Switching Careers to Tech and Developing Tableau Skills _ Salesforce World Tour London.mp4",
+      "owner": "Salesforce",
+      "url": ""
+    }
+  },
+  "shots": [
+    {
+      "source": "ironviz",
+      "start": "00:32:25.0",
+      "end": "00:32:27.5",
+      "note": "Wide arena with Will's literacy viz on the giant screen (#IV22Will)"
+    },
+    {
+      "source": "ironviz",
+      "start": "01:02:05.0",
+      "end": "01:02:07.0",
+      "note": "Iron Viz 2022 result lands: close-up of Will and the host beaming"
+    },
+    {
+      "source": "ironviz",
+      "start": "01:02:11.0",
+      "end": "01:02:12.9",
+      "note": "Arms up in a confetti shower"
+    },
+    {
+      "source": "ironviz",
+      "start": "01:02:24.0",
+      "end": "01:02:26.5",
+      "note": "Wide arena, 'Will Sutton' on the big screen, glow sticks"
+    },
+    {
+      "source": "keynote",
+      "start": "00:41:44.0",
+      "end": "00:41:46.5",
+      "note": "TC26 keynote: called up on stage, walking onto the round stage with 'Will Sutton' on the giant screens"
+    },
+    {
+      "source": "keynote",
+      "start": "00:41:59.0",
+      "end": "00:42:01.5",
+      "note": "Close-up of Will talking on the TC26 keynote stage, crowd behind"
+    },
+    {
+      "source": "keynote",
+      "start": "00:47:38.0",
+      "end": "00:47:41.0",
+      "note": "TC26 keynote demo: dashboard on screen, Will presenting in the inset on the right"
+    },
+    {
+      "source": "usergroup",
+      "start": "00:25:34.0",
+      "end": "00:25:41.0",
+      "speed": 3,
+      "note": "DataFam Plays Pokemon (full call layout): the AI agent walks into a wild Pidgey encounter, 3x"
+    },
+    {
+      "source": "usergroup",
+      "start": "00:25:41.0",
+      "end": "00:26:14.0",
+      "speed": 12,
+      "fade": 0.2,
+      "note": "Battle and the Poke Ball throw, fast-forwarded 12x"
+    },
+    {
+      "source": "usergroup",
+      "start": "00:26:14.5",
+      "end": "00:26:17.5",
+      "speed": 1.5,
+      "fade": 0.2,
+      "note": "'All right! Pidgey was caught!', 1.5x"
+    },
+    {
+      "source": "worldtour",
+      "start": "00:02:07.5",
+      "end": "00:02:10.5",
+      "flip": true,
+      "note": "World Tour London interview: the host laughing at Will's answer; mirrored so Will sits right of the nav (mirrors his t-shirt and signage)"
+    }
+  ],
+  "alternates": [
+    {
+      "source": "keynote",
+      "start": "00:51:38.5",
+      "end": "00:51:43.0",
+      "note": "Finishing up the TC26 keynote segment, gesturing and smiling at the crowd"
+    },
+    {
+      "source": "keynote",
+      "start": "00:41:44.0",
+      "end": "00:41:46.5",
+      "note": "TC26 keynote walk-on around the round stage"
+    },
+    {
+      "source": "keynote",
+      "start": "00:51:03.0",
+      "end": "00:51:06.0",
+      "note": "Will presenting to the keynote crowd, blue stage light"
+    },
+    {
+      "source": "keynote",
+      "start": "00:51:28.0",
+      "end": "00:51:30.5",
+      "note": "Will pointing out to the audience near the close"
+    },
+    {
+      "source": "ironviz",
+      "start": "00:32:41.0",
+      "end": "00:32:43.5",
+      "note": "High wide of the arena crowd during the build"
+    },
+    {
+      "source": "worldtour",
+      "start": "00:05:38.0",
+      "end": "00:05:40.5",
+      "note": "Closer handheld shot of Will mid-answer (Will on the left, no flip)"
+    }
+  ]
+}

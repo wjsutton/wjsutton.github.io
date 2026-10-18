@@ -1,0 +1,246 @@
+[
+  {
+    "cat": "ai",
+    "title": "Tableau Public MCP Server",
+    "tag": "AI · MCP Server",
+    "desc": "An MCP server that lets AI applications explore Tableau Public: profiles, workbooks, visualisations and workbook analysis, with no authentication needed.",
+    "href": "https://github.com/wjsutton/tableau-public-mcp",
+    "link": "View repo",
+    "img": "../assets/items/ai-tableau-public-mcp-server.jpg"
+  },
+  {
+    "cat": "ai",
+    "title": "Tableau MCP Starter Kit",
+    "tag": "AI · Repo",
+    "desc": "Chat with your data on Tableau Server — connect Tableau to LLMs via the Model Context Protocol.",
+    "href": "https://github.com/TheInformationLab/tableau_mcp_starter_kit",
+    "link": "View repo",
+    "img": "../assets/items/ai-tableau-mcp-starter-kit.jpg"
+  },
+  {
+    "cat": "ai",
+    "title": "Walkthrough on YouTube",
+    "tag": "AI · Video",
+    "desc": "Video explainers for each project — the why and how, not just the what.",
+    "href": "https://www.youtube.com/watch?v=juD1rQxhiqA",
+    "link": "Watch",
+    "img": "../assets/items/ai-walkthrough-on-youtube.jpg"
+  },
+  {
+    "cat": "ai",
+    "title": "Tableau Certified DA GPT",
+    "tag": "AI · Repo",
+    "desc": "A custom GPT to help you pass Tableau's Data Analyst exam, with answer reasoning baked in.",
+    "href": "https://github.com/wjsutton/tableau_certified_da_gpt",
+    "link": "View repo",
+    "img": "../assets/items/ai-tableau-certified-da-gpt.jpg"
+  },
+  {
+    "cat": "engineering",
+    "title": "Pokemon Yellow Legacy",
+    "tag": "Engineering · Repo",
+    "desc": "Learning dbt by transforming a Game Boy save file. Yes, you can model a save file as a star schema.",
+    "href": "https://github.com/wjsutton/pkmn_yellow_legacy_dbt",
+    "link": "View repo",
+    "img": "../assets/items/engineering-pokemon-yellow-legacy.jpg"
+  },
+  {
+    "cat": "dataviz",
+    "title": "Closing the Youth Literacy Gap",
+    "tag": "Viz · Iron Viz 2022 Champion",
+    "desc": "The championship-winning dashboard from Iron Viz 2022.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/ClosingtheYouthLiteracyGapIronViz2022/Dashboard1",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-closing-the-youth-literacy-gap.png",
+    "badge": "Iron Viz 2022 · Champion"
+  },
+  {
+    "cat": "dataviz",
+    "title": "RWFD · Diversity Scorecard",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/DiversityScorecardRWFD/RWFDINC-DiversityScorecard",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-rwfd-diversity-scorecard.png"
+  },
+  {
+    "cat": "dataviz",
+    "title": "The Age of Olympians",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/olympic_ages/TheAgeofOlympians",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-the-age-of-olympians.png"
+  },
+  {
+    "cat": "dataviz",
+    "title": "Pokémon Colour Palettes",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/PokemonColourPalettes/PokePalettes",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-poke-mon-colour-palettes.png"
+  },
+  {
+    "cat": "dataviz",
+    "title": "Interpreting Art · Iron Viz",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/InterpretingArtIronViz2022Drawful2/Dash",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-interpreting-art-iron-viz.png"
+  },
+  {
+    "cat": "dataviz",
+    "title": "The Great British Driving Test",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/WheretoPassttheGreatBritishDrivingTest/DrivingTests",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-the-great-british-driving-test.jpg"
+  },
+  {
+    "cat": "dataviz",
+    "title": "Survivors of the 1904 Marathon",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/Survivorsofthe1904OlympicMarathon/Survivorsofthe1904OlympicMarathon",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-survivors-of-the-1904-marathon.png"
+  },
+  {
+    "cat": "dataviz",
+    "title": "RWFD · Financial Complaints",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/FinancialComplaintsRWFD/Overview",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-rwfd-financial-complaints.png"
+  },
+  {
+    "cat": "dataviz",
+    "title": "The Toughest Tour · Tour de France",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/TheToughestTour/TourdeFrance",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-the-toughest-tour-tour-de-france.png"
+  },
+  {
+    "cat": "dataviz",
+    "title": "Why Does My Dog…?",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/WhyDoesMyDog___IronQuest/DesktopVersion",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-why-does-my-dog.png"
+  },
+  {
+    "cat": "dataviz",
+    "title": "FBI's Most Wanted",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/FBIsMostWanted_16332949514690/MostWanted",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-fbi-s-most-wanted.png"
+  },
+  {
+    "cat": "dataviz",
+    "title": "Personality & Income",
+    "tag": "Viz · Tableau Public",
+    "desc": "Interactive dashboard, published on Tableau Public.",
+    "href": "https://public.tableau.com/app/profile/wjsutton/viz/HowYourPersonalityAffectsYourIncome/PersonalityandIncome",
+    "link": "Open viz",
+    "img": "../assets/items/dataviz-personality-income.png"
+  },
+  {
+    "cat": "enablement",
+    "title": "Tableau Conference keynote",
+    "tag": "Keynote · May 2026",
+    "desc": "Building prototypes live on stage with Claude and Tableau.",
+    "href": "https://www.youtube.com/live/yh4rmD9OXyY?t=2775s",
+    "link": "Watch the segment",
+    "img": "../assets/items/enablement-tableau-conference-keynote.jpg"
+  },
+  {
+    "cat": "enablement",
+    "title": "Spill the dbt",
+    "tag": "Training · Repo",
+    "desc": "dbt challenges and walkthroughs, from the basics through to the edge cases that bite in production.",
+    "href": "https://github.com/wjsutton/spill_the_dbt",
+    "link": "View repo",
+    "img": "../assets/items/enablement-spill-the-dbt.jpg"
+  },
+  {
+    "cat": "enablement",
+    "title": "The Summer of SQL",
+    "tag": "Training · Repo",
+    "desc": "SQL practice problems structured as a season-long course, for analysts moving toward engineering.",
+    "href": "https://github.com/wjsutton/the_summer_of_sql",
+    "link": "View repo",
+    "img": "../assets/items/enablement-the-summer-of-sql.jpg"
+  },
+  {
+    "cat": "enablement",
+    "title": "Python Charmers",
+    "tag": "Training · Repo",
+    "desc": "Python for analysts. The bits you actually use, ordered by what's most useful first.",
+    "href": "https://github.com/wjsutton/python_charmers",
+    "link": "View repo",
+    "img": "../assets/items/enablement-python-charmers.jpg"
+  },
+  {
+    "cat": "enablement",
+    "title": "Iron Viz",
+    "tag": "Talk",
+    "desc": "What it takes to build a championship-level dashboard, and what competing taught me.",
+    "href": "#",
+    "link": "Find out more",
+    "img": "../assets/items/enablement-iron-viz.jpg"
+  },
+  {
+    "cat": "blog",
+    "title": "Upskill Your Team With Tableau Public MCP",
+    "tag": "Blog · Mar 2026",
+    "desc": "Turn any published Tableau Public workbook into a tutorial: an AI model searches, downloads and reverse-engineers it into a step-by-step guide.",
+    "href": "https://www.theinformationlab.co.uk/community/blog/upskill-your-team-with-tableau-public-mcp/",
+    "link": "Read on The Information Lab",
+    "img": "../assets/items/blog-upskill-your-team-with-tableau-public-mcp.jpg"
+  },
+  {
+    "cat": "blog",
+    "title": "Coalesce 2025 Recap",
+    "tag": "Blog · Oct 2025",
+    "desc": "dbt Fusion, the remote dbt MCP server and role-based agents: the announcements worth getting excited about as a dbt user.",
+    "href": "https://www.theinformationlab.co.uk/community/blog/dbt-coalesce-2025-recap/",
+    "link": "Read on The Information Lab",
+    "img": "../assets/items/blog-coalesce-2025-recap.jpg"
+  },
+  {
+    "cat": "blog",
+    "title": "Start Building AI Applications with the Tableau MCP Starter Kit",
+    "tag": "Blog · Sep 2025",
+    "desc": "QuickStart guides and a starter kit for deploying Tableau MCP apps to the web or inside a dashboard, plus advice on governing AI access.",
+    "href": "https://www.theinformationlab.co.uk/community/blog/tableau-mcp-starter-kit/",
+    "link": "Read on The Information Lab",
+    "img": "../assets/items/blog-start-building-ai-applications-with-the-tableau-mcp-starter-kit.jpg"
+  },
+  {
+    "cat": "blog",
+    "title": "The Summer of SQL",
+    "tag": "Blog · Sep 2024",
+    "desc": "Weekly challenges that bridge the gap from SQL tutorials to real-world projects, with walkthroughs and solutions.",
+    "href": "https://www.theinformationlab.co.uk/community/blog/the-summer-of-sql-til/",
+    "link": "Read on The Information Lab",
+    "img": "../assets/items/blog-the-summer-of-sql.jpg"
+  },
+  {
+    "cat": "blog",
+    "title": "AI + Data Viz: Can ChatGPT Help You Build a Viz in Tableau?",
+    "tag": "Blog · Oct 2023",
+    "desc": "Testing whether an AI co-pilot makes vizzing faster, with prompts to follow along. Spoiler: it helps most in the analysis stage.",
+    "href": "https://www.theinformationlab.co.uk/community/blog/ai-data-viz-can-chat-gpt-help-you-build-a-viz-in-tableau-spoiler-it-can/",
+    "link": "Read on The Information Lab",
+    "img": "../assets/items/blog-ai-data-viz-can-chatgpt-help-you-build-a-viz-in-tableau.jpg"
+  }
+]

@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import saira400 from '@fontsource/saira/files/saira-latin-400-normal.woff2?url';
+import label400 from '@fontsource/saira-semi-condensed/files/saira-semi-condensed-latin-400-normal.woff2?url';
+import ogPhoto from '../../assets/img/WillSutton_IV2022.jpg';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Will Sutton, Senior AI Engineering Consultant at The Information Lab and 2022 Iron Viz Champion. AI for analytics, data visualisation, data engineering and enablement.',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const og = await getImage({ src: ogPhoto, width: 1200, height: 630, fit: 'cover', position: 'top', format: 'jpg' });
+const ogUrl = new URL(og.src, Astro.site);
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#040B1C" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preload" href={saira400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={label400} as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Will Sutton" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Will Sutton holding the Iron Viz 2022 trophy" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

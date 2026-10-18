@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import { SECTIONS } from '../data/categories';
+
+// One <img> per distinct photo; each lists the section indexes it serves.
+const photos = new Map<ImageMetadata, number[]>();
+SECTIONS.forEach((s, i) => photos.set(s.backdrop, [...(photos.get(s.backdrop) ?? []), i]));
+---
+
+<div class="backdrop" aria-hidden="true">
+  {
+    [...photos].map(([src, idx], k) => (
+      <Image
+        class:list={['bd-img', { 'is-active': idx.includes(0) }]}
+        data-sections={idx.join(' ')}
+        src={src}
+        alt=""
+        widths={[960, 1600, 2400]}
+        sizes="100vw"
+        quality={60}
+        loading={k === 0 ? 'eager' : 'lazy'}
+        fetchpriority={k === 0 ? 'high' : 'auto'}
+      />
+    ))
+  }
+  <!-- Welcome sizzle reel (built in sizzle_reel/). No poster: the Welcome photo shows until the first frame. -->
+  <video class="bd-img bd-video is-active" id="bd-video" data-sections="0" muted loop playsinline preload="none">
+    <source src="/video/welcome.webm" type="video/webm" />
+    <source src="/video/welcome.mp4" type="video/mp4" />
+  </video>
+  <div class="bd-grade"></div>
+  <div class="bd-leftscrim"></div>
+  <div class="bd-vignette"></div>
+  <div class="bd-scanlines"></div>
+</div>
+
+<script>
+  import { reduceMotion } from '../scripts/media';
+
+  // Plays only while Welcome is the active section, starting 1.5s after load so
+  // the download never competes with first paint. Reduced-motion and Save-Data
+  // visitors keep the still Welcome photo instead.
+  const video = document.getElementById('bd-video') as HTMLVideoElement;
+  const welcome = document.getElementById('welcome')!;
+  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+  const off = reduceMotion.matches || !!saveData;
+  let ready = false;
+
+  function sync() {
+    if (!off && ready && welcome.classList.contains('is-active')) {
+      video.preload = 'auto';
+      video.play().catch(() => {});
+    } else video.pause();
+  }
+
+  addEventListener('section-change', sync);
+  const start = () => setTimeout(() => { ready = true; sync(); }, 1500);
+  if (document.readyState === 'complete') start();
+  else addEventListener('load', start);
+  sync();
+</script>
+
+<style>
+  .backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: var(--hud-card); }
+  .bd-img {
+    position: absolute; inset: -3%; width: 106%; height: 106%; max-width: none;
+    object-fit: cover;
+    filter: saturate(0.64) brightness(0.84) contrast(1.05);
+    opacity: 0; transition: opacity 0.8s ease;
+  }
+  .bd-img.is-active {
+    opacity: 1;
+    transform-origin: 54% 44%;
+    animation: kenburns 40s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    from { transform: scale(1.05); }
+    to { transform: scale(1.12) translate(-1.4%, -1.1%); }
+  }
+  .bd-grade, .bd-leftscrim, .bd-vignette, .bd-scanlines { position: absolute; inset: 0; }
+  .bd-leftscrim { background: linear-gradient(90deg, rgba(4,14,36,0.82) 0%, rgba(4,14,36,0.52) 18%, rgba(4,14,36,0.18) 34%, transparent 48%); }
+  .bd-grade {
+    background:
+      radial-gradient(92% 72% at 50% 22%, rgba(92,194,242,0.10), transparent 55%),
+      radial-gradient(70% 60% at 16% 30%, rgba(47,127,193,0.10), transparent 60%),
+      linear-gradient(180deg, rgba(3,9,24,0.58) 0%, rgba(3,9,24,0.16) 24%, rgba(3,9,24,0.20) 58%, rgba(2,7,20,0.70) 100%);
+  }
+  .bd-vignette {
+    background:
+      radial-gradient(ellipse 86% 76% at 50% 46%, transparent 46%, rgba(0,0,0,0.5) 94%),
+      linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.04) 24%, rgba(0,0,0,0.04) 70%, rgba(0,0,0,0.42) 100%);
+  }
+  .bd-scanlines {
+    opacity: 0.12; mix-blend-mode: overlay;
+    background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(255,255,255,0.04) 3px, transparent 4px);
+  }
+  .bd-video.is-active { animation: none; transform: none; inset: 0; width: 100%; height: 100%; }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .bd-img.is-active { animation: none; transform: scale(1.05); }
+    .bd-video.is-active { transform: none; }
+  }
+</style>

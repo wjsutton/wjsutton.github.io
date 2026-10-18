@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import Backdrop from '../components/Backdrop.astro';
+import Brand from '../components/Brand.astro';
+import NavRail from '../components/NavRail.astro';
+import Showcase from '../components/Showcase.astro';
+import Connect from '../components/Connect.astro';
+import { CATEGORIES } from '../data/categories';
+import { getItems } from '../data/items';
+
+const items = await getItems();
+---
+
+<Base title="Will Sutton — Expert in Analytics">
+  <Backdrop />
+  <Brand />
+  <NavRail />
+  <main class="screen">
+    <div class="sections">
+      <section class="section is-active" id="welcome" aria-label="Welcome">
+        <!-- TODO(welcome-video): intentionally empty until the video overlay lands. -->
+      </section>
+      {
+        CATEGORIES.map((c) => (
+          <section class="section" id={c.id} aria-labelledby={`h-${c.id}`}>
+            <Showcase id={c.id} label={c.label} items={items.filter((i) => i.cat === c.id)} />
+          </section>
+        ))
+      }
+      <section class="section" id="connect" aria-label="Connect">
+        <Connect />
+      </section>
+    </div>
+  </main>
+</Base>
+
+<script>
+  import '../scripts/home.ts';
+</script>
+
+<style>
+  :global(body) { overflow: hidden; }
+  .screen {
+    position: relative;
+    height: 100dvh; min-height: 640px;
+    overflow: clip; /* not a scroll container, so #hash loads can't scroll it */
+    transition: transform 0.45s cubic-bezier(0.6, 0, 0.4, 1), opacity 0.45s ease;
+  }
+  :global(body.leaving) .screen { transform: translateX(-30%); opacity: 0; }
+  .sections { position: absolute; inset: 0; z-index: 5; }
+  .section {
+    position: absolute; inset: 0;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(calc(var(--dir, 1) * 48px));
+    transition: opacity 0.45s ease, transform 0.5s var(--ease-io), visibility 0.45s;
+  }
+  .section:global(.is-active) { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+  .section:global(.leaving) { transform: translateY(calc(var(--dir, 1) * -48px)); }
+
+
+  #connect::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(95deg, rgba(3,9,24,0.94) 0%, rgba(3,9,24,0.82) 45%, rgba(3,9,24,0.6) 100%);
+  }
+
+  @media (max-width: 820px) {
+    :global(body) { overflow-y: auto; }
+    .screen { height: auto; min-height: 100dvh; overflow: visible; }
+    .sections { position: static; }
+    .section, .section:global(.leaving) {
+      position: relative; inset: auto;
+      opacity: 1; visibility: visible; pointer-events: auto;
+      transform: none; transition: none;
+      scroll-margin-top: 90px;
+    }
+    #welcome { min-height: 88dvh; }
+  }
+</style>

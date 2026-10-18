@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.astro/
+Portfolio Site/
+Portfolio Site.zip
+
+# Sizzle reel footage and exports (large media, never commit)
+sizzle_reel/**/*.mp4
+sizzle_reel/**/*.webm
+sizzle_reel/**/*.mkv
+sizzle_reel/**/*.mov
+sizzle_reel/**/*.part
+sizzle_reel/**/*.ytdl
+sizzle_reel/sheets/
+sizzle_reel/out/
