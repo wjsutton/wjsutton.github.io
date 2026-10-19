@@ -1,0 +1,51 @@
+---
+// "Hey, I'm Will" intro, shared by the Welcome section and Connect.
+interface Props {
+  /** Adds the welcome line linking on to the projects. */
+  welcome?: boolean;
+}
+const { welcome = false } = Astro.props;
+---
+
+<div class="intro">
+  <h2 class="i-h">Hey, I’m Will</h2>
+  <p class="i-sub">I’m an Expert in Analytics that makes data work for you.</p>
+  <p>I build things people actually use:</p>
+  <ul class="i-list">
+    <li><b>Engaging visualisations</b> that turn raw data into insight and decisions, using Tableau</li>
+    <li><b>Engineered data applications</b> that meet real user needs, with SQL, Python, dbt, LangChain and AI</li>
+    <li><b>Practical training and tutorials</b> that upskill teams, through in-person sessions, YouTube and blogs</li>
+  </ul>
+  {
+    welcome && (
+      <p class="i-welcome">
+        <a href="#ai">Welcome to my site and explore my projects below <span aria-hidden="true">↓</span></a>
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .intro { color: var(--muted-stronger); }
+  .intro > * + * { margin-top: var(--flow, var(--s0)); }
+  .i-h + * { --flow: var(--s-1); }
+  .i-h { font-size: var(--s2); line-height: 1.1; color: var(--paper); }
+  .i-sub { font-size: var(--s1); line-height: 1.35; color: var(--paper); }
+  .intro p, .i-list { max-width: 58ch; text-wrap: pretty; }
+  .i-list { display: flex; flex-direction: column; gap: var(--s-1); }
+  .i-list li { position: relative; padding-left: 22px; }
+  .i-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.62em; width: 8px; height: 8px;
+    background: var(--accent); clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+  .i-list b { font-weight: 500; color: var(--paper); }
+  .i-welcome { --flow: var(--s1); }
+  .i-welcome { line-height: 1.9; }
+  .i-welcome a {
+    color: var(--paper); padding-bottom: 3px;
+    text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px;
+    transition: color 0.2s ease;
+  }
+  .i-welcome a span { color: var(--accent); margin-left: 6px; }
+  .i-welcome a:hover { color: var(--accent); }
+</style>

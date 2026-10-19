@@ -43,6 +43,26 @@ function setActive(i: number) {
   dispatchEvent(new CustomEvent('section-change', { detail: i }));
 }
 
+/* Desktop: Welcome has two stops, the empty screen (video) and then the intro.
+   Returns false when there is nowhere to go (top of Welcome, bottom of Connect). */
+const welcome = sections[0];
+const introOn = () => welcome.classList.contains('intro');
+const setIntro = (on: boolean) => welcome.classList.toggle('intro', on);
+function step(dir: 1 | -1): boolean {
+  if (active === 0 && dir === 1 && !introOn()) return setIntro(true);
+  if (active === 0 && dir === -1 && introOn()) return !setIntro(false);
+  const next = active + dir;
+  if (next < 0 || next > MAX) return false;
+  setActive(next);
+  if (next === 0) setIntro(true); // coming back up lands on the intro
+  return true;
+}
+welcome.addEventListener('click', (e) => {
+  if (!desktop.matches || introOn()) return;
+  e.preventDefault(); // includes the Scroll cue
+  setIntro(true);
+});
+
 function goTo(i: number) {
   if (desktop.matches) return setActive(i);
   const behavior = reduceMotion.matches ? 'auto' : 'smooth';
@@ -66,10 +86,8 @@ addEventListener('wheel', (e) => {
   acc += e.deltaY;
   if (Math.abs(acc) < 24) return;
   gestureUsed = true;
-  const next = active + (acc > 0 ? 1 : -1);
-  if (next < 0 || next > MAX) return; // bottom of Connect: do nothing
+  if (!step(acc > 0 ? 1 : -1)) return; // top of Welcome / bottom of Connect: do nothing
   wheelLock = true;
-  setActive(next);
   setTimeout(() => (wheelLock = false), 720);
 }, { passive: true });
 
@@ -88,7 +106,7 @@ addEventListener('keydown', (e) => {
     sc.scrollBy({ top: up ? -step : step, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
     return;
   }
-  setActive(active + (down ? 1 : -1));
+  step(down ? 1 : -1);
 });
 
 /* Hamburger overlay (mobile). */
@@ -109,7 +127,9 @@ menu.addEventListener('click', (e) => {
   if (!a) return;
   e.preventDefault();
   setMenu(false);
-  goTo(Number(a.closest('li')!.dataset.i));
+  const i = Number(a.closest('li')!.dataset.i);
+  goTo(i);
+  if (i === 0 && desktop.matches) setIntro(false); // the Welcome link shows the empty screen
 });
 
 /* Mobile: slim the header once scrolled, and track the section in view
@@ -119,9 +139,8 @@ markScrolled();
 addEventListener('scroll', () => {
   markScrolled();
   if (desktop.matches) return;
-  // Visual order can differ from DOM order on mobile (Connect moves up), so
-  // pick the section whose top is closest above the line, not the last in the DOM.
-  // At the very bottom, the last section wins even if it's too short to reach the line.
+  // Pick the section whose top is closest above the line; at the very bottom,
+  // the last section wins even if it's too short to reach the line.
   const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
   const line = atBottom ? Infinity : innerHeight * 0.4;
   let cur = 0, best = -Infinity;

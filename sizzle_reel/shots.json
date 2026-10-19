@@ -70,7 +70,14 @@
       "start": "00:25:34.0",
       "end": "00:25:41.0",
       "speed": 3,
-      "note": "DataFam Plays Pokemon (full call layout): the AI agent walks into a wild Pidgey encounter, 3x"
+      "note": "DataFam Plays Pokemon (full call layout): the AI agent walks into a wild Pidgey encounter, 3x",
+      "vf": "drawbox=x=1540:y=0:w=380:h=1080:color=black@1:t=fill",
+      "pip": {
+        "crop": "380:880:1540:0",
+        "width": 380,
+        "x": 1540,
+        "y": 200
+      }
     },
     {
       "source": "usergroup",
@@ -78,7 +85,14 @@
       "end": "00:26:14.0",
       "speed": 12,
       "fade": 0.2,
-      "note": "Battle and the Poke Ball throw, fast-forwarded 12x"
+      "note": "Battle and the Poke Ball throw, fast-forwarded 12x",
+      "vf": "drawbox=x=1540:y=0:w=380:h=1080:color=black@1:t=fill",
+      "pip": {
+        "crop": "380:880:1540:0",
+        "width": 380,
+        "x": 1540,
+        "y": 200
+      }
     },
     {
       "source": "usergroup",
@@ -86,7 +100,14 @@
       "end": "00:26:17.5",
       "speed": 1.5,
       "fade": 0.2,
-      "note": "'All right! Pidgey was caught!', 1.5x"
+      "note": "'All right! Pidgey was caught!', 1.5x",
+      "vf": "drawbox=x=1540:y=0:w=380:h=1080:color=black@1:t=fill",
+      "pip": {
+        "crop": "380:880:1540:0",
+        "width": 380,
+        "x": 1540,
+        "y": 200
+      }
     },
     {
       "source": "worldtour",

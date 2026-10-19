@@ -57,9 +57,6 @@ import { SECTIONS } from '../data/categories';
       width: 44px; height: 44px; padding: 12px;
     }
     :global(body.scrolled) .burger { top: 6px; }
-    /* Same order as the mobile page: Welcome, Connect, then the content sections. */
-    .menu li:first-child { order: -2; }
-    .menu li:last-child { order: -1; }
     .burger span { display: block; height: 1.5px; background: var(--accent); transition: transform 0.25s ease, opacity 0.2s ease; }
     .burger[aria-expanded='true'] span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
     .burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
