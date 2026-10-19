@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import Intro from './Intro.astro';
 import { summary } from '../data/career';
 import hero from '../../assets/img/hero-no-background.png';
 import ironViz from '../../assets/img/WillSutton_IV2022.jpg';
@@ -44,16 +45,7 @@ const social = [
 
 <div class="scroller connect">
   <div class="c-block anim w-intro">
-    <div class="flow">
-      <h2 class="c-h">Hey, I’m Will</h2>
-      <p class="w-sub">I’m an Expert in Analytics that makes data work for you.</p>
-      <p>I build things people actually use:</p>
-      <ul class="w-list">
-        <li><b>Engaging visualisations</b> that turn raw data into insight and decisions, using Tableau</li>
-        <li><b>Engineered data applications</b> that meet real user needs, with SQL, Python, dbt, LangChain and AI</li>
-        <li><b>Practical training and tutorials</b> that upskill teams, through in-person sessions, YouTube and blogs</li>
-      </ul>
-    </div>
+    <Intro />
     <div class="w-photo">
       <Image src={hero} alt="Will Sutton" width={800} widths={[320, 480, 640, 800]} sizes="(max-width: 820px) 90vw, 360px" loading="lazy" />
     </div>

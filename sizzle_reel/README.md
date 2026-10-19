@@ -22,7 +22,7 @@ Then copy the result into the site:
 cp out/sizzle.mp4 ../public/video/welcome.mp4 && cp out/sizzle.webm ../public/video/welcome.webm
 ```
 
-Keep both videos under about 5 MB (raise the `-crf` values in `build.mjs` if not). The site uses no poster: the Welcome photo shows until the video's first frame, and the video starts 1.5s after page load.
+Keep both videos under about 5 MB (raise the `-crf` values in `build.mjs` if not). The site uses no poster: the Welcome photo shows until the video's first frame, and the video starts 1s after page load.
 
 ## Add a new video
 

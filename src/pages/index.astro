@@ -5,6 +5,9 @@ import Brand from '../components/Brand.astro';
 import NavRail from '../components/NavRail.astro';
 import Showcase from '../components/Showcase.astro';
 import Connect from '../components/Connect.astro';
+import Intro from '../components/Intro.astro';
+import { Image } from 'astro:assets';
+import hero from '../../assets/img/hero-no-background.png';
 import { CATEGORIES } from '../data/categories';
 import { getItems } from '../data/items';
 
@@ -18,8 +21,19 @@ const items = await getItems();
   <main class="screen">
     <div class="sections">
       <section class="section is-active" id="welcome" aria-label="Welcome">
-        <!-- Intentionally empty: the sizzle reel plays behind (Backdrop.astro). Mobile gets a scroll cue. -->
-        <a class="scroll-cue label" href="#connect">Scroll <span aria-hidden="true">↓</span><span class="sr-only"> to Connect</span></a>
+        <!-- The sizzle reel plays behind (Backdrop.astro). Desktop opens on the empty screen and
+             reveals the intro on the first scroll, key or click; mobile shows it below the video. -->
+        <div class="welcome-hero">
+          <a class="scroll-cue label" href="#welcome-intro">Scroll <span aria-hidden="true">↓</span><span class="sr-only"> to the introduction</span></a>
+        </div>
+        <div class="welcome-intro" id="welcome-intro">
+          <div class="intro-wrap">
+            <Intro welcome />
+            <div class="w-photo">
+              <Image src={hero} alt="Will Sutton holding up a printed copy of his Tableau dashboard, The Toughest Tour" width={800} widths={[320, 480, 640, 800]} sizes="(max-width: 820px) 70vw, 380px" loading="lazy" />
+            </div>
+          </div>
+        </div>
       </section>
       {
         CATEGORIES.map((c) => (
@@ -64,29 +78,57 @@ const items = await getItems();
     background: linear-gradient(95deg, rgba(3,9,24,0.94) 0%, rgba(3,9,24,0.82) 45%, rgba(3,9,24,0.6) 100%);
   }
 
+  /* ---- Welcome: empty screen, then the intro over the video ---- */
+  .welcome-hero { position: absolute; inset: 0; }
+  .welcome-intro {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: max(clamp(96px, 12vh, 140px), var(--brand-b, 0px)) var(--edge) clamp(84px, 10vh, 116px) calc(var(--rail) + var(--edge));
+    opacity: 0; visibility: hidden; transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.6s var(--ease-out), visibility 0.5s;
+  }
+  .welcome-intro::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(95deg, rgba(3,9,24,0.92) 0%, rgba(3,9,24,0.74) 45%, rgba(3,9,24,0.4) 100%);
+  }
+  .intro-wrap {
+    display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: clamp(20px, 3vw, 48px); align-items: center; max-width: 1040px;
+  }
+  .w-photo { position: relative; aspect-ratio: 4 / 5; width: 100%; max-height: 64vh; }
+  .w-photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+  #welcome:global(.intro) .welcome-intro { opacity: 1; visibility: visible; transform: none; }
+  .scroll-cue {
+    position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px;
+    font-size: 11px; letter-spacing: 0.22em; color: var(--muted-stronger);
+    animation: cue 2.4s ease-in-out infinite;
+    transition: opacity 0.3s ease, visibility 0.3s;
+  }
+  .scroll-cue span { color: var(--accent); }
+  .scroll-cue:hover { color: var(--paper); }
+  #welcome:global(.intro) .scroll-cue { opacity: 0; visibility: hidden; }
+  @keyframes cue { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 6px); } }
+
   @media (max-width: 820px) {
     :global(body) { overflow-y: auto; }
     .screen { height: auto; min-height: 100dvh; overflow: visible; }
-    /* Mobile reads top to bottom: intro (Connect) straight after Welcome, then the content. */
-    .sections { position: static; display: flex; flex-direction: column; }
-    #welcome { order: -2; }
-    #connect { order: -1; }
+    .sections { position: static; }
     .section, .section:global(.leaving) {
       position: relative; inset: auto;
       opacity: 1; visibility: visible; pointer-events: auto;
       transform: none; transition: none;
       scroll-margin-top: 90px;
     }
-    #welcome { min-height: 88dvh; }
-    .scroll-cue {
-      position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
-      display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px;
-      font-size: 11px; letter-spacing: 0.22em; color: var(--muted-stronger);
-      animation: cue 2.4s ease-in-out infinite;
+    /* Mobile: the video fills the first screen; the intro follows in the flow. */
+    .welcome-hero { position: relative; inset: auto; height: 88dvh; }
+    .welcome-intro, #welcome:global(.intro) .welcome-intro {
+      position: relative; inset: auto; opacity: 1; visibility: visible; transform: none;
+      padding: 48px var(--edge) 56px; scroll-margin-top: 70px;
     }
-    .scroll-cue span { color: var(--accent); }
+    .welcome-intro::before { background: linear-gradient(180deg, rgba(3,9,24,0.55), rgba(3,9,24,0.9) 30%); }
+    .intro-wrap { grid-template-columns: 1fr; }
+    .w-photo { max-width: 300px; max-height: none; }
+    #welcome:global(.intro) .scroll-cue { opacity: 1; visibility: visible; }
   }
-  .scroll-cue { display: none; }
-  @media (max-width: 820px) { .scroll-cue { display: inline-flex; } }
-  @keyframes cue { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 6px); } }
 </style>

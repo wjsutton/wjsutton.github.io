@@ -37,7 +37,7 @@ SECTIONS.forEach((s, i) => photos.set(s.backdrop, [...(photos.get(s.backdrop) ??
 <script>
   import { reduceMotion } from '../scripts/media';
 
-  // Plays only while Welcome is the active section, starting 1.5s after load so
+  // Plays only while Welcome is the active section, starting 1s after load so
   // the download never competes with first paint. Reduced-motion and Save-Data
   // visitors keep the still Welcome photo instead.
   const video = document.getElementById('bd-video') as HTMLVideoElement;
@@ -54,7 +54,7 @@ SECTIONS.forEach((s, i) => photos.set(s.backdrop, [...(photos.get(s.backdrop) ??
   }
 
   addEventListener('section-change', sync);
-  const start = () => setTimeout(() => { ready = true; sync(); }, 1500);
+  const start = () => setTimeout(() => { ready = true; sync(); }, 1000);
   if (document.readyState === 'complete') start();
   else addEventListener('load', start);
   sync();

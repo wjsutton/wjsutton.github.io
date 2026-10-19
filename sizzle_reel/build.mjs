@@ -19,7 +19,7 @@ const clips = shots.map((s) => ({
   file: sources[s.source].file, start: secs(s.start), src: secs(s.end) - secs(s.start),
   dur: (secs(s.end) - secs(s.start)) / (s.speed ?? 1), speed: s.speed ?? 1, fade: s.fade ?? FADE,
   pre: [s.crop && `crop=${s.crop}`, s.flip && 'hflip'].filter(Boolean).map((f) => f + ',').join(''),
-  pip: s.pip, canvas: s.canvas,
+  pip: s.pip, canvas: s.canvas, vf: s.vf ? s.vf + ',' : '', // vf: raw ffmpeg filters for the main picture only
 }));
 clips.push(clips[0]); // first shot again, for the loop seam
 
@@ -31,8 +31,8 @@ const norm = `fps=${FPS},scale=1920:1080:force_original_aspect_ratio=increase,cr
 const tail = `format=yuv420p,settb=AVTB`;
 const filters = clips.map((c, i) => {
   const sp = `setpts=(PTS-STARTPTS)/${c.speed},`;
-  if (!c.pip && !c.canvas) return `[${i}:v]${sp}${c.pre}${norm},${tail}[v${i}]`;
-  const base = c.canvas ? `${c.pre}${norm},boxblur=24:2,eq=brightness=-0.3` : `${c.pre}${norm}`;
+  if (!c.pip && !c.canvas) return `[${i}:v]${sp}${c.vf}${c.pre}${norm},${tail}[v${i}]`;
+  const base = c.canvas ? `${c.vf}${c.pre}${norm},boxblur=24:2,eq=brightness=-0.3` : `${c.vf}${c.pre}${norm}`;
   let f = `[${i}:v]${sp}split=3[a${i}][b${i}][c${i}];[a${i}]${base}[s${i}]`;
   let cur = `s${i}`;
   if (c.canvas) {
