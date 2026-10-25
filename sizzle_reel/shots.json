@@ -20,6 +20,11 @@
       "file": "Switching Careers to Tech and Developing Tableau Skills _ Salesforce World Tour London.mp4",
       "owner": "Salesforce",
       "url": ""
+    },
+    "aikillbi": {
+      "file": "Will AI Kill Business Intelligence_ Yes, If you let it.mp4",
+      "owner": "EBU",
+      "url": ""
     }
   },
   "shots": [
@@ -115,6 +120,13 @@
       "end": "00:02:10.5",
       "flip": true,
       "note": "World Tour London interview: the host laughing at Will's answer; mirrored so Will sits right of the nav (mirrors his t-shirt and signage)"
+    },
+    {
+      "source": "aikillbi",
+      "start": "00:07:55.0",
+      "end": "00:08:16.0",
+      "speed": 3,
+      "note": "Will AI Kill BI? talk (EBU): asking Claude \"what data do we have on tableau?\", cut at 8:01 to Will on stage as Claude queries Tableau via MCP and builds the Tableau Site Data Inventory, 3x"
     }
   ],
   "alternates": [
@@ -153,6 +165,12 @@
       "start": "00:05:38.0",
       "end": "00:05:40.5",
       "note": "Closer handheld shot of Will mid-answer (Will on the left, no flip)"
+    },
+    {
+      "source": "aikillbi",
+      "start": "00:17:38.5",
+      "end": "00:17:44.5",
+      "note": "Will AI Kill BI? talk (EBU): Will presenting beside the New LLM Infrastructure slide, then the in-camera cut at 17:41 to a wide of the packed room"
     }
   ]
 }
