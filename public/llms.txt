@@ -1,0 +1,42 @@
+# Will Sutton
+
+> Will Sutton is a Senior AI Engineering Consultant at The Information Lab (a UK data analytics consultancy and Tableau partner) and the 2022 Tableau Iron Viz Champion. He builds AI applications for analytics, Tableau data visualisations, dbt data engineering projects, and training for analysts in SQL, Python and dbt.
+
+He is also a Tableau Visionary, a Tableau Ambassador, co-host of the GamesNightViz community project and leader of the AI + Tableau User Group.
+
+## Site
+
+- [Home](https://wjsutton.github.io/): introduction, featured projects, career history, certifications and contact links
+- [Content hub](https://wjsutton.github.io/content/): every visualisation, repo, talk and blog post, filterable by topic
+
+## AI for analytics
+
+- [Tableau Public MCP Server](https://github.com/wjsutton/tableau-public-mcp): an MCP (Model Context Protocol) server that lets AI applications such as Claude explore Tableau Public profiles, workbooks and visualisations, with no authentication needed. npm package: @wjsutton/tableau-public-mcp-server
+- [Tableau Public MCP Examples](https://wjsutton.github.io/tableau-public-mcp-examples/): use cases and prompt templates for the Tableau Public MCP Server
+- [Tableau MCP Starter Kit](https://github.com/TheInformationLab/tableau_mcp_starter_kit): starter kit for connecting Tableau Server or Tableau Cloud to LLMs through the official Tableau MCP
+- [Tableau Certified DA GPT](https://github.com/wjsutton/tableau_certified_da_gpt): a custom GPT to help people prepare for the Tableau Certified Data Analyst exam
+
+## Data visualisation
+
+- [Tableau Public profile](https://public.tableau.com/app/profile/wjsutton/vizzes): all published dashboards
+- [Closing the Youth Literacy Gap](https://public.tableau.com/app/profile/wjsutton/viz/ClosingtheYouthLiteracyGapIronViz2022/): the dashboard that won the Iron Viz 2022 final
+
+## Training and data engineering
+
+- [Spill the dbt](https://github.com/wjsutton/spill_the_dbt): dbt challenges and walkthroughs
+- [The Summer of SQL](https://github.com/wjsutton/the_summer_of_sql): SQL practice problems for analysts moving toward engineering
+- [Python Charmers](https://github.com/wjsutton/python_charmers): Python for analysts
+- [Pokemon Yellow Legacy](https://github.com/wjsutton/pkmn_yellow_legacy_dbt): learning dbt by modelling a Game Boy save file as a star schema
+
+## Writing and interviews
+
+- [Upskill Your Team With Tableau Public MCP](https://www.theinformationlab.co.uk/community/blog/upskill-your-team-with-tableau-public-mcp/) (March 2026)
+- [Start Building AI Applications with the Tableau MCP Starter Kit](https://www.theinformationlab.co.uk/community/blog/tableau-mcp-starter-kit/) (September 2025)
+- [Meet Will Sutton, former Iron Viz Champion](https://nightingaledvs.com/meet-will-sutton-former-iron-viz-champion/): Nightingale interview (November 2024)
+- [The Information Lab team profile](https://theinformationlab.co.uk/about/team/will-sutton)
+
+## Optional
+
+- [LinkedIn](https://www.linkedin.com/in/will-sutton-14711627/): the best way to contact Will
+- [GitHub](https://github.com/wjsutton)
+- [YouTube](https://www.youtube.com/channel/UC3N21EOGbnVX5duBlfDCpng)

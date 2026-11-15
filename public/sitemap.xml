@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ponytail: hand-written, 3 URLs. Switch to @astrojs/sitemap if the site grows past a few pages. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://wjsutton.github.io/</loc></url>
+  <url><loc>https://wjsutton.github.io/content/</loc></url>
+  <url><loc>https://wjsutton.github.io/tableau-public-mcp-examples/</loc></url>
+</urlset>
