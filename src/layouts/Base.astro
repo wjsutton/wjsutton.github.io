@@ -18,6 +18,31 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = await getImage({ src: ogPhoto, width: 1200, height: 630, fit: 'cover', position: 'top', format: 'jpg' });
 const ogUrl = new URL(og.src, Astro.site);
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://wjsutton.github.io/#person',
+  name: 'Will Sutton',
+  url: 'https://wjsutton.github.io/',
+  jobTitle: 'Senior AI Engineering Consultant',
+  worksFor: { '@type': 'Organization', name: 'The Information Lab', url: 'https://www.theinformationlab.co.uk/' },
+  image: ogUrl.href,
+  description:
+    'Will Sutton, Senior AI Engineering Consultant at The Information Lab and 2022 Iron Viz Champion. AI for analytics, data visualisation, data engineering and enablement.',
+  award: ['Tableau Iron Viz Champion 2022', 'Tableau Visionary', 'Tableau Ambassador'],
+  knowsAbout: ['Tableau', 'Data visualisation', 'AI engineering', 'Model Context Protocol (MCP)', 'dbt', 'SQL', 'Python', 'LangChain'],
+  sameAs: [
+    'https://www.linkedin.com/in/will-sutton-14711627/',
+    'https://github.com/wjsutton',
+    'https://public.tableau.com/app/profile/wjsutton',
+    'https://www.youtube.com/channel/UC3N21EOGbnVX5duBlfDCpng',
+    'https://www.instagram.com/data.gram/',
+    'https://theinformationlab.co.uk/about/team/will-sutton',
+    'https://www.tableau.com/blog/meet-tableaus-2022-iron-viz-finalist-will-sutton',
+    'https://nightingaledvs.com/meet-will-sutton-former-iron-viz-champion/',
+  ],
+};
 ---
 
 <!doctype html>
@@ -43,6 +68,7 @@ const ogUrl = new URL(og.src, Astro.site);
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Will Sutton holding the Iron Viz 2022 trophy" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
   </head>
   <body>
     <slot />

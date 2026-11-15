@@ -10,6 +10,7 @@ const { welcome = false } = Astro.props;
 <div class="intro">
   <h2 class="i-h">Hey, I’m Will</h2>
   <p class="i-sub">I’m an Expert in Analytics who makes data work for you.</p>
+  <p class="i-role">I’m a Senior AI Engineering Consultant at <a href="https://www.theinformationlab.co.uk/">The Information Lab</a> and the 2022 Tableau Iron Viz Champion.</p>
   <p>I build things people actually use:</p>
   <ul class="i-list">
     <li><b>Engaging visualisations</b> that turn raw data into insight and decisions, using Tableau</li>
@@ -46,6 +47,8 @@ const { welcome = false } = Astro.props;
     text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px;
     transition: color 0.2s ease;
   }
+  .i-role a { color: var(--paper); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+  .i-role a:hover { color: var(--accent); }
   .i-welcome a span { color: var(--accent); margin-left: 6px; }
   .i-welcome a:hover { color: var(--accent); }
 </style>

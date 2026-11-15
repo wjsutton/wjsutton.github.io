@@ -1,0 +1,6 @@
+# All crawlers, including AI search and answer engines (GPTBot, OAI-SearchBot,
+# ClaudeBot, PerplexityBot, Google-Extended), are welcome to read this site.
+User-agent: *
+Allow: /
+
+Sitemap: https://wjsutton.github.io/sitemap.xml
